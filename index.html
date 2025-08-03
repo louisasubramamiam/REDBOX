@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submissions Dashboard</title>
+    <title>Red Box</title>
     <style>
         * {
             margin: 0;
@@ -17,9 +17,77 @@
             color: #333;
         }
 
+        .global-header {
+            background-color: #ffffff;
+            color: #c41e3a;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2.2em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 3px solid #c41e3a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .briefcase-icon {
+            width: 60px;
+            height: 45px;
+            border: 3px solid #c41e3a;
+            border-radius: 8px;
+            position: relative;
+            background-color: #f8f8f8;
+        }
+
+        .briefcase-icon::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 8px;
+            background-color: #c41e3a;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .briefcase-icon::after {
+            content: 'ER';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: #c41e3a;
+            font-family: serif;
+        }
+
+        .crown-symbol {
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 8px;
+            color: #c41e3a;
+        }
+
         .container {
             display: flex;
-            min-height: 100vh;
+            min-height: calc(100vh - 60px); /* Adjust for header height */
         }
 
         .sidebar {
@@ -109,7 +177,7 @@
 
         .grid-header {
             display: grid;
-            grid-template-columns: 80px 80px 70px 120px 100px 90px 100px 90px 60px 90px 90px 120px 80px;
+            grid-template-columns: 70px 70px 70px 60px 100px 120px 90px 150px 60px;
             gap: 8px;
             margin-bottom: 15px;
             padding: 10px;
@@ -117,11 +185,19 @@
             border-radius: 5px;
             font-weight: bold;
             color: #2c5aa0;
+            align-items: center;
+        }
+
+        .grid-header > div {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 24px;
         }
 
         .grid-row {
             display: grid;
-            grid-template-columns: 80px 80px 70px 120px 100px 90px 100px 90px 60px 90px 90px 120px 80px;
+            grid-template-columns: 70px 70px 70px 60px 100px 120px 90px 150px 60px;
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
@@ -138,6 +214,9 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
             line-height: 1.2;
+            display: flex;
+            align-items: center;
+            min-height: 24px;
         }
 
         .grid-cell input,
@@ -177,19 +256,21 @@
         }
 
         .add-item-btn {
-            background-color: #2c5aa0;
-            color: white;
-            border: none;
+            background-color: white;
+            color: #2c5aa0;
+            border: 2px solid #2c5aa0;
             padding: 12px 24px;
-            border-radius: 5px;
+            border-radius: 20px;
             cursor: pointer;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
             font-size: 16px;
             margin-bottom: 20px;
+            transition: all 0.2s ease;
         }
 
         .add-item-btn:hover {
-            background-color: #1e3f7a;
+            background-color: #2c5aa0;
+            color: white;
         }
 
         .modal {
@@ -208,6 +289,8 @@
             margin: 5% auto;
             padding: 30px;
             border: none;
+            max-width: 800px;
+            width: 90%;
             max-height: 80vh;
             overflow-y: auto;
         }
@@ -281,17 +364,17 @@
         }
 
         .btn-submit-spads {
-            background-color: #28a745;
+            background-color: #1e4a7a;
             color: white;
         }
 
         .btn-submit-lc {
-            background-color: #17a2b8;
+            background-color: #3d6bb0;
             color: white;
         }
 
         .btn-submit-archive {
-            background-color: #6c757d;
+            background-color: #5a7cb0;
             color: white;
         }
 
@@ -306,31 +389,76 @@
 
         .action-buttons {
             display: flex;
-            gap: 5px;
+            gap: 8px;
         }
 
         .action-btn {
-            padding: 3px 6px;
+            padding: 8px 12px;
             border: none;
-            border-radius: 3px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 9px;
+            font-size: 12px;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-weight: 500;
             white-space: nowrap;
+            margin: 0 3px;
+            min-width: 60px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+            position: relative;
+            box-sizing: border-box;
         }
 
         .edit-btn {
-            background-color: #28a745;
+            background-color: #4d7bc0;
             color: white;
+            border: 1px solid #3c6bb5;
         }
 
         .delete-btn {
             background-color: #dc3545;
             color: white;
+            border: 1px solid #c82333;
         }
 
         .action-btn:hover {
-            opacity: 0.8;
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        /* Tooltip styles for action buttons */
+        .action-btn::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            z-index: 1000;
+            margin-bottom: 5px;
+        }
+
+        .action-btn:hover::before {
+            opacity: 1;
+            visibility: visible;
         }
 
         .user-prompt {
@@ -376,11 +504,11 @@
         }
 
         .user-prompt button.secondary {
-            background-color: #6c757d;
+            background-color: #5a88d0;
         }
 
         .user-prompt button.secondary:hover {
-            background-color: #5a6268;
+            background-color: #4d7bc0;
         }
 
         .user-info {
@@ -401,19 +529,54 @@
         }
 
         .spad-comment-btn {
-            background-color: #17a2b8;
+            background-color: #3d6bb0;
             color: white;
-            padding: 3px 6px;
-            border: none;
-            border-radius: 3px;
+            padding: 8px 12px;
+            border: 1px solid #2c5aa0;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 9px;
+            font-size: 12px;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-weight: 500;
             white-space: nowrap;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            min-width: 120px;
+            position: relative;
         }
 
         .spad-comment-btn:hover {
-            opacity: 0.8;
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Tooltip styles for SpAd comment button */
+        .spad-comment-btn::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            z-index: 1000;
+            margin-bottom: 5px;
+        }
+
+        .spad-comment-btn:hover::before {
+            opacity: 1;
+            visibility: visible;
         }
 
         .spad-comment-modal {
@@ -466,7 +629,7 @@
         }
 
         .spad-comment-btn-submit {
-            background-color: #28a745;
+            background-color: #2c5aa0;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -547,7 +710,7 @@
         /* Additional CSS for invite grid rows */
         #inviteGridRows .grid-row {
             display: grid;
-            grid-template-columns: 190px 120px 110px 90px 90px 180px 180px 180px 110px;
+            grid-template-columns: 170px 110px 100px 80px 80px 160px 160px 160px 160px;
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
@@ -558,7 +721,7 @@
         /* Add this for archive invite grid rows */
         #inviteArchiveGridRows .grid-row {
             display: grid;
-            grid-template-columns: 190px 120px 110px 90px 90px 180px 180px 180px 110px;
+            grid-template-columns: 170px 110px 100px 80px 80px 160px 160px 160px 160px;
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
@@ -570,7 +733,7 @@
         /* Briefings grid rows: match column widths to header */
         #briefingGridRows .grid-row {
             display: grid;
-            grid-template-columns: 120px 120px 110px 90px 160px 110px 160px 140px 140px 100px;
+            grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
@@ -581,7 +744,7 @@
         
         #briefingsArchiveGridRows .grid-row {
             display: grid;
-            grid-template-columns: 120px 120px 110px 90px 160px 110px 160px 140px 140px 100px;
+            grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
@@ -798,31 +961,231 @@
         .search-container.hidden {
             display: none;
         }
+
+        /* Dashboard Summary Cards */
+        .dashboard-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        .status-card {
+            background: #e8f4f8;
+            color: #2c5aa0;
+            border: 2px solid #2c5aa0;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(44, 90, 160, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(44, 90, 160, 0.2);
+            background: #dbeafe;
+        }
+
+        .status-card.urgent {
+            background: #fee;
+            color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .status-card.urgent:hover {
+            background: #fdd;
+        }
+
+        .status-card.warning {
+            background: #e8f4f8;
+            color: #2c5aa0;
+            border-color: #2c5aa0;
+        }
+
+        .status-card.success {
+            background: #e8f4f8;
+            color: #2c5aa0;
+            border-color: #2c5aa0;
+        }
+
+        .status-card h3 {
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+            font-weight: bold;
+            color: inherit;
+        }
+
+        .status-card p {
+            margin: 0;
+            font-size: 0.9em;
+            color: inherit;
+            opacity: 0.8;
+        }
+
+        .status-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 90, 160, 0.05);
+            transform: rotate(45deg);
+            transition: all 0.3s ease;
+        }
+
+        .status-card:hover::before {
+            top: -30%;
+            right: -30%;
+            background: rgba(44, 90, 160, 0.1);
+        }
+
+        /* Quick Action Buttons */
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .quick-btn {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            margin: 0 2px;
+            min-width: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .urgent-btn {
+            background-color: #ff8c00 !important;
+            border-color: #e67c00 !important;
+            color: white;
+        }
+
+        .spad-btn {
+            background-color: #3d6bb0 !important;
+            border-color: #2c5aa0 !important;
+            color: white;
+        }
+
+        .spad-comment-btn {
+            background-color: #3d6bb0 !important;
+            border-color: #2c5aa0 !important;
+            color: white;
+        }
+
+        .lc-btn {
+            background-color: #4d7bc0 !important;
+            border-color: #3c6bb5 !important;
+            color: white;
+        }
+
+        /* Inline Status Editing */
+        .inline-status {
+            width: 100%;
+            padding: 2px 4px;
+            border: 1px solid #b3d4ff;
+            border-radius: 3px;
+            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-size: 10px;
+            background-color: white;
+            height: 24px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+        }
+
+        .inline-status:focus {
+            outline: 2px solid #2c5aa0;
+            border-color: #2c5aa0;
+        }
+
+        /* Quick Filter Buttons */
+        .quick-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 15px;
+            background-color: white;
+            color: #2c5aa0;
+            border: 2px solid #2c5aa0;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #2c5aa0;
+            color: white;
+        }
+
+        .filter-btn.urgent {
+            background-color: white;
+            color: #2c5aa0;
+            border: 2px solid #2c5aa0;
+        }
+
+        .filter-btn.urgent:hover,
+        .filter-btn.urgent.active {
+            background-color: #2c5aa0;
+            color: white;
+        }
+
+        /* Daybook section font styling */
+        #daybook,
+        #daybook * {
+            font-family: 'Optima', 'Lucida Grande', sans-serif !important;
+        }
+
     </style>
 </head>
 <body>
+    <div class="global-header">
+        <div class="header-content">
+            <div class="header-text">
+                RED BOX
+            </div>
+            <div class="briefcase-icon">
+                <div class="crown-symbol">♔</div>
+            </div>
+        </div>
+    </div>
     <div class="container">
         <nav class="sidebar">
             <h2>Navigation</h2>
             <ul>
-                <li class="archive-section">
-                    <span class="archive-heading">Box process</span>
-                    <ul class="archive-submenu">
-                        <li><a href="#" class="active" onclick="showMainDashboard()">Box work dashboard</a></li>
-                        <li><a href="#" onclick="showSpAdBox()">SpAd review</a></li>
-                        <li><a href="#" onclick="showLCBox()">Items ready for LC</a></li>
-                        <li><a href="#" onclick="showPersonalDashboard()">Personal dashboard</a></li>
-                    </ul>
-                </li>
-                <li class="archive-section">
-                    <span class="archive-heading">Other</span>
-                    <ul class="archive-submenu">
-                        <li><a href="#" onclick="showBriefings()">Briefings</a></li>
-                        <li><a href="#" onclick="showCommissions()">Commissions</a></li>
-                        <li><a href="#" onclick="showInvites()">Invites</a></li>
-                        <li><a href="#" onclick="showDaybook()">Daybook</a></li>
-                    </ul>
-                </li>
+                <li><a href="#" onclick="showMainDashboard()">Box work</a></li>
+                <li><a href="#" onclick="showBriefings()">Briefings</a></li>
+                <li><a href="#" onclick="showCommissions()">Commissions</a></li>
+                <li><a href="#" onclick="showInvites()">Invites</a></li>
+                <li><a href="#" onclick="showDaybook()">Daybook</a></li>
                 <li class="archive-section">
                     <span class="archive-heading">Archives</span>
                     <ul class="archive-submenu">
@@ -839,8 +1202,39 @@
         <main class="main-content">
             <div id="mainDashboard">
                 <header>
-                    <h1>Box work dashboard</h1>
+                    <h1>Box work</h1>
+                    <p style="color: #333; font-size: 16px; margin-top: 8px; margin-bottom: 20px;">Manage box work and ministerial advice</p>
                 </header>
+                
+                <!-- Dashboard Summary Cards -->
+                <div class="dashboard-summary">
+                    <div class="status-card" onclick="filterByStatus('With SpAds')" title="Click to view items with SpAds">
+                        <h3 id="spadCount">0</h3>
+                        <p>With SpAds</p>
+                    </div>
+                    <div class="status-card urgent" onclick="filterByUrgency('Urgent')" title="Click to view urgent items">
+                        <h3 id="urgentCount">0</h3>
+                        <p>Urgent Items</p>
+                    </div>
+                    <div class="status-card success" onclick="filterByStatus('Ready for the box')" title="Click to view items ready for LC">
+                        <h3 id="lcReadyCount">0</h3>
+                        <p>Ready for LC</p>
+                    </div>
+                    <div class="status-card warning" onclick="showOverdueItems()" title="Click to view overdue items">
+                        <h3 id="overdueCount">0</h3>
+                        <p>Overdue (5+ days)</p>
+                    </div>
+                </div>
+
+                <!-- Quick Filters -->
+                <div class="quick-filters">
+                    <button class="filter-btn active" onclick="clearAllFilters()">All Items</button>
+                    <button class="filter-btn" onclick="filterByCurrentUser()">My Items</button>
+                    <button class="filter-btn urgent" onclick="filterByUrgency('Urgent')">Urgent Only</button>
+                    <button class="filter-btn" onclick="filterByStatus('With SpAds')">With SpAds</button>
+                    <button class="filter-btn" onclick="filterByStatus('Ready for the box')">Ready for LC</button>
+                    <button class="filter-btn" onclick="showOverdueItems()">Overdue</button>
+                </div>
                 
                 <button class="add-item-btn" onclick="openModal()">Add item to grid</button>
                 
@@ -851,12 +1245,8 @@
                         <div>Urgency</div>
                         <div>Title</div>
                         <div>SharePoint Link</div>
-                        <div>Date Received</div>
                         <div>Status</div>
-                        <div>Date Submitted to SpAds</div>
-                        <div>Working Days with SpAds</div>
-                        <div>Date of SpAd Comment</div>
-                        <div>Date Boxed for LC</div>
+                        <div>Days with SpAds</div>
                         <div>Comments</div>
                         <div>Actions</div>
                     </div>
@@ -867,17 +1257,13 @@
                         <div class="grid-cell">Routine</div>
                         <div class="grid-cell">Budget Approval</div>
                         <div class="grid-cell">https://sharepoint.com/budget</div>
-                        <div class="grid-cell">Saturday 1 June</div>
                         <div class="grid-cell">With SpAds</div>
-                        <div class="grid-cell">Sunday 2 June</div>
                         <div class="grid-cell">2</div>
-                        <div class="grid-cell">Tuesday 4 June</div>
-                        <div class="grid-cell">Wednesday 5 June</div>
                         <div class="grid-cell">Reviewed by SpAd</div>
                         <div class="grid-cell">
                             <div class="action-buttons">
-                                <button class="action-btn edit-btn" onclick="alert('Edit not implemented in sample row')">Edit</button>
-                                <button class="action-btn delete-btn" onclick="this.closest('.grid-row').remove()">Delete</button>
+                                <button class="action-btn edit-btn" onclick="alert('Edit not implemented in sample row')" data-tooltip="Edit this item">✏️ Edit</button>
+                                <button class="action-btn delete-btn" onclick="this.closest('.grid-row').remove()" data-tooltip="Delete this item">🗑️ Delete</button>
                             </div>
                         </div>
                     </div>
@@ -887,143 +1273,20 @@
                         <div class="grid-cell">Urgent</div>
                         <div class="grid-cell">Policy Review</div>
                         <div class="grid-cell">https://sharepoint.com/policy</div>
-                        <div class="grid-cell">Monday 3 June</div>
                         <div class="grid-cell">Ready for the box</div>
-                        <div class="grid-cell">Monday 3 June</div>
                         <div class="grid-cell">1</div>
-                        <div class="grid-cell">Tuesday 4 June</div>
-                        <div class="grid-cell">Wednesday 5 June</div>
                         <div class="grid-cell">Requires urgent attention</div>
                         <div class="grid-cell">
                             <div class="action-buttons">
-                                <button class="action-btn edit-btn" onclick="alert('Edit not implemented in sample row')">Edit</button>
-                                <button class="action-btn delete-btn" onclick="this.closest('.grid-row').remove()">Delete</button>
+                                <button class="action-btn edit-btn" onclick="alert('Edit not implemented in sample row')" data-tooltip="Edit this item">✏️ Edit</button>
+                                <button class="action-btn delete-btn" onclick="this.closest('.grid-row').remove()" data-tooltip="Delete this item">🗑️ Delete</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="personalDashboard" class="hidden">
-                <div id="userPrompt" class="user-prompt">
-                    <h2>Enter Your Name</h2>
-                    <p style="margin-bottom: 30px;">Please select your name to view your personal dashboard:</p>
-                    <select id="userSelect">
-                        <option value="">Select your name...</option>
-                        <optgroup label="Private Secretaries">
-                            <option value="Ben">Ben</option>
-                            <option value="James">James</option>
-                            <option value="Charlotte">Charlotte</option>
-                            <option value="Sukh">Sukh</option>
-                            <option value="Katie">Katie</option>
-                            <option value="Jess">Jess</option>
-                            <option value="Louisa">Louisa</option>
-                            <option value="Jo">Jo</option>
-                            <option value="Simran">Simran</option>
-                            <option value="Rachel">Rachel</option>
-                            <option value="Hugh">Hugh</option>
-                            <option value="Marisa">Marisa</option>
-                            <option value="Gemma">Gemma</option>
-                        </optgroup>
-                        <optgroup label="SpAds">
-                            <option value="Sophie">Sophie</option>
-                            <option value="Tash">Tash</option>
-                            <option value="Poppy">Poppy</option>
-                            <option value="Josh">Josh</option>
-                        </optgroup>
-                    </select>
-                    <button onclick="loadPersonalDashboard()">View Dashboard</button>
-                    <button class="secondary" onclick="showMainDashboard()">Back to Main</button>
-                </div>
-
-                <div id="personalDashboardContent" class="hidden">
-                    <header>
-                        <h1>Personal dashboard</h1>
-                        <div class="user-info">
-                            Viewing submissions for: <span id="currentUser"></span>
-                            <button onclick="showUserPrompt()" style="margin-left: 15px; padding: 5px 10px; font-size: 12px;">Change User</button>
-                        </div>
-                    </header>
-                    
-                    <button class="add-item-btn" onclick="openModal()">Add item to grid</button>
-                    
-                    <div class="submissions-grid">
-                        <div class="grid-header">
-                            <div>Lead Private Secretary</div>
-                            <div>Lead SpAd</div>
-                            <div>Urgency</div>
-                            <div>Title</div>
-                            <div>SharePoint Link</div>
-                            <div>Date Received</div>
-                            <div>Status</div>
-                            <div>Date Submitted to SpAds</div>
-                            <div>Working Days with SpAds</div>
-                            <div>Date of SpAd Comment</div>
-                            <div>Date Boxed for LC</div>
-                            <div>Comments</div>
-                            <div>Actions</div>
-                        </div>
-                        
-                        <div id="personalGridRows">
-                            <!-- Filtered rows will be populated here -->
-                        </div>
-                    </div>
-                </div>
-            </div>                <div id="spadBox" class="hidden">
-                <header>
-                    <h1>SpAd review</h1>
-                    <p style="color: #666; margin-bottom: 30px;">Items submitted to SpAds for review</p>
-                </header>
-                
-                <div class="submissions-grid">
-                    <div class="grid-header">
-                        <div>Lead Private Secretary</div>
-                        <div>Lead SpAd</div>
-                        <div>Urgency</div>
-                        <div>Title</div>
-                        <div>SharePoint Link</div>
-                        <div>Date Received</div>
-                        <div>Status</div>
-                        <div>Date Submitted to SpAds</div>
-                        <div>Working Days with SpAds</div>
-                        <div>Date of SpAd Comment</div>
-                        <div>Date Boxed for LC</div>
-                        <div>Comments</div>
-                        <div>Actions</div>
-                    </div>
-                    
-                    <div id="spadGridRows">
-                        <!-- SpAd submissions will be populated here -->
-                    </div>
-                </div>
-            </div>                <div id="lcBox" class="hidden">
-                <header>
-                    <h1>Items ready for LC</h1>
-                    <p style="color: #666; margin-bottom: 30px;">Items ready for the LC's box</p>
-                </header>
-                
-                <div class="submissions-grid">
-                    <div class="grid-header">
-                        <div>Lead Private Secretary</div>
-                        <div>Lead SpAd</div>
-                        <div>Urgency</div>
-                        <div>Title</div>
-                        <div>SharePoint Link</div>
-                        <div>Date Received</div>
-                        <div>Status</div>
-                        <div>Date Submitted to SpAds</div>
-                        <div>Working Days with SpAds</div>
-                        <div>Date of SpAd Comment</div>
-                        <div>Date Boxed for LC</div>
-                        <div>Comments</div>
-                        <div>Actions</div>
-                    </div>
-                    
-                    <div id="lcGridRows">
-                        <!-- LC submissions will be populated here -->
-                    </div>
-                </div>
-            </div>                <div id="archiveBox" class="hidden">
+            <div id="archiveBox" class="hidden">
                 <header>
                     <h1>Archive box</h1>
                     <p style="color: #666; margin-bottom: 30px;">Completed submissions</p>
@@ -1036,12 +1299,8 @@
                         <div>Urgency</div>
                         <div>Title</div>
                         <div>SharePoint Link</div>
-                        <div>Date Received</div>
                         <div>Status</div>
-                        <div>Date Submitted to SpAds</div>
-                        <div>Working Days with SpAds</div>
-                        <div>Date of SpAd Comment</div>
-                        <div>Date Boxed for LC</div>
+                        <div>Days with SpAds</div>
                         <div>Comments</div>
                         <div>Actions</div>
                     </div>
@@ -1061,7 +1320,7 @@
                 <button class="add-item-btn" onclick="openInviteModal()">Add invite</button>
                 
                 <div class="submissions-grid">
-                    <div class="grid-header" style="display: grid; grid-template-columns: 190px 120px 110px 90px 90px 180px 180px 180px 110px;">
+                    <div class="grid-header" style="display: grid; grid-template-columns: 170px 110px 100px 80px 80px 160px 160px 160px 160px;">
                         <div>Invite</div>
                         <div>Lead PS</div>
                         <div>Date</div>
@@ -1086,7 +1345,7 @@
                 </header>
                 
                 <div class="submissions-grid">
-                    <div class="grid-header" style="grid-template-columns: 190px 120px 110px 90px 90px 180px 180px 180px 110px;">
+                    <div class="grid-header" style="grid-template-columns: 170px 110px 100px 80px 80px 160px 160px 160px 160px;">
                         <div>Invite</div>
                         <div>Lead PS</div>
                         <div>Date</div>
@@ -1111,7 +1370,7 @@
                 </header>
                 <button class="add-item-btn" onclick="openBriefingModal()">Add briefing</button>
                 <div class="submissions-grid">
-                    <div class="grid-header" style="grid-template-columns: 120px 120px 110px 90px 160px 110px 160px 140px 140px 100px;">
+                    <div class="grid-header" style="grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;">
                         <div>Lead Private Secretary</div>
                         <div>Lead SpAd</div>
                         <div>Date of Meeting</div>
@@ -1134,7 +1393,7 @@
                     <p style="color: #666; margin-bottom: 30px;">Archived briefings</p>
                 </header>
                 <div class="submissions-grid">
-                    <div class="grid-header" style="grid-template-columns: 120px 120px 110px 90px 160px 110px 160px 140px 140px 100px;">
+                    <div class="grid-header" style="grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;">
                         <div>Lead Private Secretary</div>
                         <div>Lead SpAd</div>
                         <div>Date of Meeting</div>
@@ -1164,7 +1423,7 @@
                     <div class="grid-header commission-header">
                         <div>Action</div>
                         <div>Lead PS</div>
-                        <div>Deadline for commission</div>
+                        <div>Deadline</div>
                         <div>Status</div>
                         <div>Actions</div>
                     </div>
@@ -1185,7 +1444,7 @@
                     <div class="grid-header commission-archive-header">
                         <div>Action</div>
                         <div>Lead PS</div>
-                        <div>Deadline for commission</div>
+                        <div>Deadline</div>
                         <div>Status</div>
                         <div>Actions</div>
                     </div>
@@ -1375,23 +1634,23 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="dateSubmittedSpads">Date Submitted to SpAds</label>
-                        <input type="date" id="dateSubmittedSpads">
+                        <label for="dateSubmittedSpads">Date Submitted to SpAds <span style="font-size: 12px; color: #666;">(Auto-calculated)</span></label>
+                        <input type="date" id="dateSubmittedSpads" readonly style="background-color: #f5f5f5;">
                     </div>
                     
                     <div class="form-group">
-                        <label for="workingDays">Working Days with SpAds</label>
+                        <label for="workingDays">Days with SpAds <span style="font-size: 12px; color: #666;">(Auto-calculated)</span></label>
                         <input type="number" id="workingDays" placeholder="Auto-calculated" readonly style="background-color: #f5f5f5;">
                     </div>
                     
                     <div class="form-group">
-                        <label for="dateSpAdComment">Date of SpAd Comment</label>
-                        <input type="date" id="dateSpAdComment">
+                        <label for="dateSpAdComment">Date of SpAd Comment <span style="font-size: 12px; color: #666;">(Auto-calculated)</span></label>
+                        <input type="date" id="dateSpAdComment" readonly style="background-color: #f5f5f5;">
                     </div>
                     
                     <div class="form-group">
-                        <label for="dateBoxed">Date Boxed for LC</label>
-                        <input type="date" id="dateBoxed">
+                        <label for="dateBoxed">Date Boxed for LC <span style="font-size: 12px; color: #666;">(Auto-calculated)</span></label>
+                        <input type="date" id="dateBoxed" readonly style="background-color: #f5f5f5;">
                     </div>
                     
                     <div class="form-group full-width">
@@ -1406,8 +1665,6 @@
                 
                 <div class="form-buttons" id="submissionFormButtons">
                     <button type="button" class="form-btn btn-add" onclick="addSubmissionFromModal()">Add</button>
-                    <button type="button" class="form-btn btn-submit-spads" onclick="submitToSpAdsFromModal()">Submit to SpAds</button>
-                    <button type="button" class="form-btn btn-submit-lc" onclick="submitToLCBoxFromModal()">Submit to LC box</button>
                     <button type="button" class="form-btn btn-submit-archive" onclick="submitToArchiveFromModal()">Submit to archive</button>
                     <button type="button" class="form-btn btn-cancel" onclick="closeModal()">Cancel</button>
                 </div>
@@ -1438,7 +1695,7 @@
                 
                 <div class="spad-comment-buttons">
                     <button type="button" class="spad-comment-btn-submit" onclick="submitSpAdComment()">Submit to Private Secretary</button>
-                    <button type="button" class="spad-comment-btn-submit" onclick="saveSpAdDraft()" style="background-color: #6c757d;">Save and go back</button>
+                    <button type="button" class="spad-comment-btn-submit" onclick="saveSpAdDraft()" style="background-color: #5a88d0;">Save and go back</button>
                     <button type="button" class="spad-comment-btn-cancel" onclick="closeSpAdCommentModal()">Cancel</button>
                 </div>
             </form>
@@ -1657,7 +1914,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="commissionDeadline">Deadline for commission</label>
+                        <label for="commissionDeadline">Deadline</label>
                         <input type="date" id="commissionDeadline">
                     </div>
                     
@@ -1908,6 +2165,16 @@
                 return;
             }
             
+            // Auto-set dates based on status
+            const today = new Date().toISOString().split('T')[0];
+            if (data.status === 'With SpAds' && !data.dateSubmittedSpads) {
+                data.dateSubmittedSpads = today;
+            } else if (data.status === 'With PS' && !data.dateSpAdComment) {
+                data.dateSpAdComment = today;
+            } else if (data.status === 'Ready for the box' && !data.dateBoxed) {
+                data.dateBoxed = today;
+            }
+            
             // Calculate working days automatically
             data = updateWorkingDaysForSubmission(data);
             
@@ -1919,8 +2186,6 @@
             saveData('submissions', arr);
             console.log('Saved to localStorage');
             renderSubmissions();
-            updateSpAdBox();
-            updateLCBox();
             renderArchiveSubmissions();
             
             // Only add to briefings if it's briefing or both
@@ -1954,7 +2219,18 @@
 
         function updateSubmission(idx, data) {
             const arr = loadData('submissions');
+            const today = new Date().toISOString().split('T')[0];
+            
             if (data) {
+                // Auto-set dates based on status changes
+                if (data.status === 'With SpAds' && !data.dateSubmittedSpads) {
+                    data.dateSubmittedSpads = today;
+                } else if (data.status === 'With PS' && !data.dateSpAdComment) {
+                    data.dateSpAdComment = today;
+                } else if (data.status === 'Ready for the box' && !data.dateBoxed) {
+                    data.dateBoxed = today;
+                }
+                
                 // Calculate working days automatically
                 data = updateWorkingDaysForSubmission(data);
                 arr[idx] = data;
@@ -1968,13 +2244,20 @@
                     return;
                 }
                 
+                // Auto-set dates based on status changes
+                if (formData.status === 'With SpAds' && !formData.dateSubmittedSpads) {
+                    formData.dateSubmittedSpads = today;
+                } else if (formData.status === 'With PS' && !formData.dateSpAdComment) {
+                    formData.dateSpAdComment = today;
+                } else if (formData.status === 'Ready for the box' && !formData.dateBoxed) {
+                    formData.dateBoxed = today;
+                }
+                
                 // Calculate working days automatically
                 arr[idx] = updateWorkingDaysForSubmission(formData);
             }
             saveData('submissions', arr);
             renderSubmissions();
-            updateSpAdBox();
-            updateLCBox();
             closeModal();
         }
 
@@ -1984,8 +2267,6 @@
             arr.splice(idx, 1);
             saveData('submissions', arr);
             renderSubmissions();
-            updateSpAdBox();
-            updateLCBox();
         }
 
         function editSubmissionRow(idx) {
@@ -2028,26 +2309,16 @@
             document.querySelector('.modal-header h2').textContent = 'Edit Submission';
             document.getElementById('submissionFormButtons').innerHTML = `
                 <button type="button" class="form-btn btn-add" onclick="updateSubmission(${idx})">Update</button>
-                <button type="button" class="form-btn btn-submit-spads" onclick="updateAndSubmitToSpAds(${idx})">Update & Submit to SpAds</button>
-                <button type="button" class="form-btn btn-submit-lc" onclick="updateAndSubmitToLCBox(${idx})">Update & Submit to LC box</button>
                 <button type="button" class="form-btn btn-submit-archive" onclick="updateAndSubmitToArchive(${idx})">Update & Submit to archive</button>
                 <button type="button" class="form-btn btn-cancel" onclick="closeModal()">Cancel</button>
             `;
             
             document.getElementById('itemModal').style.display = 'block';
             
-            // Set up event listeners for date changes and urgency
+            // Set up event listeners for urgency changes
             setTimeout(() => {
-                const dateSubmittedSpads = document.getElementById('dateSubmittedSpads');
-                const dateSpAdComment = document.getElementById('dateSpAdComment');
                 const urgencySelect = document.getElementById('urgency');
                 
-                if (dateSubmittedSpads) {
-                    dateSubmittedSpads.addEventListener('change', updateWorkingDaysDisplay);
-                }
-                if (dateSpAdComment) {
-                    dateSpAdComment.addEventListener('change', updateWorkingDaysDisplay);
-                }
                 if (urgencySelect) {
                     urgencySelect.addEventListener('change', handleUrgencyChange);
                 }
@@ -2311,17 +2582,26 @@
                     <div class="grid-cell">${(data && data.urgency) || ''}</div>
                     <div class="grid-cell">${(data && data.submissionTitle) || ''}</div>
                     <div class="grid-cell">${formatUrlForDisplay(data.sharepointLink)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateReceived)}</div>
-                    <div class="grid-cell">${(data && data.status) || ''}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSubmittedSpads)}</div>
+                    <div class="grid-cell">
+                        <select class="inline-status" onchange="updateStatusQuick(${idx}, this.value)">
+                            <option value="With Perm Sec/DGs" ${data.status === 'With Perm Sec/DGs' ? 'selected' : ''}>With Perm Sec/DGs</option>
+                            <option value="With junior minister(s)" ${data.status === 'With junior minister(s)' ? 'selected' : ''}>With junior minister(s)</option>
+                            <option value="With SpAds" ${data.status === 'With SpAds' ? 'selected' : ''}>With SpAds</option>
+                            <option value="With officials" ${data.status === 'With officials' ? 'selected' : ''}>With officials</option>
+                            <option value="With PS" ${data.status === 'With PS' ? 'selected' : ''}>With PS</option>
+                            <option value="Ready for the box" ${data.status === 'Ready for the box' ? 'selected' : ''}>Ready for the box</option>
+                            <option value="Readout/complete" ${data.status === 'Readout/complete' ? 'selected' : ''}>Readout/complete</option>
+                        </select>
+                    </div>
                     <div class="grid-cell">${workingDays}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSpAdComment)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateBoxed)}</div>
                     <div class="grid-cell">${commentsDisplay}</div>
                     <div class="grid-cell">
-                        <div class="action-buttons">
-                            <button class="action-btn edit-btn" onclick="editSubmissionRow(${idx})">Edit</button>
-                            <button class="action-btn delete-btn" onclick="deleteSubmissionRow(${idx})">Delete</button>
+                        <div class="quick-actions">
+                            ${data.status === 'With SpAds' ? `<button class="action-btn spad-comment-btn" onclick="openSpAdCommentModal(this)" data-tooltip="Add SpAd Comment">💬 SpAd Comment</button>` : ''}
+                            ${data.status !== 'With SpAds' ? `<button class="action-btn spad-btn" onclick="submitToSpAdsQuick(${idx})" data-tooltip="Submit to SpAds">→ SpAd</button>` : ''}
+                            ${data.status !== 'Ready for the box' ? `<button class="action-btn lc-btn" onclick="submitToLCQuick(${idx})" data-tooltip="Submit to LC">→ LC</button>` : ''}
+                            <button class="action-btn edit-btn" onclick="editSubmissionRow(${idx})" data-tooltip="Edit this submission">✏️ Edit</button>
+                            <button class="action-btn delete-btn" onclick="deleteSubmissionRow(${idx})" data-tooltip="Delete this submission">🗑️ Delete</button>
                         </div>
                     </div>
                 `;
@@ -2330,146 +2610,213 @@
             
             // Reapply current search filter if any
             reapplyCurrentSearch();
+            
+            // Update dashboard summary counts
+            updateDashboardSummary();
         }
 
-        function renderSpAdBox() {
-            const rows = loadData('submissions').filter(row => row.status === 'With SpAds');
+        // --- Dashboard Summary and Quick Action Functions ---
+        function updateDashboardSummary() {
+            const submissions = loadData('submissions');
             
-            // Sort by urgency first (Urgent > Priority > Routine), then by working days (highest first)
-            rows.sort((a, b) => {
-                // Define urgency priority order
-                const urgencyOrder = { 'Urgent': 3, 'Priority': 2, 'Routine': 1 };
-                
-                // First sort by urgency
-                const urgencyA = urgencyOrder[a.urgency] || 0;
-                const urgencyB = urgencyOrder[b.urgency] || 0;
-                
-                if (urgencyA !== urgencyB) {
-                    return urgencyB - urgencyA; // Higher urgency first
-                }
-                
-                // If urgency is the same, sort by working days with SpAds (highest first)
-                const workingDaysA = a.dateSubmittedSpads ? calculateWorkingDays(a.dateSubmittedSpads, a.dateSpAdComment) : 0;
-                const workingDaysB = b.dateSubmittedSpads ? calculateWorkingDays(b.dateSubmittedSpads, b.dateSpAdComment) : 0;
-                
-                return workingDaysB - workingDaysA; // Higher working days first
-            });
+            // Count items with SpAds
+            const spadCount = submissions.filter(s => s.status === 'With SpAds').length;
+            document.getElementById('spadCount').textContent = spadCount;
             
-            const container = document.getElementById('spadGridRows');
-            container.innerHTML = '';
+            // Count urgent items
+            const urgentCount = submissions.filter(s => s.urgency === 'Urgent').length;
+            document.getElementById('urgentCount').textContent = urgentCount;
             
-            rows.forEach((data, idx) => {
-                const allRows = loadData('submissions');
-                const originalIdx = allRows.findIndex(row => 
-                    row.submissionTitle === data.submissionTitle && 
-                    row.leadPS === data.leadPS
-                );
-                
-                // Calculate working days for display
-                const workingDays = data.dateSubmittedSpads ? calculateWorkingDays(data.dateSubmittedSpads, data.dateSpAdComment) : '';
-                
-                // Show draft comments if available, otherwise regular comments
-                let commentsDisplay = data.comments || '';
-                if (data.spadDraftComments || data.spadDraftBoxNote) {
-                    const draftComments = data.spadDraftComments || '';
-                    commentsDisplay = draftComments;
-                }
-                
-                // Add urgency reason if item is urgent
-                if (data.urgency === 'Urgent' && data.urgencyReason) {
-                    const urgencyNote = `[URGENT: ${data.urgencyReason}]`;
-                    commentsDisplay = commentsDisplay ? `${urgencyNote} ${commentsDisplay}` : urgencyNote;
-                }
-                
-                const row = document.createElement('div');
-                row.className = 'grid-row';
-                
-                // Check if the item has been with SpAds for more than 5 working days
-                if (workingDays > 5) {
-                    row.classList.add('overdue-spad-row');
-                }
-                
-                row.innerHTML = `
-                    <div class="grid-cell">${data.leadPS || ''}</div>
-                    <div class="grid-cell">${data.leadSpAd || ''}</div>
-                    <div class="grid-cell">${data.urgency || ''}</div>
-                    <div class="grid-cell">${data.submissionTitle || ''}</div>
-                    <div class="grid-cell">${formatUrlForDisplay(data.sharepointLink)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateReceived)}</div>
-                    <div class="grid-cell">${data.status || ''}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSubmittedSpads)}</div>
-                    <div class="grid-cell">${workingDays}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSpAdComment)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateBoxed)}</div>
-                    <div class="grid-cell">${commentsDisplay}</div>
-                    <div class="grid-cell">
-                        <div class="action-buttons">
-                            <button class="spad-comment-btn" onclick="openSpAdCommentModal(this)">Add SpAd comment</button>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
+            // Count items ready for LC
+            const lcReadyCount = submissions.filter(s => s.status === 'Ready for the box').length;
+            document.getElementById('lcReadyCount').textContent = lcReadyCount;
             
-            // Reapply current search filter if any
-            reapplyCurrentSearch();
+            // Count overdue items (with SpAds for 5+ working days)
+            const overdueCount = submissions.filter(s => {
+                if (s.status === 'With SpAds' && s.dateSubmittedSpads) {
+                    const workingDays = calculateWorkingDays(s.dateSubmittedSpads, s.dateSpAdComment);
+                    return workingDays >= 5;
+                }
+                return false;
+            }).length;
+            document.getElementById('overdueCount').textContent = overdueCount;
         }
 
-        function renderLCBox() {
-            const rows = loadData('submissions').filter(row => row.status === 'Ready for the box');
-            const container = document.getElementById('lcGridRows');
-            container.innerHTML = '';
+        function updateStatusQuick(idx, newStatus) {
+            const submissions = loadData('submissions');
+            if (submissions[idx]) {
+                submissions[idx].status = newStatus;
+                
+                // Set appropriate dates based on status
+                const today = new Date().toISOString().split('T')[0];
+                if (newStatus === 'With SpAds' && !submissions[idx].dateSubmittedSpads) {
+                    submissions[idx].dateSubmittedSpads = today;
+                } else if (newStatus === 'With PS' && !submissions[idx].dateSpAdComment) {
+                    submissions[idx].dateSpAdComment = today;
+                } else if (newStatus === 'Ready for the box' && !submissions[idx].dateBoxed) {
+                    submissions[idx].dateBoxed = today;
+                }
+                
+                // Update working days calculation
+                submissions[idx] = updateWorkingDaysForSubmission(submissions[idx]);
+                
+                saveData('submissions', submissions);
+                renderSubmissions();
+            }
+        }
+
+        function markUrgentQuick(idx) {
+            // Open urgency reason modal
+            window.currentEditingIdx = idx;
+            window.currentUrgencyReason = '';
+            openUrgencyReasonModal();
+        }
+
+        function submitToSpAdsQuick(idx) {
+            const submissions = loadData('submissions');
+            if (submissions[idx]) {
+                submissions[idx].status = 'With SpAds';
+                if (!submissions[idx].dateSubmittedSpads) {
+                    submissions[idx].dateSubmittedSpads = new Date().toISOString().split('T')[0];
+                }
+                // Update working days calculation
+                submissions[idx] = updateWorkingDaysForSubmission(submissions[idx]);
+                saveData('submissions', submissions);
+                renderSubmissions();
+            }
+        }
+
+        function submitToLCQuick(idx) {
+            const submissions = loadData('submissions');
+            if (submissions[idx]) {
+                submissions[idx].status = 'Ready for the box';
+                if (!submissions[idx].dateBoxed) {
+                    submissions[idx].dateBoxed = new Date().toISOString().split('T')[0];
+                }
+                // Update working days calculation
+                submissions[idx] = updateWorkingDaysForSubmission(submissions[idx]);
+                saveData('submissions', submissions);
+                renderSubmissions();
+            }
+        }
+
+        // --- Filter Functions ---
+        let currentFilter = null;
+
+        function clearAllFilters() {
+            currentFilter = null;
+            const allRows = document.querySelectorAll('#mainDashboard .grid-row');
+            allRows.forEach(row => row.style.display = '');
+            updateFilterButtons('all');
+        }
+
+        function filterByStatus(status) {
+            currentFilter = { type: 'status', value: status };
+            const allRows = document.querySelectorAll('#mainDashboard .grid-row');
+            allRows.forEach(row => {
+                const statusCell = row.querySelector('.grid-cell:nth-child(6) select');
+                if (statusCell && statusCell.value === status) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            updateFilterButtons('status');
+        }
+
+        function filterByUrgency(urgency) {
+            currentFilter = { type: 'urgency', value: urgency };
+            const allRows = document.querySelectorAll('#mainDashboard .grid-row');
+            allRows.forEach(row => {
+                const urgencyCell = row.querySelector('.grid-cell:nth-child(3)');
+                if (urgencyCell && urgencyCell.textContent.trim() === urgency) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+            updateFilterButtons('urgent');
+        }
+
+        function showOverdueItems() {
+            currentFilter = { type: 'overdue' };
+            const submissions = loadData('submissions');
+            const allRows = document.querySelectorAll('#mainDashboard .grid-row');
             
-            rows.forEach((data, idx) => {
-                const allRows = loadData('submissions');
-                const originalIdx = allRows.findIndex(row => 
-                    row.submissionTitle === data.submissionTitle && 
-                    row.leadPS === data.leadPS
-                );
-                
-                // Calculate working days for display
-                const workingDays = data.dateSubmittedSpads ? calculateWorkingDays(data.dateSubmittedSpads, data.dateSpAdComment) : '';
-                
-                // Show draft comments if available, otherwise regular comments
-                let commentsDisplay = data.comments || '';
-                if (data.spadDraftComments || data.spadDraftBoxNote) {
-                    const draftComments = data.spadDraftComments || '';
-                    commentsDisplay = draftComments;
+            allRows.forEach((row, idx) => {
+                const submission = submissions[idx];
+                if (submission && submission.status === 'With SpAds' && submission.dateSubmittedSpads) {
+                    const workingDays = calculateWorkingDays(submission.dateSubmittedSpads, submission.dateSpAdComment);
+                    if (workingDays >= 5) {
+                        row.style.display = '';
+                        row.classList.add('overdue-spad-row');
+                    } else {
+                        row.style.display = 'none';
+                    }
+                } else {
+                    row.style.display = 'none';
                 }
-                
-                // Add urgency reason if item is urgent
-                if (data.urgency === 'Urgent' && data.urgencyReason) {
-                    const urgencyNote = `[URGENT: ${data.urgencyReason}]`;
-                    commentsDisplay = commentsDisplay ? `${urgencyNote} ${commentsDisplay}` : urgencyNote;
+            });
+            updateFilterButtons('overdue');
+        }
+
+        function filterByCurrentUser() {
+            // Create a simple name selection modal instead of requiring a separate dashboard
+            const userName = prompt('Enter your name to filter your items:');
+            if (!userName) {
+                return;
+            }
+            
+            currentFilter = { type: 'user', value: userName };
+            const allRows = document.querySelectorAll('#mainDashboard .grid-row');
+            allRows.forEach(row => {
+                const psCell = row.querySelector('.grid-cell:nth-child(1)');
+                const spadCell = row.querySelector('.grid-cell:nth-child(2)');
+                if ((psCell && psCell.textContent.trim() === userName) || 
+                    (spadCell && spadCell.textContent.trim() === userName)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
                 }
-                
-                const row = document.createElement('div');
-                row.className = 'grid-row';
-                row.innerHTML = `
-                    <div class="grid-cell">${data.leadPS || ''}</div>
-                    <div class="grid-cell">${data.leadSpAd || ''}</div>
-                    <div class="grid-cell">${data.urgency || ''}</div>
-                    <div class="grid-cell">${data.submissionTitle || ''}</div>
-                    <div class="grid-cell">${formatUrlForDisplay(data.sharepointLink)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateReceived)}</div>
-                    <div class="grid-cell">${data.status || ''}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSubmittedSpads)}</div>
-                    <div class="grid-cell">${workingDays}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSpAdComment)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateBoxed)}</div>
-                    <div class="grid-cell">${commentsDisplay}</div>
-                    <div class="grid-cell">
-                        <div class="action-buttons">
-                            <button class="action-btn edit-btn" onclick="editSubmissionRow(${originalIdx})">Edit</button>
-                            <button class="action-btn delete-btn" onclick="deleteSubmissionRow(${originalIdx})">Delete</button>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(row);
+            });
+            updateFilterButtons('user');
+        }
+
+        function updateFilterButtons(activeType) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
             });
             
-            // Reapply current search filter if any
-            reapplyCurrentSearch();
+            if (activeType === 'all') {
+                document.querySelector('.filter-btn').classList.add('active');
+            } else if (activeType === 'status' && currentFilter && currentFilter.value) {
+                // Only highlight the specific status button that was clicked
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    // Handle the special case where button text "Ready for LC" maps to status "Ready for the box"
+                    if ((currentFilter.value === 'Ready for the box' && btn.textContent === 'Ready for LC') ||
+                        btn.textContent === currentFilter.value) {
+                        btn.classList.add('active');
+                    }
+                });
+            } else if (activeType === 'urgent') {
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    if (btn.textContent === 'Urgent Only') {
+                        btn.classList.add('active');
+                    }
+                });
+            } else if (activeType === 'overdue') {
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    if (btn.textContent === 'Overdue') {
+                        btn.classList.add('active');
+                    }
+                });
+            } else if (activeType === 'user') {
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    if (btn.textContent === 'My Items') {
+                        btn.classList.add('active');
+                    }
+                });
+            }
         }
 
         function renderArchiveSubmissions() {
@@ -2516,16 +2863,12 @@
                     <div class="grid-cell">${data.urgency || ''}</div>
                     <div class="grid-cell">${data.submissionTitle || ''}</div>
                     <div class="grid-cell">${formatUrlForDisplay(data.sharepointLink)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateReceived)}</div>
                     <div class="grid-cell">${data.status || ''}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSubmittedSpads)}</div>
                     <div class="grid-cell">${workingDays}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSpAdComment)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateBoxed)}</div>
                     <div class="grid-cell">${commentsDisplay}</div>
                     <div class="grid-cell">
                         <div class="action-buttons">
-                            <button class="action-btn delete-btn" onclick="deleteArchivedSubmission(${originalIdx})">Delete</button>
+                            <button class="action-btn delete-btn" onclick="deleteArchivedSubmission(${originalIdx})" data-tooltip="Delete this archived submission">🗑️ Delete</button>
                         </div>
                     </div>
                 `;
@@ -2588,8 +2931,8 @@
                     <div class="grid-cell">${data.spadCommentsInvite || ''}</div>
                     <div class="grid-cell">
                         <div class="action-buttons">
-                            <button class="action-btn edit-btn" onclick="editInviteRow(${originalIdx})">Edit</button>
-                            <button class="action-btn delete-btn" onclick="deleteInviteRow(${originalIdx})">Delete</button>
+                            <button class="action-btn edit-btn" onclick="editInviteRow(${originalIdx})" data-tooltip="Edit this invite">✏️ Edit</button>
+                            <button class="action-btn delete-btn" onclick="deleteInviteRow(${originalIdx})" data-tooltip="Delete this invite">🗑️ Delete</button>
                         </div>
                     </div>
                 `;
@@ -2695,7 +3038,7 @@
                     <div class="grid-cell">${data.spadCommentsInvite || ''}</div>
                     <div class="grid-cell">
                         <div class="action-buttons">
-                            <button class="action-btn delete-btn" onclick="deleteArchivedInvite(${originalIdx})">Delete</button>
+                            <button class="action-btn delete-btn" onclick="deleteArchivedInvite(${originalIdx})" data-tooltip="Delete this archived invite">🗑️ Delete</button>
                         </div>
                     </div>
                 `;
@@ -2765,8 +3108,8 @@
                     <div class="grid-cell">${data.spadComments || ''}</div>
                     <div class="grid-cell">
                         <div class="action-buttons">
-                            <button class="action-btn edit-btn" onclick="editBriefingRow(${originalIdx})">Edit</button>
-                            <button class="action-btn delete-btn" onclick="deleteBriefingRow(${originalIdx})">Delete</button>
+                            <button class="action-btn edit-btn" onclick="editBriefingRow(${originalIdx})" data-tooltip="Edit this briefing">✏️ Edit</button>
+                            <button class="action-btn delete-btn" onclick="deleteBriefingRow(${originalIdx})" data-tooltip="Delete this briefing">🗑️ Delete</button>
                         </div>
                     </div>
                 `;
@@ -2895,7 +3238,7 @@
                     <div class="grid-cell">${data.spadComments || ''}</div>
                     <div class="grid-cell">
                         <div class="action-buttons">
-                            <button class="action-btn delete-btn" onclick="deleteArchivedBriefing(${originalIdx})">Delete</button>
+                            <button class="action-btn delete-btn" onclick="deleteArchivedBriefing(${originalIdx})" data-tooltip="Delete this archived briefing">🗑️ Delete</button>
                         </div>
                     </div>
                 `;
@@ -2958,14 +3301,60 @@
             closeBriefingModal();
         }
 
+        // --- Smart Defaults Function ---
+        function applySmartDefaults() {
+            // Set today's date as default for date received
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dateReceived').value = today;
+            
+            // Get current page context for smart status defaults
+            const activeSection = document.querySelector('.main-content > div:not(.hidden)');
+            if (activeSection) {
+                const statusSelect = document.getElementById('status');
+                switch(activeSection.id) {
+                    case 'spadBox':
+                        statusSelect.value = 'With SpAds';
+                        break;
+                    case 'lcBox':
+                        statusSelect.value = 'Ready for the box';
+                        break;
+                    default:
+                        // Check user's most common status from recent submissions
+                        const recentSubmissions = loadData('submissions').slice(-5);
+                        const statusCounts = {};
+                        recentSubmissions.forEach(sub => {
+                            if (sub.status) {
+                                statusCounts[sub.status] = (statusCounts[sub.status] || 0) + 1;
+                            }
+                        });
+                        const mostCommonStatus = Object.keys(statusCounts).reduce((a, b) => 
+                            statusCounts[a] > statusCounts[b] ? a : b, 'With SpAds');
+                        statusSelect.value = mostCommonStatus;
+                        break;
+                }
+            }
+            
+            // Pre-select most commonly used SpAd
+            const recentSubmissions = loadData('submissions').slice(-10);
+            const spadCounts = {};
+            recentSubmissions.forEach(sub => {
+                if (sub.leadSpAd && sub.leadSpAd !== 'No SpAd review') {
+                    spadCounts[sub.leadSpAd] = (spadCounts[sub.leadSpAd] || 0) + 1;
+                }
+            });
+            if (Object.keys(spadCounts).length > 0) {
+                const mostCommonSpAd = Object.keys(spadCounts).reduce((a, b) => 
+                    spadCounts[a] > spadCounts[b] ? a : b);
+                document.getElementById('leadSpAd').value = mostCommonSpAd;
+            }
+        }
+
         // --- Modal Functions ---
         function openModal() {
             document.getElementById('submissionForm').reset();
             document.querySelector('.modal-header h2').textContent = 'Add New Submission';
             document.getElementById('submissionFormButtons').innerHTML = `
                 <button type="button" class="form-btn btn-add" onclick="addSubmissionFromModal()">Add</button>
-                <button type="button" class="form-btn btn-submit-spads" onclick="submitToSpAdsFromModal()">Submit to SpAds</button>
-                <button type="button" class="form-btn btn-submit-lc" onclick="submitToLCBoxFromModal()">Submit to LC box</button>
                 <button type="button" class="form-btn btn-submit-archive" onclick="submitToArchiveFromModal()">Submit to archive</button>
                 <button type="button" class="form-btn btn-cancel" onclick="closeModal()">Cancel</button>
             `;
@@ -2977,6 +3366,9 @@
             }
             
             document.getElementById('itemModal').style.display = 'block';
+            
+            // Apply smart defaults
+            applySmartDefaults();
             
             // Reset urgency reason and first added timestamp
             window.currentUrgencyReason = '';
@@ -3151,8 +3543,8 @@
                     <div class="grid-cell">${data.status || ''}</div>
                     <div class="grid-cell">
                         <div class="action-buttons">
-                            <button class="action-btn edit-btn" onclick="editCommission(${idx})">Edit</button>
-                            <button class="action-btn delete-btn" onclick="deleteCommission(${idx})">Delete</button>
+                            <button class="action-btn edit-btn" onclick="editCommission(${idx})" data-tooltip="Edit this commission">✏️ Edit</button>
+                            <button class="action-btn delete-btn" onclick="deleteCommission(${idx})" data-tooltip="Delete this commission">🗑️ Delete</button>
                         </div>
                     </div>
                 `;
@@ -3190,7 +3582,7 @@
                     <div class="grid-cell">${data.status || ''}</div>
                     <div class="grid-cell">
                         <div class="action-buttons">
-                            <button class="action-btn delete-btn" onclick="deleteArchivedCommission(${originalIdx})">Delete</button>
+                            <button class="action-btn delete-btn" onclick="deleteArchivedCommission(${originalIdx})" data-tooltip="Delete this archived commission">🗑️ Delete</button>
                         </div>
                     </div>
                 `;
@@ -3359,6 +3751,19 @@
                 return;
             }
             window.currentUrgencyReason = reason;
+            
+            // If we're editing from quick action, update the submission
+            if (window.currentEditingIdx !== undefined) {
+                const submissions = loadData('submissions');
+                if (submissions[window.currentEditingIdx]) {
+                    submissions[window.currentEditingIdx].urgency = 'Urgent';
+                    submissions[window.currentEditingIdx].urgencyReason = reason;
+                    saveData('submissions', submissions);
+                    renderSubmissions();
+                }
+                window.currentEditingIdx = undefined;
+            }
+            
             closeUrgencyReasonModal();
         }
 
@@ -3430,34 +3835,54 @@
             document.getElementById('briefingForm').reset();
         }
 
+        // --- Page State Management ---
+        function saveCurrentPage(pageId) {
+            try {
+                localStorage.setItem('currentPage', pageId);
+            } catch (error) {
+                console.error('Error saving current page:', error);
+            }
+        }
+
+        function loadCurrentPage() {
+            try {
+                return localStorage.getItem('currentPage') || 'mainDashboard';
+            } catch (error) {
+                console.error('Error loading current page:', error);
+                return 'mainDashboard';
+            }
+        }
+
+        function restoreCurrentPage() {
+            const currentPage = loadCurrentPage();
+            console.log('Restoring page:', currentPage);
+            
+            // Map page IDs to their show functions
+            const pageMap = {
+                'mainDashboard': showMainDashboard,
+                'archiveBox': showArchiveBox,
+                'invites': showInvites,
+                'briefings': showBriefings,
+                'inviteArchive': showInviteArchive,
+                'briefingsArchive': showBriefingsArchive,
+                'commissions': showCommissions,
+                'commissionArchive': showCommissionArchive,
+                'daybook': showDaybook,
+                'editTeam': showEditTeam
+            };
+            
+            // Call the appropriate show function, defaulting to main dashboard
+            const showFunction = pageMap[currentPage] || showMainDashboard;
+            showFunction();
+        }
+
         // --- Navigation Functions ---
         function showMainDashboard() {
             hideAllSections();
             document.getElementById('mainDashboard').classList.remove('hidden');
-            updateActiveNav('Box work dashboard');
+            updateActiveNav('Box work');
             renderSubmissions();
-        }
-
-        function showPersonalDashboard() {
-            hideAllSections();
-            document.getElementById('personalDashboard').classList.remove('hidden');
-            document.getElementById('userPrompt').classList.remove('hidden');
-            document.getElementById('personalDashboardContent').classList.add('hidden');
-            updateActiveNav('Personal dashboard');
-        }
-
-        function showSpAdBox() {
-            hideAllSections();
-            document.getElementById('spadBox').classList.remove('hidden');
-            updateActiveNav('SpAd review');
-            renderSpAdBox();
-        }
-
-        function showLCBox() {
-            hideAllSections();
-            document.getElementById('lcBox').classList.remove('hidden');
-            updateActiveNav('Items ready for LC');
-            renderLCBox();
+            saveCurrentPage('mainDashboard');
         }
 
         function showArchiveBox() {
@@ -3465,6 +3890,7 @@
             document.getElementById('archiveBox').classList.remove('hidden');
             updateActiveNav('Archive box');
             renderArchiveSubmissions();
+            saveCurrentPage('archiveBox');
         }
 
         function showInvites() {
@@ -3472,6 +3898,7 @@
             document.getElementById('invites').classList.remove('hidden');
             updateActiveNav('Invites');
             renderInvites();
+            saveCurrentPage('invites');
         }
 
         function showBriefings() {
@@ -3479,6 +3906,7 @@
             document.getElementById('briefings').classList.remove('hidden');
             updateActiveNav('Briefings');
             renderBriefings();
+            saveCurrentPage('briefings');
         }
 
         function showInviteArchive() {
@@ -3486,6 +3914,7 @@
             document.getElementById('inviteArchive').classList.remove('hidden');
             updateActiveNav('Archive invites');
             renderArchiveInvites();
+            saveCurrentPage('inviteArchive');
         }
 
         function showBriefingsArchive() {
@@ -3493,6 +3922,7 @@
             document.getElementById('briefingsArchive').classList.remove('hidden');
             updateActiveNav('Archive briefings');
             renderArchiveBriefings();
+            saveCurrentPage('briefingsArchive');
         }
 
         function showCommissions() {
@@ -3500,6 +3930,7 @@
             document.getElementById('commissions').classList.remove('hidden');
             updateActiveNav('Commissions');
             renderCommissions();
+            saveCurrentPage('commissions');
         }
 
         function showCommissionArchive() {
@@ -3507,6 +3938,7 @@
             document.getElementById('commissionArchive').classList.remove('hidden');
             updateActiveNav('Archive commissions');
             renderCommissionArchive();
+            saveCurrentPage('commissionArchive');
         }
 
         function showDaybook() {
@@ -3516,22 +3948,20 @@
             // Clear any previous results
             document.getElementById('daybookResults').style.display = 'none';
             document.getElementById('daybookDatePicker').value = '';
+            saveCurrentPage('daybook');
         }
 
         function hideAllSections() {
-            document.getElementById('mainDashboard').classList.add('hidden');
-            document.getElementById('personalDashboard').classList.add('hidden');
-            document.getElementById('spadBox').classList.add('hidden');
-            document.getElementById('lcBox').classList.add('hidden');
-            document.getElementById('archiveBox').classList.add('hidden');
-            document.getElementById('invites').classList.add('hidden');
-            document.getElementById('inviteArchive').classList.add('hidden');
-            document.getElementById('briefings').classList.add('hidden');
-            document.getElementById('briefingsArchive').classList.add('hidden');
-            document.getElementById('commissions').classList.add('hidden');
-            document.getElementById('commissionArchive').classList.add('hidden');
-            document.getElementById('daybook').classList.add('hidden');
-            document.getElementById('editTeam').classList.add('hidden');
+            const sections = document.querySelectorAll('.main-content > div');
+            sections.forEach(section => section.classList.add('hidden'));
+            
+            // Clear search when switching pages
+            if (currentSearchTerm) {
+                clearSearch();
+            }
+            
+            // Update search visibility
+            setTimeout(updateSearchVisibility, 100);
         }
 
         function updateActiveNav(sectionName) {
@@ -3544,104 +3974,6 @@
                     link.classList.add('active');
                 }
             });
-        }
-
-        function updateSpAdBox() {
-            if (!document.getElementById('spadBox').classList.contains('hidden')) {
-                renderSpAdBox();
-            }
-        }
-
-        function updateLCBox() {
-            if (!document.getElementById('lcBox').classList.contains('hidden')) {
-                renderLCBox();
-            }
-        }
-
-        function showUserPrompt() {
-            document.getElementById('userPrompt').classList.remove('hidden');
-            document.getElementById('personalDashboardContent').classList.add('hidden');
-            updateSearchVisibility();
-        }
-
-        function loadPersonalDashboard() {
-            const userName = document.getElementById('userSelect').value;
-            if (!userName) {
-                alert('Please select your name first.');
-                return;
-            }
-            
-            currentUser = userName;
-            document.getElementById('currentUser').textContent = userName;
-            document.getElementById('userPrompt').classList.add('hidden');
-            document.getElementById('personalDashboardContent').classList.remove('hidden');
-            
-            filterRowsForUser(userName);
-            updateSearchVisibility();
-        }
-
-        function filterRowsForUser(userName) {
-            const personalGridRows = document.getElementById('personalGridRows');
-            personalGridRows.innerHTML = '';
-            
-            const allSubmissions = loadData('submissions');
-            const userSubmissions = allSubmissions.filter(submission => 
-                submission.leadPS === userName || submission.leadSpAd === userName
-            );
-            
-            userSubmissions.forEach((data, idx) => {
-                const originalIdx = allSubmissions.findIndex(row => 
-                    row.submissionTitle === data.submissionTitle && 
-                    row.leadPS === data.leadPS
-                );
-                
-                // Calculate working days for display
-                const workingDays = data.dateSubmittedSpads ? calculateWorkingDays(data.dateSubmittedSpads, data.dateSpAdComment) : '';
-                
-                // Show draft comments if available, otherwise regular comments
-                let commentsDisplay = data.comments || '';
-                if (data.spadDraftComments || data.spadDraftBoxNote) {
-                    const draftComments = data.spadDraftComments || '';
-                    commentsDisplay = draftComments;
-                }
-                
-                // Add urgency reason if item is urgent
-                if (data.urgency === 'Urgent' && data.urgencyReason) {
-                    const urgencyNote = `[URGENT: ${data.urgencyReason}]`;
-                    commentsDisplay = commentsDisplay ? `${urgencyNote} ${commentsDisplay}` : urgencyNote;
-                }
-                
-                const row = document.createElement('div');
-                row.className = 'grid-row';
-                row.innerHTML = `
-                    <div class="grid-cell">${data.leadPS || ''}</div>
-                    <div class="grid-cell">${data.leadSpAd || ''}</div>
-                    <div class="grid-cell">${data.urgency || ''}</div>
-                    <div class="grid-cell">${data.submissionTitle || ''}</div>
-                    <div class="grid-cell">${formatUrlForDisplay(data.sharepointLink)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateReceived)}</div>
-                    <div class="grid-cell">${data.status || ''}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSubmittedSpads)}</div>
-                    <div class="grid-cell">${workingDays}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateSpAdComment)}</div>
-                    <div class="grid-cell">${formatDateForDisplay(data.dateBoxed)}</div>
-                    <div class="grid-cell">${commentsDisplay}</div>
-                    <div class="grid-cell">
-                        <div class="action-buttons">
-                            <button class="action-btn edit-btn" onclick="editSubmissionRow(${originalIdx})">Edit</button>
-                            <button class="action-btn delete-btn" onclick="deleteSubmissionRow(${originalIdx})">Delete</button>
-                        </div>
-                    </div>
-                `;
-                personalGridRows.appendChild(row);
-            });
-            
-            if (userSubmissions.length === 0) {
-                const noDataRow = document.createElement('div');
-                noDataRow.className = 'grid-row';
-                noDataRow.innerHTML = '<div class="grid-cell" style="grid-column: 1 / -1; text-align: center; padding: 20px; color: #666;">No submissions found for ' + userName + '</div>';
-                personalGridRows.appendChild(noDataRow);
-            }
         }
 
         // --- SpAd Comment Modal Functions ---
@@ -3703,8 +4035,6 @@
             
             // Update all views to show draft indicator
             renderSubmissions();
-            renderSpAdBox();
-            renderLCBox();
             
             // Close modal and show success message
             closeSpAdCommentModal();
@@ -3724,12 +4054,11 @@
             const submissionTitle = cells[3].textContent;
             const leadPS = cells[0].textContent;
             
-            // Update the SpAd comment date to today
+            // Update the SpAd comment date to today (stored only in data, not displayed in grid)
             const today = new Date().toISOString().split('T')[0];
-            cells[9].textContent = today;
             
             // Add comments to the comments field
-            let existingComments = cells[11].textContent;
+            let existingComments = cells[7].textContent;
             let newComments = '';
             
             if (psComments.trim()) {
@@ -3741,13 +4070,13 @@
             }
             
             if (existingComments && existingComments.trim()) {
-                cells[11].textContent = existingComments + ' | ' + newComments;
+                cells[7].textContent = existingComments + ' | ' + newComments;
             } else {
-                cells[11].textContent = newComments;
+                cells[7].textContent = newComments;
             }
             
             // Update status to "With PS"
-            cells[6].textContent = 'With PS';
+            cells[5].textContent = 'With PS';
             
             // Update the submission in localStorage
             const submissions = loadData('submissions');
@@ -3757,21 +4086,18 @@
             
             if (submissionIdx !== -1) {
                 submissions[submissionIdx].dateSpAdComment = today;
-                submissions[submissionIdx].comments = cells[11].textContent;
+                submissions[submissionIdx].comments = cells[7].textContent;
                 submissions[submissionIdx].status = 'With PS';
+                // Update working days calculation
+                submissions[submissionIdx] = updateWorkingDaysForSubmission(submissions[submissionIdx]);
                 saveData('submissions', submissions);
             }
             
             // Update all views
             renderSubmissions();
-            renderSpAdBox();
-            renderLCBox();
             
             closeSpAdCommentModal();
         }
-
-        // --- Current User for Personal Dashboard ---
-        let currentUser = null;
 
         // --- Initialize the application ---
         document.addEventListener('DOMContentLoaded', function() {
@@ -3810,14 +4136,15 @@
             console.log('About to render all sections');
             // Load initial data and render all sections
             renderSubmissions();
-            renderSpAdBox();
-            renderLCBox();
             renderArchiveSubmissions();
             renderInvites();
             renderArchiveInvites();
             renderBriefings();
             renderArchiveBriefings();
             console.log('All sections rendered');
+            
+            // Restore the last visited page
+            restoreCurrentPage();
             
             // Close modals when clicking outside
             window.onclick = function(event) {
@@ -3844,15 +4171,45 @@
                 }
             };
 
-            const dateSubmittedSpads = document.getElementById('dateSubmittedSpads');
-            const dateSpAdComment = document.getElementById('dateSpAdComment');
-            
-            if (dateSubmittedSpads) {
-                dateSubmittedSpads.addEventListener('change', updateWorkingDaysDisplay);
-            }
-            if (dateSpAdComment) {
-                dateSpAdComment.addEventListener('change', updateWorkingDaysDisplay);
-            }
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Only activate shortcuts if no modal is open and not typing in an input
+                if (document.querySelector('.modal[style*="block"]') || 
+                    ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+                    return;
+                }
+                
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key.toLowerCase()) {
+                        case 'n':
+                            e.preventDefault();
+                            openModal();
+                            break;
+                        case 'f':
+                            e.preventDefault();
+                            document.getElementById('searchInput').focus();
+                            break;
+                    }
+                } else {
+                    switch(e.key.toLowerCase()) {
+                        case 'u':
+                            e.preventDefault();
+                            filterByUrgency('Urgent');
+                            break;
+                        case 's':
+                            e.preventDefault();
+                            filterByStatus('With SpAds');
+                            break;
+                        case 'l':
+                            e.preventDefault();
+                            filterByStatus('Ready for the box');
+                            break;
+                        case 'escape':
+                            clearAllFilters();
+                            break;
+                    }
+                }
+            });
         });
 
         function updateWorkingDaysDisplay() {
@@ -3895,6 +4252,7 @@
             document.getElementById('editTeam').classList.remove('hidden');
             updateActiveNav('Edit team');
             renderTeamLists();
+            saveCurrentPage('editTeam');
         }
         
         function renderTeamLists() {
@@ -4258,18 +4616,6 @@
         }
         
         // --- Update existing navigation functions to handle search ---
-        function hideAllSections() {
-            const sections = document.querySelectorAll('.main-content > div');
-            sections.forEach(section => section.classList.add('hidden'));
-            
-            // Clear search when switching pages
-            if (currentSearchTerm) {
-                clearSearch();
-            }
-            
-            // Update search visibility
-            setTimeout(updateSearchVisibility, 100);
-        }
         
         // Initialize dropdowns on page load
         document.addEventListener('DOMContentLoaded', function() {
