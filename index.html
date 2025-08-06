@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,7 @@
         }
 
         body {
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             background-color: #f0f6ff;
             color: #333;
         }
@@ -73,7 +74,7 @@
             font-size: 12px;
             font-weight: bold;
             color: #c41e3a;
-            font-family: serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
         }
 
         .crown-symbol {
@@ -174,32 +175,72 @@
             padding: 20px;
             overflow-x: auto;
             width: 100%;
+            max-width: 100%;
             box-sizing: border-box;
+            position: relative;
         }
 
+        /* Base grid system - consistent sizing for all tables */
         .grid-header {
             display: grid;
-            grid-template-columns: 110px 110px 80px 150px 160px 120px 100px 160px minmax(140px, 1fr);
             gap: 8px;
             margin-bottom: 15px;
-            padding: 10px;
+            padding: 15px 10px;
             background-color: #d6e8ff;
             border-radius: 5px;
             font-weight: bold;
             color: #2c5aa0;
             align-items: center;
+            min-width: 1250px; /* Minimum width to prevent compression */
+            min-height: 60px; /* Allow more height for wrapped text */
         }
 
         .grid-header > div {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            min-height: 24px;
+            min-height: 36px;
+            padding: 0 4px;
+            word-wrap: break-word;
+            white-space: normal;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        /* Ensure invite headers match exactly with rows */
+        .invite-header {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: 140px 120px 85px 85px 85px 160px 130px 130px 120px;
+            min-width: 1055px;
+        }
+
+        /* Ensure briefing headers match exactly with rows */
+        .briefing-header {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: 120px 70px 110px 100px 130px 130px 120px 115px 115px 100px;
+            min-width: 1110px;
+        }
+
+        /* Ensure commission headers match exactly with rows */
+        .commission-header {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: 320px 150px 150px 130px 160px;
+            min-width: 910px;
+        }
+
+        /* Ensure daybook headers match exactly with rows */
+        .daybook-header {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: 130px 80px 100px 170px 150px 170px 150px 150px;
+            min-width: 1200px;
         }
 
         .grid-row {
             display: grid;
-            grid-template-columns: 110px 110px 80px 150px 160px 120px 100px 160px minmax(140px, 1fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
@@ -208,6 +249,13 @@
             border: 1px solid #e0f0ff;
             min-height: 50px;
             align-items: center;
+            min-width: 1250px; /* Minimum width to prevent compression */
+        }
+
+        /* Default grid layout for Box work and Archive box */
+        .grid-header:not(.invite-header):not(.briefing-header):not(.commission-header):not(.commission-archive-header):not(.daybook-header),
+        .grid-row:not(.invite-row):not(.briefing-row):not(.commission-row):not(.daybook-row) {
+            grid-template-columns: 140px 100px 90px 150px 180px 120px 130px 180px 160px;
         }
 
         .grid-cell {
@@ -235,7 +283,7 @@
             padding: 4px;
             border: 1px solid #b3d4ff;
             border-radius: 4px;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 11px;
         }
 
@@ -255,7 +303,7 @@
             padding: 12px 24px;
             border-radius: 5px;
             cursor: pointer;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 16px;
             margin-top: 15px;
         }
@@ -271,7 +319,7 @@
             padding: 12px 24px;
             border-radius: 20px;
             cursor: pointer;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 16px;
             margin-bottom: 20px;
             transition: all 0.2s ease;
@@ -334,7 +382,7 @@
             padding: 10px;
             border: 1px solid #b3d4ff;
             border-radius: 4px;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 14px;
         }
 
@@ -347,8 +395,35 @@
             height: 100px;
         }
 
+        /* Readonly select styling */
+        select[readonly] {
+            pointer-events: none;
+            background-color: #f5f5f5 !important;
+            color: #666 !important;
+        }
+
         .form-group.full-width {
             grid-column: 1 / -1;
+        }
+
+        /* Manual override checkbox styling */
+        .form-group label .manual-override-label {
+            font-size: 11px;
+            font-weight: normal;
+            color: #666;
+            margin-left: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .form-group label .manual-override-label input[type="checkbox"] {
+            margin: 0;
+            padding: 0;
+            width: auto;
+            height: auto;
+            transform: scale(0.9);
         }
 
         .form-buttons {
@@ -363,7 +438,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 14px;
         }
 
@@ -413,7 +488,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 10px;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-weight: 500;
             white-space: nowrap;
             margin: 0;
@@ -499,7 +574,7 @@
             padding: 10px;
             border: 1px solid #b3d4ff;
             border-radius: 4px;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 16px;
             margin-bottom: 20px;
         }
@@ -511,7 +586,7 @@
             padding: 12px 24px;
             border-radius: 5px;
             cursor: pointer;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 16px;
             margin-right: 10px;
         }
@@ -553,7 +628,7 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 12px;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-weight: 500;
             white-space: nowrap;
             transition: all 0.2s ease;
@@ -633,7 +708,7 @@
             padding: 10px;
             border: 1px solid #b3d4ff;
             border-radius: 4px;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 14px;
             resize: vertical;
             min-height: 100px;
@@ -652,7 +727,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 14px;
         }
 
@@ -663,7 +738,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 14px;
         }
 
@@ -673,7 +748,7 @@
         }
 
         .url-cell {
-            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 10px;
             color: #0066cc;
             text-decoration: none;
@@ -690,7 +765,7 @@
         }
 
         .url-display {
-            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 10px;
             color: #0066cc;
             max-width: 100px;
@@ -730,114 +805,271 @@
                 font-size: 2em;
             }
 
-            .grid-header,
-            .grid-row {
-                grid-template-columns: 1fr;
-                gap: 5px;
+            /* Keep table structure intact on mobile - just enable horizontal scrolling */
+            .submissions-grid {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+                padding: 15px;
+            }
+            
+            /* Reduce font sizes slightly for better mobile readability */
+            .grid-header > div {
+                font-size: 10px;
+                padding: 0 2px;
+            }
+            
+            .grid-cell {
+                font-size: 9px;
+                padding: 2px;
             }
             
             .action-buttons {
-                justify-content: center;
-                gap: 4px;
+                gap: 2px;
             }
             
             .action-btn {
-                min-width: 32px;
-                padding: 4px 6px;
-                font-size: 10px;
+                min-width: 28px;
+                padding: 3px 5px;
+                font-size: 8px;
+                height: 24px;
+            }
+            
+            /* Add visual indicator that table is scrollable */
+            .submissions-grid::after {
+                content: "← Scroll horizontally to view all columns →";
+                display: block;
+                text-align: center;
+                font-size: 11px;
+                color: #666;
+                font-style: italic;
+                margin-top: 10px;
+                padding: 5px;
             }
         }
 
-        /* Additional CSS for invite grid rows */
-        #inviteGridRows .grid-row {
-            display: grid;
-            grid-template-columns: 170px 110px 100px 80px 80px 160px 160px 160px minmax(160px, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
-        }
-        /* Add this for archive invite grid rows */
-        #inviteArchiveGridRows .grid-row {
-            display: grid;
-            grid-template-columns: 170px 110px 100px 80px 80px 160px 160px 160px 160px;
-            gap: 8px;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
+        /* Additional styles for very narrow screens */
+        @media (max-width: 480px) {
+            .submissions-grid {
+                padding: 10px;
+                margin: 0 -10px; /* Extend to edges */
+            }
+            
+            .grid-header > div {
+                font-size: 9px;
+                padding: 0 1px;
+            }
+            
+            .grid-cell {
+                font-size: 8px;
+                padding: 1px;
+            }
+            
+            .action-btn {
+                min-width: 24px;
+                padding: 2px 4px;
+                font-size: 7px;
+                height: 20px;
+            }
+            
+            /* Make buttons slightly smaller on very narrow screens */
+            .add-item-btn {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
         }
 
-        /* Briefings grid rows: match column widths to header */
-        #briefingGridRows .grid-row {
+        /* Zoom stability - prevent layout shift on browser zoom */
+        .submissions-grid {
+            transform-origin: top left;
+            will-change: transform;
+        }
+
+        /* Ensure tables maintain consistent sizing across different zoom levels */
+        .grid-header,
+        .grid-row {
+            box-sizing: border-box;
+            transform-origin: top left;
+        }
+
+        /* Prevent text wrapping that could cause layout shifts */
+        .grid-cell {
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Allow specific cells to wrap when needed */
+        .grid-cell textarea,
+        .grid-cell input[type="text"],
+        .grid-cell.comments-cell {
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        /* Force table structure to remain intact on all screen sizes */
+        .grid-header,
+        .grid-row {
+            display: grid !important;
+            /* Prevent any CSS from collapsing the grid */
+        }
+
+        /* Ensure minimum widths are respected even on mobile */
+        @media (max-width: 768px) {
+            /* Default grid layout for Box work and Archive box - maintain structure */
+            .grid-header:not(.invite-header):not(.briefing-header):not(.commission-header):not(.commission-archive-header):not(.daybook-header),
+            .grid-row:not(.invite-row):not(.briefing-row):not(.commission-row):not(.daybook-row) {
+                grid-template-columns: 140px 100px 90px 150px 180px 120px 130px 180px 160px;
+                min-width: 1250px;
+                display: grid;
+                gap: 8px;
+            }
+            
+            /* Invite tables - maintain structure */
+            .invite-header,
+            .invite-row,
+            #inviteGridRows .grid-row,
+            #inviteArchiveGridRows .grid-row {
+                grid-template-columns: 140px 120px 85px 85px 85px 160px 130px 130px 120px;
+                min-width: 1055px;
+                display: grid;
+                gap: 8px;
+            }
+            
+            /* Briefing tables - maintain structure */
+            .briefing-header,
+            .briefing-row,
+            #briefingGridRows .grid-row,
+            #briefingsArchiveGridRows .grid-row {
+                grid-template-columns: 120px 70px 110px 100px 130px 130px 120px 115px 115px 100px;
+                min-width: 1110px;
+                display: grid;
+                gap: 8px;
+            }
+
+            /* Daybook tables - maintain structure */
+            .daybook-header,
+            .daybook-row,
+            #daybookGridRows .grid-row {
+                grid-template-columns: 130px 80px 100px 170px 150px 170px 150px 150px;
+                min-width: 1200px;
+                display: grid;
+                gap: 8px;
+            }
+
+            /* Commission tables - maintain structure */
+            .commission-header,
+            .commission-row,
+            #commissionGridRows .grid-row,
+            .commission-archive-header,
+            .commission-archive-row,
+            #commissionArchiveGridRows .grid-row {
+                grid-template-columns: 320px 150px 150px 130px 160px;
+                min-width: 910px;
+                display: grid;
+                gap: 8px;
+            }
+        }
+
+        /* Additional CSS for invite grid rows - consolidated and cleaned */
+        .invite-header,
+        .invite-row,
+        #inviteGridRows .grid-row,
+        #inviteArchiveGridRows .grid-row {
+            grid-template-columns: 140px 120px 85px 85px 85px 160px 130px 130px 120px;
+            min-width: 1055px;
             display: grid;
-            grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px minmax(150px, 1fr);
             gap: 8px;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
         }
         
-        #briefingsArchiveGridRows .grid-row {
-            display: grid;
-            grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px minmax(150px, 1fr);
-            gap: 8px;
+        /* Specific styling for invite data rows (not headers) */
+        .invite-row,
+        #inviteGridRows .grid-row,
+        #inviteArchiveGridRows .grid-row {
             margin-bottom: 10px;
             padding: 10px;
             background-color: #f8fbff;
             border-radius: 5px;
             border: 1px solid #e0f0ff;
+            min-height: 50px;
+            align-items: center;
+        }
+        
+        /* Briefings grid layout - consolidated and cleaned */
+        .briefing-header,
+        .briefing-row,
+        #briefingGridRows .grid-row,
+        #briefingsArchiveGridRows .grid-row {
+            grid-template-columns: 120px 70px 110px 100px 130px 130px 120px 115px 115px 100px;
+            min-width: 1110px;
+            display: grid;
+            gap: 8px;
         }
 
-        /* Daybook grid rows: match column widths to header (no action column) */
+        /* Specific styling for briefing data rows (not headers) */
+        .briefing-row,
+        #briefingGridRows .grid-row,
+        #briefingsArchiveGridRows .grid-row {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #f8fbff;
+            border-radius: 5px;
+            border: 1px solid #e0f0ff;
+            min-height: 50px;
+            align-items: center;
+        }
+
+        /* Daybook grid layout (no actions column) */
+        .daybook-header,
+        .daybook-row,
+        #daybookGridRows .grid-row {
+            grid-template-columns: 130px 80px 100px 170px 150px 170px 150px 150px;
+            min-width: 1200px;
+        }
+
+        /* Override the default grid-row class for daybook rows */
         #daybookGridRows .grid-row {
             display: grid;
-            grid-template-columns: 120px 120px 90px 160px 110px 160px 140px 140px;
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
             background-color: #f8fbff;
             border-radius: 5px;
             border: 1px solid #e0f0ff;
+            min-height: 50px;
+            align-items: center;
         }
 
-        /* Commission grid rows: match column widths to header */
+        /* Commission grid layout */
         .commission-header,
+        .commission-row,
         #commissionGridRows .grid-row {
-            display: grid;
-            grid-template-columns: 300px 120px 140px 120px minmax(100px, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
-        }
-
-        .commission-header {
-            background-color: #d6e8ff;
-            font-weight: bold;
-            color: #2c5aa0;
-            margin-bottom: 15px;
+            grid-template-columns: 320px 150px 150px 130px 160px;
+            min-width: 910px;
         }
         
         .commission-archive-header,
+        .commission-archive-row,
+        #commissionArchiveGridRows .grid-row {
+            grid-template-columns: 320px 150px 150px 130px 160px;
+            min-width: 910px;
+        }
+
+        /* Override the default grid-row class for commission rows */
+        #commissionGridRows .grid-row,
         #commissionArchiveGridRows .grid-row {
             display: grid;
-            grid-template-columns: 300px 120px 140px 120px minmax(120px, 1fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
             background-color: #f8fbff;
             border-radius: 5px;
             border: 1px solid #e0f0ff;
+            min-height: 50px;
+            align-items: center;
         }
 
+        .commission-header,
         .commission-archive-header {
             background-color: #d6e8ff;
             font-weight: bold;
@@ -974,7 +1206,7 @@
             border: none;
             outline: none;
             flex: 1;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 14px;
             background: transparent;
         }
@@ -1109,7 +1341,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 11px;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-weight: 500;
             white-space: nowrap;
             transition: all 0.2s ease;
@@ -1157,7 +1389,7 @@
             padding: 2px 4px;
             border: 1px solid #b3d4ff;
             border-radius: 3px;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             font-size: 10px;
             background-color: white;
             height: 24px;
@@ -1187,7 +1419,7 @@
             border-radius: 20px;
             cursor: pointer;
             font-size: 12px;
-            font-family: 'Optima', 'Lucida Grande', sans-serif;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
             transition: all 0.2s ease;
         }
 
@@ -1212,7 +1444,345 @@
         /* Daybook section font styling */
         #daybook,
         #daybook * {
-            font-family: 'Optima', 'Lucida Grande', sans-serif !important;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif !important;
+        }
+
+        /* Disabled checkbox styling for process management */
+        .team-management input[type="checkbox"]:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .team-management label:has(input[type="checkbox"]:disabled) {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Process management grid styling */
+        .team-management input[type="checkbox"] {
+            transform: scale(1.1);
+            margin-right: 8px;
+        }
+
+        .team-management label {
+            user-select: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .team-management label:hover:not(:has(input:disabled)) {
+            background-color: rgba(44, 90, 160, 0.05);
+            border-radius: 4px;
+            padding: 2px 4px;
+            margin: -2px -4px;
+        }
+
+        /* Dependency styling */
+        .dependency-note {
+            color: #666 !important;
+            font-size: 11px !important;
+            font-style: italic !important;
+            margin-left: 8px !important;
+        }
+
+        /* Duty Rota Styles */
+        .duty-rota-container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .rota-schedule {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(44, 90, 160, 0.1);
+            border: 1px solid #e0f0ff;
+            padding: 20px;
+        }
+
+        .rota-controls {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(44, 90, 160, 0.1);
+            border: 1px solid #e0f0ff;
+            padding: 20px;
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .rota-week {
+            margin-bottom: 30px;
+            border: 2px solid #e0f0ff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .rota-week-header {
+            background-color: #2c5aa0;
+            color: white;
+            padding: 15px 20px;
+            font-weight: bold;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rota-week-dates {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .rota-week-content {
+            padding: 20px;
+            background-color: #f8fbff;
+        }
+
+        .duty-row {
+            display: grid;
+            grid-template-columns: 150px 1fr 60px;
+            gap: 15px;
+            margin-bottom: 15px;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid #e0f0ff;
+        }
+
+        .duty-role {
+            font-weight: bold;
+            color: #2c5aa0;
+            font-size: 14px;
+        }
+
+        .duty-person {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .duty-person.unavailable {
+            color: #dc3545;
+            font-style: italic;
+        }
+
+        .duty-person.override {
+            color: #ff8c00;
+            font-weight: bold;
+        }
+
+        .duty-edit-btn {
+            background-color: #4d7bc0;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .duty-edit-btn:hover {
+            background-color: #3c6bb5;
+        }
+
+        .leave-form {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            box-sizing: border-box;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .leave-form h4 {
+            color: #2c5aa0;
+            margin-bottom: 15px;
+        }
+
+        .leave-input-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .leave-input-group input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 0;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
+        }
+
+        .leave-reason-input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
+        }
+
+        .leave-submit-btn {
+            background-color: #2c5aa0;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            margin-top: 10px;
+            box-sizing: border-box;
+            font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif;
+        }
+
+        .leave-submit-btn:hover {
+            background-color: #1e3f7a;
+        }
+
+        .leave-list {
+            margin-top: 20px;
+        }
+
+        .leave-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .leave-item.pending {
+            border-color: #ff8c00;
+            background-color: #fff3cd;
+        }
+
+        .leave-item.approved {
+            border-color: #28a745;
+            background-color: #d4edda;
+        }
+
+        .leave-remove-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 2px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 10px;
+        }
+
+        .manual-override-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border: 2px solid #ff8c00;
+            border-radius: 5px;
+        }
+
+        .manual-override-section h4 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .override-controls {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .override-controls select {
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 12px;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rota-legend {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .rota-legend h4 {
+            color: #2c5aa0;
+            margin-bottom: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 8px;
+        }
+
+        .legend-color.normal {
+            background-color: #333;
+        }
+
+        .legend-color.unavailable {
+            background-color: #dc3545;
+        }
+
+        .legend-color.override {
+            background-color: #ff8c00;
+        }
+
+        .permission-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .permission-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 30px;
+            border: none;
+            border-radius: 8px;
+            width: 60%;
+            max-width: 500px;
+        }
+
+        @media (max-width: 1024px) {
+            .duty-rota-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
         }
 
     </style>
@@ -1237,6 +1807,7 @@
                 <li><a href="#" onclick="showCommissions()">Commissions</a></li>
                 <li><a href="#" onclick="showInvites()">Invites</a></li>
                 <li><a href="#" onclick="showDaybook()">Daybook</a></li>
+                <li><a href="#" onclick="showDutyRota()">Duty rota</a></li>
                 <li class="archive-section">
                     <span class="archive-heading">Archives</span>
                     <ul class="archive-submenu">
@@ -1291,8 +1862,8 @@
                 
                 <div class="submissions-grid">
                     <div class="grid-header">
-                        <div>Lead Private Secretary</div>
-                        <div>Lead SpAd</div>
+                        <div>Private Secretary</div>
+                        <div>SpAd</div>
                         <div>Urgency</div>
                         <div>Title</div>
                         <div>SharePoint Link</div>
@@ -1301,38 +1872,9 @@
                         <div>Comments</div>
                         <div>Actions</div>
                     </div>
-                    <!-- Sample rows for demonstration -->
-                    <div class="grid-row">
-                        <div class="grid-cell">Ben</div>
-                        <div class="grid-cell">Sophie</div>
-                        <div class="grid-cell">Routine</div>
-                        <div class="grid-cell">Budget Approval</div>
-                        <div class="grid-cell">https://sharepoint.com/budget</div>
-                        <div class="grid-cell">With SpAds</div>
-                        <div class="grid-cell">2</div>
-                        <div class="grid-cell">Reviewed by SpAd</div>
-                        <div class="grid-cell actions-cell">
-                            <div class="action-buttons">
-                                <button class="action-btn edit-btn" onclick="alert('Edit not implemented in sample row')" data-tooltip="Edit this item">✏️ Edit</button>
-                                <button class="action-btn delete-btn" onclick="this.closest('.grid-row').remove()" data-tooltip="Delete this item">🗑️ Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid-row">
-                        <div class="grid-cell">Charlotte</div>
-                        <div class="grid-cell">Tash</div>
-                        <div class="grid-cell">Urgent</div>
-                        <div class="grid-cell">Policy Review</div>
-                        <div class="grid-cell">https://sharepoint.com/policy</div>
-                        <div class="grid-cell">Ready for box</div>
-                        <div class="grid-cell">1</div>
-                        <div class="grid-cell">Requires urgent attention</div>
-                        <div class="grid-cell actions-cell">
-                            <div class="action-buttons">
-                                <button class="action-btn edit-btn" onclick="alert('Edit not implemented in sample row')" data-tooltip="Edit this item">✏️ Edit</button>
-                                <button class="action-btn delete-btn" onclick="this.closest('.grid-row').remove()" data-tooltip="Delete this item">🗑️ Delete</button>
-                            </div>
-                        </div>
+                    
+                    <div id="gridRows">
+                        <!-- Submission rows will be populated here -->
                     </div>
                 </div>
             </div>
@@ -1345,8 +1887,8 @@
                 
                 <div class="submissions-grid">
                     <div class="grid-header">
-                        <div>Lead Private Secretary</div>
-                        <div>Lead SpAd</div>
+                        <div>Private Secretary</div>
+                        <div>SpAd</div>
                         <div>Urgency</div>
                         <div>Title</div>
                         <div>SharePoint Link</div>
@@ -1371,9 +1913,9 @@
                 <button class="add-item-btn" onclick="openInviteModal()">Add invite</button>
                 
                 <div class="submissions-grid">
-                    <div class="grid-header" style="display: grid; grid-template-columns: 170px 110px 100px 80px 80px 160px 160px 160px 160px;">
+                    <div class="grid-header invite-header">
                         <div>Invite</div>
-                        <div>Lead PS</div>
+                        <div>Private Secretary</div>
                         <div>Date</div>
                         <div>Start Time</div>
                         <div>End Time</div>
@@ -1396,9 +1938,9 @@
                 </header>
                 
                 <div class="submissions-grid">
-                    <div class="grid-header" style="grid-template-columns: 170px 110px 100px 80px 80px 160px 160px 160px 160px;">
+                    <div class="grid-header invite-header">
                         <div>Invite</div>
-                        <div>Lead PS</div>
+                        <div>Private Secretary</div>
                         <div>Date</div>
                         <div>Start Time</div>
                         <div>End Time</div>
@@ -1421,9 +1963,9 @@
                 </header>
                 <button class="add-item-btn" onclick="openBriefingModal()">Add briefing</button>
                 <div class="submissions-grid">
-                    <div class="grid-header" style="grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;">
-                        <div>Lead Private Secretary</div>
-                        <div>Lead SpAd</div>
+                    <div class="grid-header briefing-header">
+                        <div>Private Secretary</div>
+                        <div>SpAd</div>
                         <div>Date of Meeting</div>
                         <div>Time of Meeting</div>
                         <div>Title of Meeting</div>
@@ -1444,9 +1986,9 @@
                     <p style="color: #666; margin-bottom: 30px;">Archived briefings</p>
                 </header>
                 <div class="submissions-grid">
-                    <div class="grid-header" style="grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;">
-                        <div>Lead Private Secretary</div>
-                        <div>Lead SpAd</div>
+                    <div class="grid-header briefing-header">
+                        <div>Private Secretary</div>
+                        <div>SpAd</div>
                         <div>Date of Meeting</div>
                         <div>Time of Meeting</div>
                         <div>Title of Meeting</div>
@@ -1473,7 +2015,7 @@
                 <div class="submissions-grid">
                     <div class="grid-header commission-header">
                         <div>Action</div>
-                        <div>Lead PS</div>
+                        <div>Private Secretary</div>
                         <div>Deadline</div>
                         <div>Status</div>
                         <div>Actions</div>
@@ -1494,7 +2036,7 @@
                 <div class="submissions-grid">
                     <div class="grid-header commission-archive-header">
                         <div>Action</div>
-                        <div>Lead PS</div>
+                        <div>Private Secretary</div>
                         <div>Deadline</div>
                         <div>Status</div>
                         <div>Actions</div>
@@ -1525,13 +2067,13 @@
                 <div id="daybookResults" style="display: none;">
                     <h3 id="daybookDateHeader" style="margin-bottom: 20px; color: #333;"></h3>
                     <div class="submissions-grid">
-                        <div class="grid-header" id="daybookGridHeader" style="grid-template-columns: 120px 120px 90px 160px 110px 160px 140px 140px;">
-                            <div>Lead PS</div>
-                            <div>Lead SpAd</div>
+                        <div class="grid-header daybook-header">
+                            <div>Private Secretary</div>
+                            <div>SpAd</div>
                             <div>Time</div>
                             <div>Title</div>
                             <div>Commission Deadline</div>
-                            <div>SharePoint</div>
+                            <div>SharePoint Link</div>
                             <div>PS Comments</div>
                             <div>SpAd Comments</div>
                         </div>
@@ -1647,8 +2189,142 @@
                     </div>
                 </div>
                 
+                <!-- Process Management Section -->
+                <div style="margin-bottom: 40px;">
+                    <h3>Process Management</h3>
+                    <div class="team-management">
+                        <p style="color: #666; margin-bottom: 20px;">Enable or disable specific processes/features based on your team's workflow needs</p>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <h4 style="margin-bottom: 15px;">Available Processes:</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-left: 20px;">
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="enableBoxWork" checked onchange="updateProcessSettings()">
+                                    <span>Box Work</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="enableInvites" checked onchange="updateProcessSettings()">
+                                    <span>Invites</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="enableBriefings" checked onchange="updateProcessSettings()">
+                                    <span>Briefings</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="enableCommissions" checked onchange="updateProcessSettings()">
+                                    <span>Commissions</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="enableDaybook" checked onchange="updateProcessSettings()">
+                                    <span>Daybook</span>
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="enableArchives" checked onchange="updateProcessSettings()">
+                                    <span>Archives</span>
+                                </label>
+                            </div>
+                            
+                            <div style="margin-top: 20px; padding: 15px; background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px;">
+                                <p style="color: #856404; font-size: 12px; margin: 0;">
+                                    <strong>⚠️ Note:</strong> Box Work cannot be disabled as it's the core functionality. 
+                                    Daybook requires Briefings to function and will be automatically disabled if Briefings is disabled.
+                                    Disabling other processes will hide their navigation links and prevent access to those features.
+                                    Any disabled archive sections will also be hidden from the Archives submenu.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; text-align: center;">
+                            <button onclick="resetProcessSettingsToDefault()" class="form-btn" style="background-color: #6c757d; font-size: 14px; padding: 8px 16px;">Reset to Default Process Settings</button>
+                            <p style="color: #666; font-size: 12px; margin-top: 5px;">This will enable all processes and restore the default navigation</p>
+                        </div>
+                    </div>
+                </div>
+                
                 <div style="text-align: center; margin-top: 30px;">
                     <button onclick="saveTeamChanges()" class="form-btn btn-add">Save Changes</button>
+                </div>
+            </div>
+
+            <!-- Duty Rota Section -->
+            <div id="dutyRota" class="hidden">
+                <header>
+                    <h1>Duty rota</h1>
+                    <p style="color: #666; margin-bottom: 30px;">Manage team duty schedules and leave requests</p>
+                </header>
+
+                <div class="duty-rota-container">
+                    <!-- Main Rota Schedule -->
+                    <div class="rota-schedule">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3>Current Schedule</h3>
+                        </div>
+
+                        <div id="rotaScheduleContainer">
+                            <!-- Rota weeks will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Controls Panel -->
+                    <div class="rota-controls">
+                        <!-- Leave Request Form -->
+                        <div class="leave-form">
+                            <h4>Dates unavailable</h4>
+                            <div class="leave-input-group">
+                                <input type="date" id="leaveStartDate" placeholder="Start Date">
+                                <input type="date" id="leaveEndDate" placeholder="End Date">
+                            </div>
+                            <input type="text" id="leaveReason" placeholder="Reason (optional)" class="leave-reason-input">
+                            <button onclick="submitLeaveRequest()" class="leave-submit-btn">Submit</button>
+                        </div>
+
+                        <!-- My Leave Requests -->
+                        <div>
+                            <h4>My Leave Requests</h4>
+                            <div id="myLeaveRequests" class="leave-list">
+                                <!-- Leave requests will be populated here -->
+                            </div>
+                        </div>
+
+                        <!-- Manual Override Section (Admin Only) -->
+                        <div class="manual-override-section">
+                            <h4>⚠️ Manual Override</h4>
+                            <p style="font-size: 12px; margin-bottom: 15px;">Use with caution - this will override automatic scheduling</p>
+                            
+                            <div class="override-controls">
+                                <select id="overrideWeek">
+                                    <option value="">Select Week...</option>
+                                </select>
+                                <select id="overrideRole">
+                                    <option value="">Select Role...</option>
+                                    <option value="junior-ps">Junior PS</option>
+                                    <option value="senior-ps">Senior PS (Backup)</option>
+                                    <option value="spad">SpAd</option>
+                                </select>
+                            </div>
+                            <select id="overridePerson" style="width: 100%; margin-bottom: 10px; padding: 6px; border: 1px solid #ddd; border-radius: 4px;">
+                                <option value="">Select Person...</option>
+                            </select>
+                            <button onclick="applyManualOverride()" class="leave-submit-btn" style="background-color: #ff8c00;">Apply Override</button>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="rota-legend">
+                            <h4>Legend</h4>
+                            <div class="legend-item">
+                                <div class="legend-color normal"></div>
+                                <span>Scheduled</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color unavailable"></div>
+                                <span>On Leave</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color override"></div>
+                                <span>Manual Override</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -1661,7 +2337,7 @@
         <button id="searchClear" class="search-clear" onclick="clearSearch()">×</button>
     </div>
 
-    <!-- Modal Form -->s
+    <!-- Modal Form -->
     <div id="itemModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1670,7 +2346,7 @@
             <form id="submissionForm">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="leadPS">Lead private secretary</label>
+                        <label for="leadPS">Private Secretary</label>
                         <select id="leadPS">
                             <option value="">Select...</option>
                             <option value="Ben">Ben</option>
@@ -1690,7 +2366,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="leadSpAd">Lead SpAd</label>
+                        <label for="leadSpAd">SpAd</label>
                         <select id="leadSpAd">
                             <option value="">Select...</option>
                             <option value="Sophie">Sophie</option>
@@ -1702,8 +2378,15 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="urgency">Urgency</label>
-                        <select id="urgency">
+                        <label for="urgency">
+                            Urgency 
+                            <span style="font-size: 12px; color: #666;">(Auto-calculated based on deadline)</span>
+                            <span class="manual-override-label">
+                                <input type="checkbox" id="manualUrgency" onchange="toggleManualUrgency()">
+                                Manual override
+                            </span>
+                        </label>
+                        <select id="urgency" readonly style="background-color: #f5f5f5;" title="Auto-calculated based on deadline (check manual override to edit)">
                             <option value="Routine">Routine</option>
                             <option value="Priority">Priority</option>
                             <option value="Urgent">Urgent</option>
@@ -1724,9 +2407,14 @@
                         <input type="text" id="submissionTitle" placeholder="Enter submission title">
                     </div>
                     
+                    <div class="form-group">
+                        <label for="deadlineBoxReview">Deadline for Box review</label>
+                        <input type="date" id="deadlineBoxReview">
+                    </div>
+                    
                     <div class="form-group full-width">
-                        <label for="sharepointLink">Sharepoint link</label>
-                        <input type="url" id="sharepointLink" placeholder="https://sharepoint.com/..." style="font-family: 'Monaco', 'Menlo', 'Consolas', monospace; font-size: 12px; color: #0066cc;">
+                        <label for="sharepointLink">SharePoint Link</label>
+                        <input type="url" id="sharepointLink" placeholder="https://sharepoint.com/..." style="font-family: 'Trebuchet MS', 'Lucida Grande', sans-serif; font-size: 12px; color: #0066cc;">
                     </div>
                     
                     <div class="form-group">
@@ -1749,8 +2437,15 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="dateSubmittedSpads">Date submitted to SpAds <span style="font-size: 12px; color: #666;">(Auto-calculated)</span></label>
-                        <input type="date" id="dateSubmittedSpads" readonly style="background-color: #f5f5f5;">
+                        <label for="dateSubmittedSpads">
+                            Date submitted to SpAds 
+                            <span style="font-size: 12px; color: #666;">(Auto-calculated)</span>
+                            <span class="manual-override-label">
+                                <input type="checkbox" id="manualDateSubmittedSpads" onchange="toggleManualDate('dateSubmittedSpads')">
+                                Manual override
+                            </span>
+                        </label>
+                        <input type="date" id="dateSubmittedSpads" readonly style="background-color: #f5f5f5;" title="Auto-calculated date (check manual override to edit)">
                     </div>
                     
                     <div class="form-group">
@@ -1759,18 +2454,39 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="dateSpAdComment">Date of SpAd comment <span style="font-size: 12px; color: #666;">(Auto-calculated)</span></label>
-                        <input type="date" id="dateSpAdComment" readonly style="background-color: #f5f5f5;">
+                        <label for="dateSpAdComment">
+                            Date of SpAd comment 
+                            <span style="font-size: 12px; color: #666;">(Auto-calculated)</span>
+                            <span class="manual-override-label">
+                                <input type="checkbox" id="manualDateSpAdComment" onchange="toggleManualDate('dateSpAdComment')">
+                                Manual override
+                            </span>
+                        </label>
+                        <input type="date" id="dateSpAdComment" readonly style="background-color: #f5f5f5;" title="Auto-calculated date (check manual override to edit)">
                     </div>
                     
                     <div class="form-group">
-                        <label for="dateBoxed">Date ready for box <span style="font-size: 12px; color: #666;">(Auto-calculated)</span></label>
-                        <input type="date" id="dateBoxed" readonly style="background-color: #f5f5f5;">
+                        <label for="dateBoxed">
+                            Date ready for box 
+                            <span style="font-size: 12px; color: #666;">(Auto-calculated)</span>
+                            <span class="manual-override-label">
+                                <input type="checkbox" id="manualDateBoxed" onchange="toggleManualDate('dateBoxed')">
+                                Manual override
+                            </span>
+                        </label>
+                        <input type="date" id="dateBoxed" readonly style="background-color: #f5f5f5;" title="Auto-calculated date (check manual override to edit)">
                     </div>
                     
                     <div class="form-group">
-                        <label for="dateReadout">Date of readout <span style="font-size: 12px; color: #666;">(Auto-calculated)</span></label>
-                        <input type="date" id="dateReadout" readonly style="background-color: #f5f5f5;">
+                        <label for="dateReadout">
+                            Date of readout 
+                            <span style="font-size: 12px; color: #666;">(Auto-calculated)</span>
+                            <span class="manual-override-label">
+                                <input type="checkbox" id="manualDateReadout" onchange="toggleManualDate('dateReadout')">
+                                Manual override
+                            </span>
+                        </label>
+                        <input type="date" id="dateReadout" readonly style="background-color: #f5f5f5;" title="Auto-calculated date (check manual override to edit)">
                     </div>
                     
                     <div class="form-group full-width">
@@ -1799,7 +2515,7 @@
             </div>
             <form id="spadCommentForm">
                 <div class="spad-comment-form-group">
-                    <label for="psComments">Do you have any comments/queries for the private secretary?</label>
+                    <label for="psComments">Do you have any comments/queries for the Private Secretary?</label>
                     <textarea id="psComments" placeholder="Enter your comments or queries..."></textarea>
                 </div>
                 
@@ -1835,7 +2551,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="inviteLeadPS">Lead PS</label>
+                        <label for="inviteLeadPS">PS</label>
                         <select id="inviteLeadPS">
                             <option value="">Select...</option>
                             <option value="Ben">Ben</option>
@@ -1906,7 +2622,7 @@
             <form id="briefingForm">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="briefingLeadPS">Lead private secretary</label>
+                        <label for="briefingLeadPS">Private Secretary</label>
                         <select id="briefingLeadPS">
                             <option value="">Select...</option>
                             <option value="Ben">Ben</option>
@@ -1925,7 +2641,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="briefingLeadSpAd">Lead SpAd</label>
+                        <label for="briefingLeadSpAd">SpAd</label>
                         <select id="briefingLeadSpAd">
                             <option value="">Select...</option>
                             <option value="Sophie">Sophie</option>
@@ -1952,8 +2668,8 @@
                         <input type="date" id="briefingCommissionDeadline">
                     </div>
                     <div class="form-group full-width">
-                        <label for="briefingSharepointLink">Sharepoint link</label>
-                        <input type="url" id="briefingSharepointLink" placeholder="https://sharepoint.com/..." style="font-family: 'Monaco', 'Menlo', 'Consolas', monospace; font-size: 12px; color: #0066cc;">
+                        <label for="briefingSharepointLink">SharePoint Link</label>
+                        <input type="url" id="briefingSharepointLink" placeholder="https://sharepoint.com/..." style="font-family: 'Optima', 'Lucida Grande', sans-serif; font-size: 12px; color: #0066cc;">
                     </div>
                     <div class="form-group full-width">
                         <label for="briefingPSComments">PS comments</label>
@@ -2012,7 +2728,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="commissionLeadPS">Lead PS</label>
+                        <label for="commissionLeadPS">PS</label>
                         <select id="commissionLeadPS">
                             <option value="">Select...</option>
                             <option value="Ben">Ben</option>
@@ -2057,6 +2773,24 @@
                     <button type="button" class="form-btn btn-cancel" onclick="closeCommissionModal()">Cancel</button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Permission Request Modal -->
+    <div id="permissionModal" class="permission-modal">
+        <div class="permission-modal-content">
+            <div class="modal-header">
+                <h2>Permission Required</h2>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <p>This change is within 1 month of the duty date and requires special permission.</p>
+                <p><strong>Reason for urgent change:</strong></p>
+                <textarea id="permissionReason" placeholder="Please explain why this change is needed urgently..." style="width: 100%; height: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin: 10px 0;"></textarea>
+            </div>
+            <div class="form-buttons">
+                <button type="button" class="form-btn btn-add" onclick="submitPermissionRequest()">Request Permission</button>
+                <button type="button" class="form-btn btn-cancel" onclick="closePermissionModal()">Cancel</button>
+            </div>
         </div>
     </div>
 
@@ -2161,6 +2895,163 @@
             return data;
         }
 
+        // Toggle manual date override functionality
+        function toggleManualDate(fieldId) {
+            const checkbox = document.getElementById('manual' + fieldId.charAt(0).toUpperCase() + fieldId.slice(1));
+            const dateField = document.getElementById(fieldId);
+            
+            if (checkbox && dateField) {
+                if (checkbox.checked) {
+                    // Enable manual input
+                    dateField.removeAttribute('readonly');
+                    dateField.style.backgroundColor = 'white';
+                    dateField.title = 'Manual override enabled - you can edit this date';
+                } else {
+                    // Disable manual input and revert to auto-calculated
+                    dateField.setAttribute('readonly', 'readonly');
+                    dateField.style.backgroundColor = '#f5f5f5';
+                    dateField.title = 'Auto-calculated date (check manual override to edit)';
+                    
+                    // Optionally clear the value to trigger auto-calculation on next status change
+                    // Uncomment the line below if you want to clear manually entered dates when unchecking
+                    // dateField.value = '';
+                }
+            }
+        }
+
+        // Toggle manual urgency override functionality
+        function toggleManualUrgency() {
+            const checkbox = document.getElementById('manualUrgency');
+            const urgencyField = document.getElementById('urgency');
+            const deadlineField = document.getElementById('deadlineBoxReview');
+            
+            if (checkbox && urgencyField) {
+                if (checkbox.checked) {
+                    // Enable manual input
+                    urgencyField.removeAttribute('readonly');
+                    urgencyField.style.backgroundColor = 'white';
+                    urgencyField.title = 'Manual override enabled - you can edit urgency';
+                } else {
+                    // Disable manual input and revert to auto-calculated
+                    urgencyField.setAttribute('readonly', 'readonly');
+                    urgencyField.style.backgroundColor = '#f5f5f5';
+                    urgencyField.title = 'Auto-calculated based on deadline (check manual override to edit)';
+                    
+                    // Recalculate urgency based on current deadline
+                    if (deadlineField && deadlineField.value) {
+                        calculateUrgencyFromDeadline();
+                    }
+                }
+            }
+        }
+
+        // Calculate urgency based on deadline in the form
+        function calculateUrgencyFromDeadline() {
+            console.log('=== calculateUrgencyFromDeadline called ===');
+            
+            const deadlineField = document.getElementById('deadlineBoxReview');
+            const urgencyField = document.getElementById('urgency');
+            const manualUrgencyCheckbox = document.getElementById('manualUrgency');
+            
+            console.log('Deadline field:', deadlineField);
+            console.log('Deadline field value:', deadlineField?.value);
+            console.log('Urgency field:', urgencyField);
+            console.log('Current urgency:', urgencyField?.value);
+            console.log('Manual override checkbox:', manualUrgencyCheckbox);
+            console.log('Manual override checked:', manualUrgencyCheckbox?.checked);
+            
+            // Only auto-calculate if manual override is not enabled
+            if (!deadlineField || !urgencyField) {
+                console.log('ERROR: Missing deadline or urgency field');
+                return;
+            }
+            
+            if (manualUrgencyCheckbox && manualUrgencyCheckbox.checked) {
+                console.log('Manual override is enabled, skipping auto-calculation');
+                return;
+            }
+            
+            const deadlineValue = deadlineField.value;
+            if (!deadlineValue) {
+                console.log('No deadline value, setting to Routine');
+                urgencyField.value = 'Routine';
+                return;
+            }
+            
+            const deadline = new Date(deadlineValue);
+            const today = new Date();
+            
+            // Set time to start of day for comparison
+            today.setHours(0, 0, 0, 0);
+            deadline.setHours(0, 0, 0, 0);
+            
+            // Calculate days difference
+            const timeDiff = deadline.getTime() - today.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            console.log('Deadline calculation:', {
+                deadline: deadline.toDateString(),
+                today: today.toDateString(),
+                daysDiff: daysDiff
+            });
+            
+            // Set urgency based on days until deadline
+            let newUrgency;
+            if (daysDiff <= 1) {
+                newUrgency = 'Urgent';
+            } else if (daysDiff <= 2) {
+                newUrgency = 'Priority';
+            } else {
+                newUrgency = 'Routine';
+            }
+            
+            console.log('Setting urgency from', urgencyField.value, 'to:', newUrgency);
+            urgencyField.value = newUrgency;
+            console.log('Urgency field value after setting:', urgencyField.value);
+            
+            // Trigger change event on urgency field to update any dependent elements
+            const changeEvent = new Event('change', { bubbles: true });
+            urgencyField.dispatchEvent(changeEvent);
+            
+            console.log('=== calculateUrgencyFromDeadline completed ===');
+        }
+
+        // Helper function to calculate urgency from a deadline value (used in data processing)
+        function calculateUrgencyFromDeadlineValue(deadlineValue) {
+            if (!deadlineValue) {
+                return 'Routine';
+            }
+            
+            const deadline = new Date(deadlineValue);
+            const today = new Date();
+            
+            // Set time to start of day for comparison
+            today.setHours(0, 0, 0, 0);
+            deadline.setHours(0, 0, 0, 0);
+            
+            // Calculate days difference
+            const timeDiff = deadline.getTime() - today.getTime();
+            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            
+            // Set urgency based on days until deadline
+            if (daysDiff <= 1) {
+                return 'Urgent';
+            } else if (daysDiff <= 2) {
+                return 'Priority';
+            } else {
+                return 'Routine';
+            }
+        }
+
+        // Handle urgency field changes to show/hide reason modal
+        function handleUrgencyChange() {
+            const urgencyField = document.getElementById('urgency');
+            if (urgencyField && urgencyField.value === 'Urgent') {
+                // If urgent is selected, we may need to get a reason
+                // This will be handled during form submission
+            }
+        }
+
         // Utility: Load and Save
         function loadData(key) {
             try {
@@ -2203,12 +3094,12 @@
             
             if (!leadPSElement) {
                 console.error('leadPS element not found!');
-                return { leadPS: '', submissionTitle: '', leadSpAd: '', urgency: '', urgencyReason: '', submissionType: 'advice', sharepointLink: '', dateReceived: '', status: '', dateSubmittedSpads: '', workingDays: '', dateSpAdComment: '', dateBoxed: '', comments: '', firstAdded: '' };
+                return { leadPS: '', submissionTitle: '', leadSpAd: '', urgency: '', urgencyReason: '', submissionType: 'advice', deadlineBoxReview: '', sharepointLink: '', dateReceived: '', status: '', dateSubmittedSpads: '', workingDays: '', dateSpAdComment: '', dateBoxed: '', comments: '', firstAdded: '' };
             }
             
             if (!submissionTitleElement) {
                 console.error('submissionTitle element not found!');
-                return { leadPS: '', submissionTitle: '', leadSpAd: '', urgency: '', urgencyReason: '', submissionType: 'advice', sharepointLink: '', dateReceived: '', status: '', dateSubmittedSpads: '', workingDays: '', dateSpAdComment: '', dateBoxed: '', comments: '', firstAdded: '' };
+                return { leadPS: '', submissionTitle: '', leadSpAd: '', urgency: '', urgencyReason: '', submissionType: 'advice', deadlineBoxReview: '', sharepointLink: '', dateReceived: '', status: '', dateSubmittedSpads: '', workingDays: '', dateSpAdComment: '', dateBoxed: '', comments: '', firstAdded: '' };
             }
             
             console.log('leadPS value:', leadPSElement.value);
@@ -2222,6 +3113,7 @@
                               (window.currentUrgencyReason || '') : '',
                 submissionType: (document.getElementById('submissionType') || {}).value || 'advice',
                 submissionTitle: submissionTitleElement.value || '',
+                deadlineBoxReview: (document.getElementById('deadlineBoxReview') || {}).value || '',
                 sharepointLink: (document.getElementById('sharepointLink') || {}).value || '',
                 dateReceived: (document.getElementById('dateReceived') || {}).value || '',
                 status: (document.getElementById('status') || {}).value || '',
@@ -2281,6 +3173,15 @@
             if (!data || typeof data !== 'object') {
                 console.error('Invalid data passed to addSubmission:', data);
                 return;
+            }
+            
+            // Auto-calculate urgency based on deadline if not manually overridden
+            const manualUrgencyCheckbox = document.getElementById('manualUrgency');
+            const isManualOverride = manualUrgencyCheckbox && manualUrgencyCheckbox.checked;
+            if (data.deadlineBoxReview && !isManualOverride) {
+                const calculatedUrgency = calculateUrgencyFromDeadlineValue(data.deadlineBoxReview);
+                console.log('Calculated urgency for new submission deadline', data.deadlineBoxReview, ':', calculatedUrgency);
+                data.urgency = calculatedUrgency;
             }
             
             // Auto-set dates based on status
@@ -2374,6 +3275,15 @@
             const today = new Date().toISOString().split('T')[0];
             
             if (data) {
+                // Auto-recalculate urgency based on deadline if not manually overridden
+                const manualUrgencyCheckbox = document.getElementById('manualUrgency');
+                const isManualOverride = manualUrgencyCheckbox && manualUrgencyCheckbox.checked;
+                if (data.deadlineBoxReview && !isManualOverride) {
+                    const calculatedUrgency = calculateUrgencyFromDeadlineValue(data.deadlineBoxReview);
+                    console.log('Calculated urgency for deadline', data.deadlineBoxReview, ':', calculatedUrgency);
+                    data.urgency = calculatedUrgency;
+                }
+                
                 // Auto-set dates based on status changes
                 if (data.status === 'With SpAds' && !data.dateSubmittedSpads) {
                     data.dateSubmittedSpads = today;
@@ -2398,6 +3308,15 @@
                 arr[idx] = data;
             } else {
                 const formData = getFormData();
+                
+                // Auto-recalculate urgency based on deadline if not manually overridden
+                const manualUrgencyCheckbox = document.getElementById('manualUrgency');
+                const isManualOverride = manualUrgencyCheckbox && manualUrgencyCheckbox.checked;
+                if (formData.deadlineBoxReview && !isManualOverride) {
+                    const calculatedUrgency = calculateUrgencyFromDeadlineValue(formData.deadlineBoxReview);
+                    console.log('Calculated urgency for deadline', formData.deadlineBoxReview, ':', calculatedUrgency);
+                    formData.urgency = calculatedUrgency;
+                }
                 
                 // Validate urgency reason if urgent
                 if (formData.urgency === 'Urgent' && !window.currentUrgencyReason) {
@@ -2451,6 +3370,7 @@
             document.getElementById('leadSpAd').value = data.leadSpAd || '';
             document.getElementById('urgency').value = data.urgency || '';
             document.getElementById('submissionTitle').value = data.submissionTitle || '';
+            document.getElementById('deadlineBoxReview').value = data.deadlineBoxReview || '';
             document.getElementById('sharepointLink').value = data.sharepointLink || '';
             document.getElementById('dateReceived').value = data.dateReceived || '';
             document.getElementById('status').value = data.status || '';
@@ -2491,9 +3411,13 @@
             // Set up event listeners for urgency changes
             setTimeout(() => {
                 const urgencySelect = document.getElementById('urgency');
+                const deadlineField = document.getElementById('deadlineBoxReview');
                 
                 if (urgencySelect) {
                     urgencySelect.addEventListener('change', handleUrgencyChange);
+                }
+                if (deadlineField) {
+                    deadlineField.addEventListener('change', calculateUrgencyFromDeadline);
                 }
             }, 100);
         }
@@ -2549,7 +3473,7 @@
             console.log('Form data:', data);
             if (!data.leadPS || !data.submissionTitle) {
                 console.log('Validation failed - leadPS:', data.leadPS, 'submissionTitle:', data.submissionTitle);
-                alert('Please fill in required fields (Lead PS and Submission Title).');
+                alert('Please fill in required fields (PS and Submission Title).');
                 return;
             }
             
@@ -2587,7 +3511,7 @@
             console.log('Form data:', data);
             if (!data.leadPS || !data.submissionTitle) {
                 console.log('Validation failed - leadPS:', data.leadPS, 'submissionTitle:', data.submissionTitle);
-                alert('Please fill in required fields (Lead PS and Submission Title).');
+                alert('Please fill in required fields (PS and Submission Title).');
                 return;
             }
             
@@ -2628,7 +3552,7 @@
             console.log('Form data:', data);
             if (!data.leadPS || !data.submissionTitle) {
                 console.log('Validation failed - leadPS:', data.leadPS, 'submissionTitle:', data.submissionTitle);
-                alert('Please fill in required fields (Lead PS and Submission Title).');
+                alert('Please fill in required fields (PS and Submission Title).');
                 return;
             }
             
@@ -3008,6 +3932,7 @@
                     <div class="grid-cell">${commentsDisplay}</div>
                     <div class="grid-cell actions-cell">
                         <div class="action-buttons">
+                            <button class="action-btn edit-btn" onclick="editArchivedSubmission(${originalIdx})" data-tooltip="Edit this archived submission">✏️ Edit</button>
                             <button class="action-btn delete-btn" onclick="deleteArchivedSubmission(${originalIdx})" data-tooltip="Delete this archived submission">🗑️ Delete</button>
                         </div>
                     </div>
@@ -3022,6 +3947,107 @@
             arr.splice(idx, 1);
             saveData('archiveSubmissions', arr);
             renderArchiveSubmissions();
+        }
+
+        function editArchivedSubmission(idx) {
+            const rows = loadData('archiveSubmissions');
+            const data = rows[idx];
+            
+            // Populate form fields
+            document.getElementById('leadPS').value = data.leadPS || '';
+            document.getElementById('leadSpAd').value = data.leadSpAd || '';
+            document.getElementById('urgency').value = data.urgency || '';
+            document.getElementById('submissionType').value = data.submissionType || 'advice';
+            document.getElementById('submissionTitle').value = data.submissionTitle || '';
+            document.getElementById('deadlineBoxReview').value = data.deadlineBoxReview || '';
+            document.getElementById('sharepointLink').value = data.sharepointLink || '';
+            document.getElementById('dateReceived').value = data.dateReceived || '';
+            document.getElementById('status').value = data.status || '';
+            document.getElementById('dateSubmittedSpads').value = data.dateSubmittedSpads || '';
+            document.getElementById('dateSpAdComment').value = data.dateSpAdComment || '';
+            document.getElementById('dateBoxed').value = data.dateBoxed || '';
+            document.getElementById('dateReadout').value = data.dateReadout || '';
+            document.getElementById('comments').value = data.comments || '';
+            
+            // Set urgency reason if it exists
+            window.currentUrgencyReason = data.urgencyReason || '';
+            
+            // Set first added timestamp
+            window.currentFirstAdded = data.firstAdded || '';
+            
+            // Show first added timestamp if it exists
+            const timestampDiv = document.getElementById('firstAddedTimestamp');
+            if (data.firstAdded && timestampDiv) {
+                timestampDiv.innerHTML = formatTimestampForDisplay(data.firstAdded);
+                timestampDiv.style.display = 'block';
+            }
+            
+            // Change form buttons to show update options
+            const buttonsContainer = document.getElementById('submissionFormButtons');
+            buttonsContainer.innerHTML = `
+                <button type="button" class="form-btn btn-add" onclick="updateArchivedSubmission(${idx})">Update</button>
+                <button type="button" class="form-btn btn-cancel" onclick="closeModal()">Cancel</button>
+            `;
+            
+            // Open the modal
+            document.getElementById('itemModal').style.display = 'block';
+            
+            // Set up event listeners
+            setTimeout(() => {
+                const urgencySelect = document.getElementById('urgency');
+                const deadlineField = document.getElementById('deadlineBoxReview');
+                
+                if (urgencySelect) {
+                    urgencySelect.addEventListener('change', handleUrgencyChange);
+                }
+                if (deadlineField) {
+                    deadlineField.addEventListener('change', calculateUrgencyFromDeadline);
+                }
+            }, 100);
+        }
+
+        function updateArchivedSubmission(idx) {
+            const data = getFormData();
+            
+            // Auto-recalculate urgency based on deadline if not manually overridden
+            const manualUrgencyCheckbox = document.getElementById('manualUrgency');
+            const isManualOverride = manualUrgencyCheckbox && manualUrgencyCheckbox.checked;
+            if (data.deadlineBoxReview && !isManualOverride) {
+                const calculatedUrgency = calculateUrgencyFromDeadlineValue(data.deadlineBoxReview);
+                console.log('Calculated urgency for archived submission deadline', data.deadlineBoxReview, ':', calculatedUrgency);
+                data.urgency = calculatedUrgency;
+            }
+            
+            const archiveArr = loadData('archiveSubmissions');
+            
+            // If status changed from "Readout", move back to main submissions
+            if (data.status !== 'Readout') {
+                // Remove from archive
+                archiveArr.splice(idx, 1);
+                saveData('archiveSubmissions', archiveArr);
+                
+                // Add to main submissions with updated data
+                const mainArr = loadData('submissions');
+                // Remove the archived date since it's no longer archived
+                delete data.archivedDate;
+                mainArr.push(data);
+                saveData('submissions', mainArr);
+                
+                renderSubmissions();
+                renderArchiveSubmissions();
+                updateDashboardSummary();
+                closeModal();
+                
+                // Switch to main dashboard to show the moved item
+                showMainDashboard();
+                alert('Item moved back to main submissions due to status change.');
+            } else {
+                // Keep in archive with updated data
+                archiveArr[idx] = data;
+                saveData('archiveSubmissions', archiveArr);
+                renderArchiveSubmissions();
+                closeModal();
+            }
         }
 
         // --- Invite Functions ---
@@ -3059,7 +4085,7 @@
                     row.inviteStartTime === data.inviteStartTime
                 );
                 const row = document.createElement('div');
-                row.className = 'grid-row';
+                row.className = 'grid-row invite-row';
                 row.innerHTML = `
                     <div class="grid-cell">${data.inviteTitle || ''}</div>
                     <div class="grid-cell">${data.inviteLeadPS || ''}</div>
@@ -3145,7 +4171,7 @@
                     row.archivedDate === data.archivedDate
                 );
                 const row = document.createElement('div');
-                row.className = 'grid-row';
+                row.className = 'grid-row invite-row';
                 row.innerHTML = `
                     <div class="grid-cell">${data.inviteTitle || ''}</div>
                     <div class="grid-cell">${data.inviteLeadPS || ''}</div>
@@ -3214,7 +4240,7 @@
                     row.title === data.title
                 );
                 const row = document.createElement('div');
-                row.className = 'grid-row';
+                row.className = 'grid-row briefing-row';
                 row.innerHTML = `
                     <div class="grid-cell">${data.leadPS || ''}</div>
                     <div class="grid-cell">${data.leadSpAd || ''}</div>
@@ -3319,7 +4345,7 @@
                     row.archivedDate === data.archivedDate
                 );
                 const row = document.createElement('div');
-                row.className = 'grid-row';
+                row.className = 'grid-row briefing-row';
                 row.innerHTML = `
                     <div class="grid-cell">${data.leadPS || ''}</div>
                     <div class="grid-cell">${data.leadSpAd || ''}</div>
@@ -3474,6 +4500,7 @@
                 const dateSubmittedSpads = document.getElementById('dateSubmittedSpads');
                 const dateSpAdComment = document.getElementById('dateSpAdComment');
                 const urgencySelect = document.getElementById('urgency');
+                const deadlineField = document.getElementById('deadlineBoxReview');
                 
                 if (dateSubmittedSpads) {
                     dateSubmittedSpads.addEventListener('change', updateWorkingDaysDisplay);
@@ -3483,6 +4510,9 @@
                 }
                 if (urgencySelect) {
                     urgencySelect.addEventListener('change', handleUrgencyChange);
+                }
+                if (deadlineField) {
+                    deadlineField.addEventListener('change', calculateUrgencyFromDeadline);
                 }
             }, 100);
         }
@@ -3556,7 +4586,7 @@
             }
             
             if (!data.leadPS) {
-                alert('Please select a Lead PS');
+                alert('Please select a PS');
                 return;
             }
             
@@ -3723,7 +4753,7 @@
             }
             
             if (!data.leadPS) {
-                alert('Please select a lead PS');
+                alert('Please select a PS');
                 return;
             }
             
@@ -4192,6 +5222,9 @@
             // Apply SpAd settings on page load
             applySpAdSettings();
             
+            // Apply process settings on page load
+            applyProcessSettings();
+            
             // Restore the last visited page
             restoreCurrentPage();
             
@@ -4303,6 +5336,7 @@
             renderTeamLists();
             renderStatusFieldsList();
             loadSpAdSettingsUI();
+            loadProcessSettingsUI();
             saveCurrentPage('editTeam');
         }
         
@@ -4484,6 +5518,26 @@
             updateAllStatusDropdowns();
         }
 
+        // Helper function to check if SpAd review should be automatically disabled
+        function checkAndDisableSpAdReview() {
+            const statusFields = loadStatusFields();
+            const spAdSettings = loadSpAdSettings();
+            
+            // If "With SpAds" is not in status fields but SpAd review is enabled
+            if (!statusFields.includes('With SpAds') && spAdSettings.enableSpAdReview) {
+                spAdSettings.enableSpAdReview = false;
+                saveSpAdSettings(spAdSettings);
+                
+                // Update the UI to reflect the changes
+                loadSpAdSettingsUI();
+                applySpAdSettings();
+                updateAllStatusDropdowns();
+                
+                return true; // Indicates that SpAd review was disabled
+            }
+            return false; // No change was needed
+        }
+
         function removeStatusField(index) {
             const statusFields = loadStatusFields();
             const statusToRemove = statusFields[index];
@@ -4494,11 +5548,46 @@
                 return;
             }
             
-            if (confirm(`Are you sure you want to remove "${statusToRemove}"?\n\nNote: Existing items with this status will keep their status, but you won't be able to select this status for new items.`)) {
-                statusFields.splice(index, 1);
-                saveStatusFields(statusFields);
-                renderStatusFieldsList();
-                updateAllStatusDropdowns();
+            // Special handling for "With SpAds" removal
+            if (statusToRemove === 'With SpAds') {
+                const spAdSettings = loadSpAdSettings();
+                if (spAdSettings.enableSpAdReview) {
+                    const confirmMessage = `Are you sure you want to remove "${statusToRemove}"?\n\nThis will automatically disable the SpAd review process and hide all SpAd-related functionality.\n\nNote: Existing items with this status will keep their status, but you won't be able to select this status for new items.`;
+                    
+                    if (confirm(confirmMessage)) {
+                        // Remove the status field
+                        statusFields.splice(index, 1);
+                        saveStatusFields(statusFields);
+                        
+                        // Automatically disable the SpAd review process
+                        spAdSettings.enableSpAdReview = false;
+                        saveSpAdSettings(spAdSettings);
+                        
+                        // Update the UI to reflect the changes
+                        loadSpAdSettingsUI();
+                        applySpAdSettings();
+                        renderStatusFieldsList();
+                        updateAllStatusDropdowns();
+                        
+                        alert('SpAd review process has been automatically disabled because "With SpAds" status was removed.');
+                    }
+                } else {
+                    // SpAd review is already disabled, proceed with normal removal
+                    if (confirm(`Are you sure you want to remove "${statusToRemove}"?\n\nNote: Existing items with this status will keep their status, but you won't be able to select this status for new items.`)) {
+                        statusFields.splice(index, 1);
+                        saveStatusFields(statusFields);
+                        renderStatusFieldsList();
+                        updateAllStatusDropdowns();
+                    }
+                }
+            } else {
+                // Normal status field removal
+                if (confirm(`Are you sure you want to remove "${statusToRemove}"?\n\nNote: Existing items with this status will keep their status, but you won't be able to select this status for new items.`)) {
+                    statusFields.splice(index, 1);
+                    saveStatusFields(statusFields);
+                    renderStatusFieldsList();
+                    updateAllStatusDropdowns();
+                }
             }
         }
 
@@ -4712,11 +5801,11 @@
                     spadFilterButton.style.display = 'none';
                 }
                 
-                // 5. Hide SpAd-related grid columns (Lead SpAd, Days with SpAds)
+                // 5. Hide SpAd-related grid columns (SpAd, Days with SpAds)
                 // Hide header cells
                 const gridHeaders = document.querySelectorAll('.grid-header > div');
                 gridHeaders.forEach((header, index) => {
-                    if (header.textContent.includes('Lead SpAd') || header.textContent.includes('Days with SpAds')) {
+                    if (header.textContent.includes('SpAd') || header.textContent.includes('Days with SpAds')) {
                         header.style.display = 'none';
                         
                         // Also hide corresponding data cells in all grid rows
@@ -4795,7 +5884,7 @@
                 // 5. Show/hide SpAd-related grid columns based on settings
                 const gridHeaders = document.querySelectorAll('.grid-header > div');
                 gridHeaders.forEach((header, index) => {
-                    if (header.textContent.includes('Lead SpAd')) {
+                    if (header.textContent.includes('SpAd')) {
                         header.style.display = '';
                         
                         // Show corresponding data cells in all grid rows
@@ -4861,6 +5950,228 @@
                 applySpAdSettings();
                 
                 alert('SpAd review settings have been reset to defaults successfully!');
+            }
+        }
+
+        // --- Process Management ---
+        function getDefaultProcessSettings() {
+            return {
+                enableBoxWork: true,
+                enableInvites: true,
+                enableBriefings: true,
+                enableCommissions: true,
+                enableDaybook: true,
+                enableArchives: true
+            };
+        }
+
+        function loadProcessSettings() {
+            const stored = localStorage.getItem('processSettings');
+            if (stored) {
+                return JSON.parse(stored);
+            }
+            // Return default settings
+            return getDefaultProcessSettings();
+        }
+
+        function saveProcessSettings(settings) {
+            localStorage.setItem('processSettings', JSON.stringify(settings));
+        }
+
+        function loadProcessSettingsUI() {
+            const settings = loadProcessSettings();
+            
+            document.getElementById('enableBoxWork').checked = settings.enableBoxWork;
+            document.getElementById('enableInvites').checked = settings.enableInvites;
+            document.getElementById('enableBriefings').checked = settings.enableBriefings;
+            document.getElementById('enableCommissions').checked = settings.enableCommissions;
+            document.getElementById('enableDaybook').checked = settings.enableDaybook;
+            document.getElementById('enableArchives').checked = settings.enableArchives;
+            
+            // Box Work cannot be disabled - always check it and disable the checkbox
+            document.getElementById('enableBoxWork').checked = true;
+            document.getElementById('enableBoxWork').disabled = true;
+            
+            // Update dependencies after loading settings
+            updateProcessDependencies();
+        }
+
+        function updateProcessSettings() {
+            const settings = loadProcessSettings();
+            
+            // Box Work is always enabled
+            settings.enableBoxWork = true;
+            settings.enableInvites = document.getElementById('enableInvites').checked;
+            settings.enableBriefings = document.getElementById('enableBriefings').checked;
+            settings.enableCommissions = document.getElementById('enableCommissions').checked;
+            settings.enableDaybook = document.getElementById('enableDaybook').checked;
+            settings.enableArchives = document.getElementById('enableArchives').checked;
+            
+            // Handle dependency: Daybook requires Briefings to function
+            if (!settings.enableBriefings && settings.enableDaybook) {
+                settings.enableDaybook = false;
+                document.getElementById('enableDaybook').checked = false;
+                
+                // Show notification to user
+                alert('Daybook has been automatically disabled because it requires Briefings to function.\n\nDaybook displays briefings organized by date, so it cannot work without the Briefings process enabled.');
+            }
+            
+            // Handle reverse dependency: When re-enabling Briefings, don't auto-enable Daybook
+            // but remove the disabled state so user can choose
+            
+            saveProcessSettings(settings);
+            
+            // Update UI to reflect dependencies
+            updateProcessDependencies();
+            
+            // Apply changes to navigation
+            applyProcessSettings();
+        }
+
+        function updateProcessDependencies() {
+            const settings = loadProcessSettings();
+            
+            // Handle Daybook dependency on Briefings
+            const daybookCheckbox = document.getElementById('enableDaybook');
+            const briefingsCheckbox = document.getElementById('enableBriefings');
+            
+            if (!settings.enableBriefings) {
+                // Disable Daybook checkbox if Briefings is disabled
+                daybookCheckbox.disabled = true;
+                daybookCheckbox.checked = false;
+                
+                // Add visual indication that it's dependent
+                const daybookLabel = daybookCheckbox.parentElement;
+                if (!daybookLabel.querySelector('.dependency-note')) {
+                    const dependencyNote = document.createElement('span');
+                    dependencyNote.className = 'dependency-note';
+                    dependencyNote.style.color = '#666';
+                    dependencyNote.style.fontSize = '11px';
+                    dependencyNote.style.fontStyle = 'italic';
+                    dependencyNote.style.marginLeft = '8px';
+                    dependencyNote.textContent = '(requires Briefings)';
+                    daybookLabel.appendChild(dependencyNote);
+                }
+            } else {
+                // Enable Daybook checkbox if Briefings is enabled
+                daybookCheckbox.disabled = false;
+                
+                // Remove dependency note
+                const daybookLabel = daybookCheckbox.parentElement;
+                const dependencyNote = daybookLabel.querySelector('.dependency-note');
+                if (dependencyNote) {
+                    dependencyNote.remove();
+                }
+            }
+        }
+
+        function applyProcessSettings() {
+            const settings = loadProcessSettings();
+            
+            // Get navigation links
+            const navigationLinks = {
+                invites: document.querySelector('a[onclick="showInvites()"]'),
+                briefings: document.querySelector('a[onclick="showBriefings()"]'),
+                commissions: document.querySelector('a[onclick="showCommissions()"]'),
+                daybook: document.querySelector('a[onclick="showDaybook()"]'),
+                archiveSection: document.querySelector('.archive-section'),
+                archiveBox: document.querySelector('a[onclick="showArchiveBox()"]'),
+                archiveInvites: document.querySelector('a[onclick="showInviteArchive()"]'),
+                archiveBriefings: document.querySelector('a[onclick="showBriefingsArchive()"]'),
+                archiveCommissions: document.querySelector('a[onclick="showCommissionArchive()"]')
+            };
+            
+            // Show/hide main navigation links based on settings
+            if (navigationLinks.invites) {
+                navigationLinks.invites.parentElement.style.display = settings.enableInvites ? 'block' : 'none';
+            }
+            
+            if (navigationLinks.briefings) {
+                navigationLinks.briefings.parentElement.style.display = settings.enableBriefings ? 'block' : 'none';
+            }
+            
+            if (navigationLinks.commissions) {
+                navigationLinks.commissions.parentElement.style.display = settings.enableCommissions ? 'block' : 'none';
+            }
+            
+            if (navigationLinks.daybook) {
+                navigationLinks.daybook.parentElement.style.display = settings.enableDaybook ? 'block' : 'none';
+            }
+            
+            // Handle archive section visibility
+            if (navigationLinks.archiveSection) {
+                if (settings.enableArchives) {
+                    navigationLinks.archiveSection.style.display = 'block';
+                    
+                    // Show/hide individual archive subsections based on their main process settings
+                    if (navigationLinks.archiveBox) {
+                        navigationLinks.archiveBox.parentElement.style.display = 'block'; // Box work archive is always available
+                    }
+                    if (navigationLinks.archiveInvites) {
+                        navigationLinks.archiveInvites.parentElement.style.display = settings.enableInvites ? 'block' : 'none';
+                    }
+                    if (navigationLinks.archiveBriefings) {
+                        navigationLinks.archiveBriefings.parentElement.style.display = settings.enableBriefings ? 'block' : 'none';
+                    }
+                    if (navigationLinks.archiveCommissions) {
+                        navigationLinks.archiveCommissions.parentElement.style.display = settings.enableCommissions ? 'block' : 'none';
+                    }
+                } else {
+                    navigationLinks.archiveSection.style.display = 'none';
+                }
+            }
+            
+            // If currently viewing a disabled section, redirect to box work
+            const currentSection = getCurrentActiveSection();
+            const disabledSections = [];
+            
+            if (!settings.enableInvites) {
+                disabledSections.push('invites', 'inviteArchive');
+            }
+            if (!settings.enableBriefings) {
+                disabledSections.push('briefings', 'briefingsArchive');
+            }
+            if (!settings.enableCommissions) {
+                disabledSections.push('commissions', 'commissionArchive');
+            }
+            if (!settings.enableDaybook) {
+                disabledSections.push('daybook');
+            }
+            if (!settings.enableArchives) {
+                disabledSections.push('archiveBox', 'inviteArchive', 'briefingsArchive', 'commissionArchive');
+            }
+            
+            if (disabledSections.includes(currentSection)) {
+                showMainDashboard();
+            }
+        }
+
+        function getCurrentActiveSection() {
+            const sections = ['mainDashboard', 'invites', 'briefings', 'commissions', 'daybook', 'archiveBox', 'inviteArchive', 'briefingsArchive', 'commissionArchive', 'editTeam'];
+            
+            for (const section of sections) {
+                const element = document.getElementById(section);
+                if (element && !element.classList.contains('hidden')) {
+                    return section;
+                }
+            }
+            
+            return 'mainDashboard'; // Default fallback
+        }
+
+        function resetProcessSettingsToDefault() {
+            if (confirm('Are you sure you want to reset process settings to defaults?\n\nThis will enable all processes and restore the full navigation menu.')) {
+                // Get the default process settings
+                const defaultSettings = getDefaultProcessSettings();
+                
+                // Save the default settings
+                saveProcessSettings(defaultSettings);
+                
+                // Update the UI
+                loadProcessSettingsUI();
+                applyProcessSettings();
+                
+                alert('Process settings have been reset to defaults successfully!');
             }
         }
         
@@ -5225,6 +6536,449 @@
             document.getElementById('daybookDatePicker').value = '';
             document.getElementById('daybookResults').style.display = 'none';
         }
+
+        // --- Duty Rota Functions ---
+        let currentUser = 'Ben'; // This should be set based on login
+
+        // Team member categories
+        const teamMembers = {
+            juniorPS: ['Ben', 'James', 'Charlotte', 'Sukh', 'Katie', 'Jess'],
+            seniorPS: ['Louisa', 'Jo', 'Simran', 'Rachel', 'Hugh', 'Marisa', 'Gemma'],
+            spads: ['Sophie', 'Tash', 'Poppy', 'Josh']
+        };
+
+        function showDutyRota() {
+            hideAllSections();
+            document.getElementById('dutyRota').classList.remove('hidden');
+            generateRotaSchedule();
+            populateOverrideControls();
+            renderLeaveRequests();
+        }
+
+        function hideAllSections() {
+            const sections = ['mainDashboard', 'archiveBox', 'invites', 'inviteArchive', 'briefings', 'briefingsArchive', 'commissions', 'commissionArchive', 'daybook', 'editTeam', 'dutyRota'];
+            sections.forEach(section => {
+                document.getElementById(section).classList.add('hidden');
+            });
+        }
+
+        function generateRotaSchedule() {
+            const container = document.getElementById('rotaScheduleContainer');
+            container.innerHTML = '';
+
+            const startDate = new Date();
+            const currentDay = startDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
+            
+            // Find the next Monday
+            const daysUntilMonday = currentDay === 0 ? 1 : (8 - currentDay);
+            const nextMonday = new Date(startDate);
+            nextMonday.setDate(startDate.getDate() + daysUntilMonday);
+
+            // Generate 8 weeks of rota
+            for (let week = 0; week < 8; week++) {
+                const weekStart = new Date(nextMonday);
+                weekStart.setDate(nextMonday.getDate() + (week * 7));
+                
+                const weekEnd1 = new Date(weekStart);
+                weekEnd1.setDate(weekStart.getDate() + 3); // Thursday
+                
+                const weekEnd2 = new Date(weekStart);
+                weekEnd2.setDate(weekStart.getDate() + 6); // Sunday
+
+                // Create two duty periods per week
+                createDutyWeek(container, weekStart, weekEnd1, week * 2, 'Mon-Thu');
+                
+                const fridayStart = new Date(weekStart);
+                fridayStart.setDate(weekStart.getDate() + 4);
+                createDutyWeek(container, fridayStart, weekEnd2, week * 2 + 1, 'Fri-Sun');
+            }
+        }
+
+        function createDutyWeek(container, startDate, endDate, weekIndex, label) {
+            const weekElement = document.createElement('div');
+            weekElement.className = 'rota-week';
+            
+            const assignments = getWeekAssignments(weekIndex);
+            const weekId = `week-${weekIndex}`;
+            
+            weekElement.innerHTML = `
+                <div class="rota-week-header">
+                    <span>${label} Duty</span>
+                    <span class="rota-week-dates">${formatDateRange(startDate, endDate)}</span>
+                </div>
+                <div class="rota-week-content">
+                    <div class="duty-row">
+                        <div class="duty-role">Junior PS (Primary)</div>
+                        <div class="duty-person ${getPersonStatus(assignments.juniorPS, startDate)}" id="${weekId}-junior">
+                            ${assignments.juniorPS}
+                        </div>
+                        <button class="duty-edit-btn" onclick="editDutyAssignment('${weekId}', 'junior-ps', '${assignments.juniorPS}', '${startDate.toISOString()}')">Edit</button>
+                    </div>
+                    <div class="duty-row">
+                        <div class="duty-role">Senior PS (Backup)</div>
+                        <div class="duty-person ${getPersonStatus(assignments.seniorPS, startDate)}" id="${weekId}-senior">
+                            ${assignments.seniorPS}
+                        </div>
+                        <button class="duty-edit-btn" onclick="editDutyAssignment('${weekId}', 'senior-ps', '${assignments.seniorPS}', '${startDate.toISOString()}')">Edit</button>
+                    </div>
+                    <div class="duty-row">
+                        <div class="duty-role">SpAd</div>
+                        <div class="duty-person ${getPersonStatus(assignments.spad, startDate)}" id="${weekId}-spad">
+                            ${assignments.spad}
+                        </div>
+                        <button class="duty-edit-btn" onclick="editDutyAssignment('${weekId}', 'spad', '${assignments.spad}', '${startDate.toISOString()}')">Edit</button>
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(weekElement);
+        }
+
+        function getWeekAssignments(weekIndex) {
+            const savedAssignments = loadData('dutyRota') || {};
+            
+            if (savedAssignments[weekIndex]) {
+                return savedAssignments[weekIndex];
+            }
+
+            // Auto-generate assignments using round-robin
+            const assignments = {
+                juniorPS: teamMembers.juniorPS[weekIndex % teamMembers.juniorPS.length],
+                seniorPS: teamMembers.seniorPS[weekIndex % teamMembers.seniorPS.length],
+                spad: teamMembers.spads[weekIndex % teamMembers.spads.length]
+            };
+
+            // Check for leave conflicts and reassign if necessary
+            const leaveRequests = loadData('leaveRequests') || [];
+            assignments.juniorPS = findAvailablePerson(assignments.juniorPS, teamMembers.juniorPS, weekIndex, leaveRequests);
+            assignments.seniorPS = findAvailablePerson(assignments.seniorPS, teamMembers.seniorPS, weekIndex, leaveRequests);
+            assignments.spad = findAvailablePerson(assignments.spad, teamMembers.spads, weekIndex, leaveRequests);
+
+            return assignments;
+        }
+
+        function findAvailablePerson(originalPerson, teamList, weekIndex, leaveRequests) {
+            const weekStart = getWeekStartDate(weekIndex);
+            
+            // Check if original person is on leave
+            if (isPersonOnLeave(originalPerson, weekStart, leaveRequests)) {
+                // Find next available person
+                for (let i = 0; i < teamList.length; i++) {
+                    const nextIndex = (weekIndex + i + 1) % teamList.length;
+                    const candidate = teamList[nextIndex];
+                    if (!isPersonOnLeave(candidate, weekStart, leaveRequests)) {
+                        return candidate;
+                    }
+                }
+            }
+            
+            return originalPerson;
+        }
+
+        function isPersonOnLeave(person, dutyDate, leaveRequests) {
+            return leaveRequests.some(leave => 
+                leave.person === person && 
+                leave.status === 'approved' &&
+                new Date(leave.startDate) <= dutyDate && 
+                new Date(leave.endDate) >= dutyDate
+            );
+        }
+
+        function getWeekStartDate(weekIndex) {
+            const today = new Date();
+            const currentDay = today.getDay();
+            const daysUntilMonday = currentDay === 0 ? 1 : (8 - currentDay);
+            const nextMonday = new Date(today);
+            nextMonday.setDate(today.getDate() + daysUntilMonday);
+            
+            const periodStart = new Date(nextMonday);
+            const daysToAdd = Math.floor(weekIndex / 2) * 7 + (weekIndex % 2) * 4;
+            periodStart.setDate(nextMonday.getDate() + daysToAdd);
+            
+            return periodStart;
+        }
+
+        function getPersonStatus(person, dutyDate) {
+            const overrides = loadData('dutyOverrides') || {};
+            const leaveRequests = loadData('leaveRequests') || [];
+            
+            if (overrides[`${dutyDate.toDateString()}-${person}`]) {
+                return 'override';
+            }
+            
+            if (isPersonOnLeave(person, dutyDate, leaveRequests)) {
+                return 'unavailable';
+            }
+            
+            return '';
+        }
+
+        function formatDateRange(startDate, endDate) {
+            const options = { month: 'short', day: 'numeric' };
+            return `${startDate.toLocaleDateString('en-GB', options)} - ${endDate.toLocaleDateString('en-GB', options)}`;
+        }
+
+        function editDutyAssignment(weekId, role, currentPerson, dutyDateStr) {
+            const dutyDate = new Date(dutyDateStr);
+            const today = new Date();
+            const daysDifference = Math.ceil((dutyDate - today) / (1000 * 60 * 60 * 24));
+            
+            if (daysDifference < 30) {
+                // Requires permission
+                window.pendingDutyChange = { weekId, role, currentPerson, dutyDate: dutyDateStr };
+                document.getElementById('permissionModal').style.display = 'block';
+            } else {
+                // Can change directly
+                showDutyChangeOptions(weekId, role, currentPerson);
+            }
+        }
+
+        function showDutyChangeOptions(weekId, role, currentPerson) {
+            const roleTeams = {
+                'junior-ps': teamMembers.juniorPS,
+                'senior-ps': teamMembers.seniorPS,
+                'spad': teamMembers.spads
+            };
+            
+            const options = roleTeams[role];
+            const newPerson = prompt(
+                `Current: ${currentPerson}\nSelect new person (${options.join(', ')}):`,
+                currentPerson
+            );
+            
+            if (newPerson && options.includes(newPerson)) {
+                updateDutyAssignment(weekId, role, newPerson);
+            }
+        }
+
+        function updateDutyAssignment(weekId, role, newPerson) {
+            const assignments = loadData('dutyRota') || {};
+            const weekIndex = parseInt(weekId.split('-')[1]);
+            
+            if (!assignments[weekIndex]) {
+                assignments[weekIndex] = getWeekAssignments(weekIndex);
+            }
+            
+            const roleMap = {
+                'junior-ps': 'juniorPS',
+                'senior-ps': 'seniorPS',
+                'spad': 'spad'
+            };
+            
+            assignments[weekIndex][roleMap[role]] = newPerson;
+            saveData('dutyRota', assignments);
+            
+            // Update the display
+            const elementMap = {
+                'junior-ps': 'junior',
+                'senior-ps': 'senior',
+                'spad': 'spad'
+            };
+            
+            const element = document.getElementById(`${weekId}-${elementMap[role]}`);
+            if (element) {
+                element.textContent = newPerson;
+                element.className = `duty-person override`;
+            }
+        }
+
+        function submitLeaveRequest() {
+            const startDate = document.getElementById('leaveStartDate').value;
+            const endDate = document.getElementById('leaveEndDate').value;
+            const reason = document.getElementById('leaveReason').value;
+            
+            if (!startDate || !endDate) {
+                alert('Please select both start and end dates.');
+                return;
+            }
+            
+            if (new Date(startDate) > new Date(endDate)) {
+                alert('End date must be after start date.');
+                return;
+            }
+            
+            const leaveRequests = loadData('leaveRequests') || [];
+            const newRequest = {
+                id: Date.now(),
+                person: currentUser,
+                startDate: startDate,
+                endDate: endDate,
+                reason: reason,
+                status: 'pending',
+                submittedDate: new Date().toISOString()
+            };
+            
+            leaveRequests.push(newRequest);
+            saveData('leaveRequests', leaveRequests);
+            
+            // Clear form
+            document.getElementById('leaveStartDate').value = '';
+            document.getElementById('leaveEndDate').value = '';
+            document.getElementById('leaveReason').value = '';
+            
+            renderLeaveRequests();
+            generateRotaSchedule(); // Refresh to show impact
+            
+            alert('Leave request submitted successfully!');
+        }
+
+        function renderLeaveRequests() {
+            const container = document.getElementById('myLeaveRequests');
+            const leaveRequests = loadData('leaveRequests') || [];
+            const myRequests = leaveRequests.filter(req => req.person === currentUser);
+            
+            if (myRequests.length === 0) {
+                container.innerHTML = '<p style="color: #666; font-style: italic;">No leave requests</p>';
+                return;
+            }
+            
+            container.innerHTML = myRequests.map(request => {
+                const startDate = new Date(request.startDate).toLocaleDateString('en-GB');
+                const endDate = new Date(request.endDate).toLocaleDateString('en-GB');
+                
+                return `
+                    <div class="leave-item ${request.status}">
+                        <div>
+                            <strong>${startDate} - ${endDate}</strong>
+                            <br><small>${request.reason || 'No reason provided'}</small>
+                            <br><small>Status: ${request.status.charAt(0).toUpperCase() + request.status.slice(1)}</small>
+                        </div>
+                        <button class="leave-remove-btn" onclick="removeLeaveRequest(${request.id})">Remove</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function removeLeaveRequest(requestId) {
+            if (!confirm('Are you sure you want to remove this leave request?')) return;
+            
+            const leaveRequests = loadData('leaveRequests') || [];
+            const updatedRequests = leaveRequests.filter(req => req.id !== requestId);
+            saveData('leaveRequests', updatedRequests);
+            
+            renderLeaveRequests();
+            generateRotaSchedule();
+        }
+
+        function populateOverrideControls() {
+            const weekSelect = document.getElementById('overrideWeek');
+            const personSelect = document.getElementById('overridePerson');
+            
+            // Populate weeks
+            weekSelect.innerHTML = '<option value="">Select Week...</option>';
+            for (let i = 0; i < 16; i++) {
+                const weekStart = getWeekStartDate(i);
+                const weekEnd = new Date(weekStart);
+                weekEnd.setDate(weekStart.getDate() + (i % 2 === 0 ? 3 : 2));
+                const label = i % 2 === 0 ? 'Mon-Thu' : 'Fri-Sun';
+                
+                weekSelect.innerHTML += `<option value="${i}">${label} - ${formatDateRange(weekStart, weekEnd)}</option>`;
+            }
+            
+            // Populate all team members
+            const allMembers = [...teamMembers.juniorPS, ...teamMembers.seniorPS, ...teamMembers.spads];
+            personSelect.innerHTML = '<option value="">Select Person...</option>' + 
+                allMembers.map(person => `<option value="${person}">${person}</option>`).join('');
+        }
+
+        function applyManualOverride() {
+            const weekIndex = document.getElementById('overrideWeek').value;
+            const role = document.getElementById('overrideRole').value;
+            const person = document.getElementById('overridePerson').value;
+            
+            if (!weekIndex || !role || !person) {
+                alert('Please select all fields for the override.');
+                return;
+            }
+            
+            // Validate person can do this role
+            const roleTeams = {
+                'junior-ps': teamMembers.juniorPS,
+                'senior-ps': teamMembers.seniorPS,
+                'spad': teamMembers.spads
+            };
+            
+            if (!roleTeams[role].includes(person)) {
+                alert(`${person} cannot be assigned to ${role} role.`);
+                return;
+            }
+            
+            updateDutyAssignment(`week-${weekIndex}`, role, person);
+            
+            // Clear selections
+            document.getElementById('overrideWeek').value = '';
+            document.getElementById('overrideRole').value = '';
+            document.getElementById('overridePerson').value = '';
+            
+            alert('Manual override applied successfully!');
+        }
+
+        function submitPermissionRequest() {
+            const reason = document.getElementById('permissionReason').value;
+            
+            if (!reason.trim()) {
+                alert('Please provide a reason for the urgent change.');
+                return;
+            }
+            
+            // In a real system, this would send to management for approval
+            // For now, we'll simulate auto-approval
+            const { weekId, role, currentPerson } = window.pendingDutyChange;
+            
+            alert('Permission request submitted. For demo purposes, this has been auto-approved.');
+            showDutyChangeOptions(weekId, role, currentPerson);
+            closePermissionModal();
+        }
+
+        function closePermissionModal() {
+            document.getElementById('permissionModal').style.display = 'none';
+            document.getElementById('permissionReason').value = '';
+            window.pendingDutyChange = null;
+        }
+
+        function exportRotaToCalendar() {
+            // This would generate an ICS file or integrate with calendar systems
+            alert('Calendar export functionality would be implemented here.\n\nThis would generate:\n- ICS file for import\n- Outlook integration\n- Google Calendar sync');
+        }
+
+        // Recalculate urgency for all existing submissions based on current date
+        function recalculateAllUrgencies() {
+            const submissions = loadData('submissions');
+            let updated = false;
+            
+            submissions.forEach(submission => {
+                if (submission.deadlineBoxReview) {
+                    const newUrgency = calculateUrgencyFromDeadlineValue(submission.deadlineBoxReview);
+                    if (submission.urgency !== newUrgency) {
+                        console.log(`Updating urgency for "${submission.submissionTitle}" from ${submission.urgency} to ${newUrgency}`);
+                        submission.urgency = newUrgency;
+                        updated = true;
+                    }
+                }
+            });
+            
+            if (updated) {
+                saveData('submissions', submissions);
+                console.log('Updated urgencies for existing submissions based on current date');
+            }
+        }
+
+        // Initialize page - recalculate urgencies and render
+        function initializePage() {
+            recalculateAllUrgencies();
+            renderSubmissions();
+            updateDashboardSummary();
+        }
+
+        // Run initialization when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePage();
+        });
+
+        // Also run on window load as fallback
+        window.addEventListener('load', function() {
+            initializePage();
+        });
 
     </script>
 </body>
