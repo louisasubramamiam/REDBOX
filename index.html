@@ -197,7 +197,11 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            min-height: 24px;
+            min-height: 40px;
+            white-space: normal;
+            word-wrap: break-word;
+            line-height: 1.2;
+            padding: 8px 4px;
         }
 
         /* Ensure all grid items fit within their allocated space */
@@ -542,6 +546,16 @@
             min-height: 24px;
             max-width: 100%;
         }
+        
+        /* Special handling for header cells to allow wrapping */
+        .grid-header > div {
+            white-space: normal;
+            word-wrap: break-word;
+            overflow: visible;
+            min-height: 40px;
+            padding: 8px 4px;
+            line-height: 1.2;
+        }
 
         /* Specific handling for action columns */
         .grid-header > div:last-child,
@@ -550,11 +564,17 @@
         }
 
         /* Make sure text content doesn't overflow in regular cells */
-        .grid-row > div:not(:last-child),
-        .grid-header > div:not(:last-child) {
+        .grid-row > div:not(:last-child) {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+        
+        /* Allow header text to wrap */
+        .grid-header > div:not(:last-child) {
+            white-space: normal;
+            word-wrap: break-word;
+            overflow: visible;
         }
 
         .user-prompt {
@@ -1057,7 +1077,11 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            min-height: 24px;
+            min-height: 40px;
+            white-space: normal;
+            word-wrap: break-word;
+            line-height: 1.2;
+            padding: 8px 4px;
         }
 
         /* Briefings grid rows: match column widths to header */
@@ -1106,7 +1130,11 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            min-height: 24px;
+            min-height: 40px;
+            white-space: normal;
+            word-wrap: break-word;
+            line-height: 1.2;
+            padding: 8px 4px;
         }
 
         /* Daybook grid rows: match column widths to header (no action column) */
@@ -1167,7 +1195,11 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            min-height: 24px;
+            min-height: 40px;
+            white-space: normal;
+            word-wrap: break-word;
+            line-height: 1.2;
+            padding: 8px 4px;
         }
 
         /* Team Management Styles */
@@ -1923,7 +1955,7 @@
             <!-- Duty Rota Section -->
             <div id="dutyRota" class="hidden">
                 <header>
-                    <h1>Duty Rota</h1>
+                    <h1>Duty rota</h1>
                     <p style="color: #666; margin-bottom: 30px;">Manage duty shifts and availability</p>
                 </header>
                 
@@ -2141,7 +2173,7 @@
         <button id="searchClear" class="search-clear" onclick="clearSearch()">×</button>
     </div>
 
-    <!-- Modal Form -->s
+    <!-- Modal Form -->
     <div id="itemModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
