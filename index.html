@@ -11,14 +11,98 @@
             box-sizing: border-box;
         }
 
+        /* Responsive table sizing for different zoom levels */
+        .submissions-grid,
+        .grid-container {
+            max-width: min(1400px, 95vw);
+            margin: 0 auto;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Ensure grids adapt to container width */
+        .grid-header,
+        .grid-row,
+        .invite-header,
+        .briefings-header,
+        .commission-header,
+        .commission-archive-header,
+        #inviteGridRows .grid-row,
+        #inviteArchiveGridRows .grid-row,
+        #briefingGridRows .grid-row,
+        #briefingsArchiveGridRows .grid-row,
+        #commissionGridRows .grid-row,
+        #commissionArchiveGridRows .grid-row,
+        #daybookGridRows .grid-row {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        /* Better responsive behavior at different zoom levels */
+        @media (max-width: 1600px) {
+            .grid-header,
+            .grid-row {
+                gap: 6px;
+                padding: 8px;
+                font-size: 10px;
+            }
+            
+            .grid-cell {
+                padding: 3px;
+                font-size: 10px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .submissions-grid {
+                max-width: 100%;
+                padding: 10px;
+            }
+            
+            .grid-header,
+            .grid-row {
+                gap: 4px;
+                padding: 6px;
+                font-size: 9px;
+            }
+            
+            .grid-cell {
+                padding: 2px;
+                font-size: 9px;
+            }
+        }
+
+        /* Ultra-compact mode for very small screens or high zoom */
+        @media (max-width: 900px) {
+            .grid-header,
+            .grid-row {
+                gap: 2px;
+                padding: 4px;
+                font-size: 8px;
+            }
+            
+            .grid-cell {
+                padding: 1px 2px;
+                font-size: 8px;
+                min-height: 18px;
+            }
+            
+            .action-btn {
+                min-width: 20px;
+                padding: 1px 2px;
+                font-size: 7px;
+                height: 20px;
+            }
+        }
+
         body {
             font-family: 'Optima', 'Lucida Grande', sans-serif;
-            background-color: #f0f6ff;
-            color: #333;
+            background-color: #fefdf9;
+            color: #2d3748;
         }
 
         .global-header {
-            background-color: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #faf8f5 100%);
             color: #c41e3a;
             text-align: center;
             padding: 20px 0;
@@ -27,7 +111,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             border-bottom: 3px solid #c41e3a;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(196, 30, 58, 0.15);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -73,7 +157,7 @@
             font-size: 12px;
             font-weight: bold;
             color: #c41e3a;
-            font-family: serif;
+            font-family: 'Optima', 'Lucida Grande', sans-serif;
         }
 
         .crown-symbol {
@@ -94,10 +178,11 @@
             min-width: 250px;
             max-width: 250px;
             width: 250px;
-            background-color: #d6e8ff;
+            background: linear-gradient(135deg, #f8f6f2 0%, #f5f3ef 100%);
             padding: 20px;
-            border-right: 1px solid #b3d4ff;
+            border-right: 1px solid #e2ddd6;
             flex-shrink: 0;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.05);
         }
 
         .sidebar h2 {
@@ -119,13 +204,18 @@
             padding: 10px 15px;
             color: #2c5aa0;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 4px;
         }
 
         .sidebar a:hover,
         .sidebar a.active {
-            background-color: #b3d4ff;
+            background: linear-gradient(135deg, #2c5aa0 0%, #4d7bc0 100%);
+            color: white;
+            transform: translateX(2px);
+            box-shadow: 0 2px 8px rgba(44, 90, 160, 0.2);
         }
 
         .archive-section {
@@ -138,8 +228,9 @@
             color: #2c5aa0;
             margin-bottom: 10px;
             padding: 10px 15px;
-            background-color: #c7deff;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0f6ff 100%);
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(44, 90, 160, 0.1);
         }
 
         .archive-submenu {
@@ -164,33 +255,39 @@
             color: #2c5aa0;
             margin-bottom: 30px;
             font-size: 2.5em;
+            text-shadow: 0 2px 4px rgba(44, 90, 160, 0.1);
         }
 
         /* Ensure table containers properly constrain content */
         .submissions-grid {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(44, 90, 160, 0.1);
-            border: 1px solid #e0f0ff;
+            background: linear-gradient(135deg, #ffffff 0%, #fefcf9 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(44, 90, 160, 0.12);
+            border: 1px solid #e8e5e0;
             padding: 20px;
             overflow-x: auto;
             width: 100%;
+            max-width: 1400px; /* Limit maximum width */
             box-sizing: border-box;
             contain: layout; /* Ensure content is contained */
+            margin: 0 auto; /* Center the table */
         }
 
         .grid-header {
             display: grid;
-            grid-template-columns: 110px 110px 80px 150px 160px 120px 100px 160px 140px;
+            grid-template-columns: minmax(80px, 1fr) minmax(80px, 1fr) minmax(60px, 0.8fr) minmax(100px, 1.2fr) minmax(120px, 1.3fr) minmax(90px, 1fr) minmax(70px, 0.9fr) minmax(120px, 1.3fr) minmax(100px, 1.1fr);
             gap: 8px;
             margin-bottom: 15px;
             padding: 10px;
-            background-color: #d6e8ff;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0f6ff 100%);
+            border-radius: 8px;
             font-weight: bold;
             color: #2c5aa0;
             align-items: center;
             box-sizing: border-box;
+            box-shadow: 0 2px 6px rgba(44, 90, 160, 0.08);
+            max-width: 100%;
+            overflow-x: auto;
         }
 
         .grid-header > div {
@@ -214,16 +311,25 @@
 
         .grid-row {
             display: grid;
-            grid-template-columns: 110px 110px 80px 150px 160px 120px 100px 160px 140px;
+            grid-template-columns: minmax(80px, 1fr) minmax(80px, 1fr) minmax(60px, 0.8fr) minmax(100px, 1.2fr) minmax(120px, 1.3fr) minmax(90px, 1fr) minmax(70px, 0.9fr) minmax(120px, 1.3fr) minmax(100px, 1.1fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
+            background: linear-gradient(135deg, #fefefe 0%, #fdfbf7 100%);
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
             min-height: 50px;
-            align-items: center;
+            align-items: start; /* Changed from center to start to accommodate wrapped text */
             box-sizing: border-box;
+            transition: all 0.2s ease;
+            max-width: 100%;
+            overflow: visible;
+        }
+
+        .grid-row:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(44, 90, 160, 0.1);
+            border-color: #d0c8c0;
         }
 
         .grid-cell {
@@ -231,11 +337,14 @@
             font-size: 11px;
             word-wrap: break-word;
             overflow-wrap: break-word;
+            -ms-word-wrap: break-word; /* Microsoft Edge specific */
+            word-break: break-word; /* Additional support for Edge */
             line-height: 1.2;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Changed to flex-start for better text wrapping */
             min-height: 24px;
             overflow: hidden;
+            color: #2d3748;
         }
 
         /* Specific handling for action cells to prevent overflow */
@@ -252,10 +361,20 @@
         .grid-cell textarea {
             width: 100%;
             padding: 4px;
-            border: 1px solid #b3d4ff;
-            border-radius: 4px;
+            border: 1px solid #d0c8c0;
+            border-radius: 6px;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
             font-size: 11px;
+            background-color: #fefdf9;
+            transition: border-color 0.2s ease;
+        }
+
+        .grid-cell input:focus,
+        .grid-cell select:focus,
+        .grid-cell textarea:focus {
+            outline: none;
+            border-color: #2c5aa0;
+            box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.1);
         }
 
         .grid-cell textarea {
@@ -268,37 +387,43 @@
         }
 
         .add-row-btn {
-            background-color: #2c5aa0;
+            background: linear-gradient(135deg, #2c5aa0 0%, #4d7bc0 100%);
             color: white;
             border: none;
             padding: 12px 24px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
             font-size: 16px;
             margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(44, 90, 160, 0.2);
         }
 
         .add-row-btn:hover {
-            background-color: #1e3f7a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(44, 90, 160, 0.3);
         }
 
         .add-item-btn {
-            background-color: white;
+            background: linear-gradient(135deg, #ffffff 0%, #faf8f5 100%);
             color: #2c5aa0;
             border: 2px solid #2c5aa0;
             padding: 12px 24px;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
             font-size: 16px;
             margin-bottom: 20px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(44, 90, 160, 0.1);
         }
 
         .add-item-btn:hover {
-            background-color: #2c5aa0;
+            background: linear-gradient(135deg, #2c5aa0 0%, #4d7bc0 100%);
             color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(44, 90, 160, 0.2);
         }
 
         .modal {
@@ -313,14 +438,16 @@
         }
 
         .modal-content {
-            background-color: #fefefe;
+            background: linear-gradient(135deg, #ffffff 0%, #fefcf9 100%);
             margin: 5% auto;
             padding: 30px;
             border: none;
+            border-radius: 12px;
             max-width: 800px;
             width: 90%;
             max-height: 80vh;
             overflow-y: auto;
+            box-shadow: 0 8px 24px rgba(44, 90, 160, 0.15);
         }
 
         .modal-header {
@@ -351,10 +478,20 @@
         .form-group select,
         .form-group textarea {
             padding: 10px;
-            border: 1px solid #b3d4ff;
-            border-radius: 4px;
+            border: 1px solid #d0c8c0;
+            border-radius: 8px;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
             font-size: 14px;
+            background-color: #fefdf9;
+            transition: all 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2c5aa0;
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.1);
         }
 
         .form-group textarea {
@@ -380,39 +517,42 @@
         .form-btn {
             padding: 10px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
             font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
 
         .btn-add {
-            background-color: #2c5aa0;
+            background: linear-gradient(135deg, #2c5aa0 0%, #4d7bc0 100%);
             color: white;
         }
 
         .btn-submit-spads {
-            background-color: #1e4a7a;
+            background: linear-gradient(135deg, #1e4a7a 0%, #2c5aa0 100%);
             color: white;
         }
 
         .btn-submit-lc {
-            background-color: #3d6bb0;
+            background: linear-gradient(135deg, #3d6bb0 0%, #5a7cb0 100%);
             color: white;
         }
 
         .btn-submit-archive {
-            background-color: #5a7cb0;
+            background: linear-gradient(135deg, #5a7cb0 0%, #7a90c0 100%);
             color: white;
         }
 
         .btn-cancel {
-            background-color: #dc3545;
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
             color: white;
         }
 
         .form-btn:hover {
-            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         .action-buttons {
@@ -452,19 +592,19 @@
         }
 
         .edit-btn {
-            background-color: #4d7bc0;
+            background: linear-gradient(135deg, #4d7bc0 0%, #6a8fd0 100%);
             color: white;
             border: 1px solid #3c6bb5;
         }
 
         .delete-btn {
-            background-color: #dc3545;
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
             color: white;
             border: 1px solid #c82333;
         }
 
         .archive-btn {
-            background-color: #5a7cb0;
+            background: linear-gradient(135deg, #5a7cb0 0%, #7a90c0 100%);
             color: white;
             border: 1px solid #4a6ba0;
         }
@@ -577,11 +717,118 @@
             overflow: visible;
         }
 
+        /* Force text wrapping in all comment and text cells across all browsers */
+        .grid-cell,
+        .grid-row > div {
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+            -moz-hyphens: auto;
+        }
+
+        /* Ensure specific comment columns in each grid type allow text wrapping */
+        /* Main grid - Comments column (8th column) */
+        .grid-row > div:nth-child(8) {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+            hyphens: auto !important;
+            -webkit-hyphens: auto !important;
+            -ms-hyphens: auto !important;
+            -moz-hyphens: auto !important;
+        }
+
+        /* Briefings grid - Comments columns (8th and 9th columns) */
+        #briefingGridRows .grid-row > div:nth-child(8),
+        #briefingGridRows .grid-row > div:nth-child(9),
+        #briefingsArchiveGridRows .grid-row > div:nth-child(8),
+        #briefingsArchiveGridRows .grid-row > div:nth-child(9) {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+        }
+
+        /* Invites grid - Comment columns (9th and 10th columns) */
+        #inviteGridRows .grid-row > div:nth-child(9),
+        #inviteGridRows .grid-row > div:nth-child(10),
+        #inviteArchiveGridRows .grid-row > div:nth-child(9),
+        #inviteArchiveGridRows .grid-row > div:nth-child(10) {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+        }
+
+        /* Commission grid - Commission details column (1st column) and comments */
+        #commissionGridRows .grid-row > div:nth-child(1),
+        #commissionArchiveGridRows .grid-row > div:nth-child(1) {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+            overflow: visible !important;
+            text-overflow: clip !important;
+        }
+
+        /* Microsoft Edge specific fixes for text wrapping */
+        @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+            /* Target Microsoft Edge specifically */
+            .grid-cell {
+                word-wrap: break-word;
+                -ms-word-wrap: break-word;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            .grid-row > div:nth-child(8),  
+            .grid-row > div:nth-child(9),  
+            .grid-row > div:nth-child(10),
+            .grid-cell.comments-cell {
+                word-wrap: break-word !important;
+                -ms-word-wrap: break-word !important;
+                word-break: break-word !important;
+                white-space: normal !important;
+            }
+            
+            .grid-cell textarea {
+                word-wrap: break-word;
+                -ms-word-wrap: break-word;
+                word-break: break-word;
+                white-space: normal;
+            }
+            
+            .spad-comment-form-group textarea {
+                word-wrap: break-word;
+                -ms-word-wrap: break-word;
+                word-break: break-word;
+                white-space: normal;
+            }
+        }
+
+        /* Universal text wrapping fixes that work across all browsers */
+        .grid-cell textarea,
+        .form-group textarea,
+        .spad-comment-form-group textarea {
+            white-space: normal !important;
+            word-wrap: break-word !important;
+            overflow-wrap: break-word !important;
+            word-break: break-word !important;
+            -ms-word-wrap: break-word !important;
+        }
+
         .user-prompt {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(44, 90, 160, 0.1);
-            border: 1px solid #e0f0ff;
+            background: linear-gradient(135deg, #ffffff 0%, #fefcf9 100%);
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(44, 90, 160, 0.12);
+            border: 1px solid #e8e5e0;
             padding: 30px;
             text-align: center;
             max-width: 400px;
@@ -596,27 +843,31 @@
         .user-prompt select {
             width: 100%;
             padding: 10px;
-            border: 1px solid #b3d4ff;
-            border-radius: 4px;
+            border: 1px solid #d0c8c0;
+            border-radius: 8px;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
             font-size: 16px;
             margin-bottom: 20px;
+            background-color: #fefdf9;
         }
 
         .user-prompt button {
-            background-color: #2c5aa0;
+            background: linear-gradient(135deg, #2c5aa0 0%, #4d7bc0 100%);
             color: white;
             border: none;
             padding: 12px 24px;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
             font-size: 16px;
             margin-right: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(44, 90, 160, 0.2);
         }
 
         .user-prompt button:hover {
-            background-color: #1e3f7a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(44, 90, 160, 0.3);
         }
 
         .user-prompt button.secondary {
@@ -628,11 +879,12 @@
         }
 
         .user-info {
-            background-color: #e3f2fd;
-            padding: 10px 20px;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0f6ff 100%);
+            padding: 12px 20px;
+            border-radius: 8px;
             margin-bottom: 20px;
             text-align: center;
+            border: 1px solid #d6e8ff;
         }
 
         .user-info span {
@@ -707,7 +959,7 @@
         }
 
         .spad-comment-modal-content {
-            background-color: #fefefe;
+            background-color: #fefdf9;
             margin: 15% auto;
             padding: 30px;
             border: none;
@@ -825,252 +1077,424 @@
             }
         }
 
-        /* Mobile table scroll indicators */
+        /* Enhanced Mobile/Tablet UI - Improved Responsiveness */
         @media (max-width: 768px) {
+            /* Global container improvements */
+            .container {
+                flex-direction: column;
+                padding: 0;
+                margin: 0;
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+            }
+            
+            .main-content {
+                padding: 10px;
+                box-sizing: border-box;
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+                margin: 10px 0;
+            }
+
+            /* Improved table container with scroll indicators */
             .submissions-grid::before {
                 content: '← Scroll horizontally to view all columns →';
                 display: block;
                 text-align: center;
-                font-size: 12px;
+                font-size: 11px;
                 color: #666;
                 font-style: italic;
-                padding: 10px;
-                background-color: #f0f6ff;
-                border-radius: 4px;
-                margin-bottom: 10px;
-                border: 1px solid #e0f0ff;
+                padding: 8px;
+                background: linear-gradient(135deg, #f5f3ef 0%, #f8f6f2 100%);
+                border-radius: 6px;
+                margin-bottom: 8px;
+                border: 1px solid #e2ddd6;
             }
             
-            /* Smooth scrolling for tables */
+            /* Enhanced table scrolling */
             .submissions-grid {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
                 scroll-behavior: smooth;
+                width: 100%;
+                box-sizing: border-box;
+                border: 1px solid #e8e5e0;
+                border-radius: 8px;
+                background: linear-gradient(135deg, #ffffff 0%, #fefcf9 100%);
+                padding: 8px;
+                margin-bottom: 15px;
             }
             
-            /* Show scrollbar on mobile for better UX */
+            /* Better scrollbar styling */
             .submissions-grid::-webkit-scrollbar {
-                height: 8px;
+                height: 10px;
             }
             
             .submissions-grid::-webkit-scrollbar-track {
                 background: #f1f1f1;
-                border-radius: 4px;
+                border-radius: 6px;
             }
             
             .submissions-grid::-webkit-scrollbar-thumb {
                 background: #2c5aa0;
-                border-radius: 4px;
+                border-radius: 6px;
+                border: 2px solid #f1f1f1;
             }
             
             .submissions-grid::-webkit-scrollbar-thumb:hover {
                 background: #1e3f7a;
             }
 
-            .container {
-                flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                padding: 15px;
-            }
-            
-            .main-content {
-                padding: 15px;
-            }
-            
-            header h1 {
-                font-size: 2em;
-            }
-
-            /* Keep horizontal table layout on mobile - just ensure scrolling */
-            .submissions-grid {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                min-width: 100%;
-            }
-            
-            /* Maintain grid layouts but allow horizontal scroll */
+            /* Optimized grid layouts for mobile readability */
             .grid-header,
             .grid-row {
-                min-width: 800px; /* Ensure minimum width for readability */
+                min-width: 100%;
+                box-sizing: border-box;
+                border-radius: 4px;
+                margin-bottom: 8px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             }
             
-            /* Specific grid layouts for mobile */
+            /* Box work grid - optimized column widths */
             .grid-header {
-                grid-template-columns: 110px 110px 80px 150px 160px 120px 100px 160px 140px;
+                grid-template-columns: 90px 90px 70px 130px 140px 100px 80px 130px 120px;
+                min-width: 850px;
+                font-size: 10px;
             }
             
             .grid-row {
-                grid-template-columns: 110px 110px 80px 150px 160px 120px 100px 160px 140px;
+                grid-template-columns: 90px 90px 70px 130px 140px 100px 80px 130px 120px;
+                min-width: 850px;
             }
             
-            /* Invite grids */
+            /* Invite grids - compact mobile layout */
             .invite-header,
             #inviteGridRows .grid-row,
             #inviteArchiveGridRows .grid-row {
-                min-width: 900px;
-                grid-template-columns: 120px 80px 80px 60px 60px 80px 100px 100px 100px 100px;
+                grid-template-columns: 100px 70px 70px 50px 50px 70px 85px 85px 85px 85px;
+                min-width: 750px;
+                gap: 6px;
             }
             
-            /* Briefings grids */
+            .invite-header {
+                font-size: 10px;
+            }
+            
+            /* Briefings grids - optimized for mobile */
             .briefings-header,
             #briefingGridRows .grid-row,
             #briefingsArchiveGridRows .grid-row {
-                min-width: 1000px;
-                grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;
+                grid-template-columns: 95px 95px 85px 70px 130px 85px 120px 110px 110px 130px;
+                min-width: 930px;
+                gap: 6px;
             }
             
-            /* Commission grids */
+            .briefings-header {
+                font-size: 10px;
+            }
+            
+            /* Commission grids - mobile optimized */
             .commission-header,
             #commissionGridRows .grid-row {
-                min-width: 700px;
-                grid-template-columns: 300px 120px 140px 120px;
+                grid-template-columns: 250px 100px 120px 100px;
+                min-width: 570px;
+                gap: 6px;
             }
             
             .commission-archive-header,
             #commissionArchiveGridRows .grid-row {
-                min-width: 820px;
-                grid-template-columns: 300px 120px 140px 120px 120px;
+                grid-template-columns: 250px 100px 120px 100px 100px;
+                min-width: 670px;
+                gap: 6px;
             }
             
-            /* Daybook grids */
+            /* Daybook grids - mobile layout */
             #daybookGridRows .grid-row {
-                min-width: 950px;
-                grid-template-columns: 120px 120px 90px 160px 110px 160px 140px 140px;
+                grid-template-columns: 100px 100px 80px 140px 95px 140px 120px 120px;
+                min-width: 795px;
+                gap: 6px;
             }
             
-            /* Duty Rota grids */
+            /* Duty Rota grids - mobile optimized */
             #rotaContainer .grid-header,
             #rotaContainer .grid-row {
-                min-width: 750px;
-                grid-template-columns: 200px 150px 150px 150px 100px;
+                grid-template-columns: 160px 120px 120px 120px 80px;
+                min-width: 600px;
+                gap: 10px;
             }
             
+            /* Enhanced mobile grid cells */
+            .grid-cell {
+                font-size: 10px;
+                padding: 6px 4px;
+                line-height: 1.3;
+                min-height: 20px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                hyphens: auto;
+                -webkit-hyphens: auto;
+                -ms-hyphens: auto;
+            }
+            
+            /* Better action buttons on mobile */
             .action-buttons {
                 justify-content: flex-start;
-                gap: 2px;
+                gap: 1px;
                 flex-wrap: nowrap;
                 overflow: hidden;
                 max-width: 100%;
+                padding: 2px;
             }
             
             .action-btn {
-                min-width: 32px;
-                padding: 4px 6px;
-                font-size: 9px;
+                min-width: 28px;
+                max-width: 28px;
+                padding: 2px 4px;
+                font-size: 8px;
+                border-radius: 3px;
                 flex-shrink: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             
-            /* Ensure form grids stack on mobile */
+            /* Mobile form improvements */
             .form-grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 12px;
+                padding: 10px;
             }
             
-            /* Quick filters wrap on mobile */
+            .form-grid input,
+            .form-grid select,
+            .form-grid textarea {
+                font-size: 14px;
+                padding: 8px;
+                border-radius: 6px;
+            }
+            
+            .form-grid textarea {
+                min-height: 60px;
+            }
+            
+            /* Enhanced quick filters */
             .quick-filters {
                 flex-wrap: wrap;
-                gap: 5px;
+                gap: 4px;
+                justify-content: flex-start;
+                margin-bottom: 10px;
             }
             
             .filter-btn {
-                font-size: 11px;
-                padding: 6px 12px;
+                font-size: 10px;
+                padding: 5px 10px;
+                border-radius: 4px;
+                flex-shrink: 0;
+                white-space: nowrap;
             }
             
-            /* Dashboard cards stack better on mobile */
+            /* Improved dashboard cards */
             .dashboard-summary {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 15px;
-                padding: 15px 0;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 10px;
+                padding: 10px 0;
             }
             
             .status-card {
-                padding: 15px;
+                padding: 12px;
+                border-radius: 6px;
+                text-align: center;
             }
             
             .status-card h3 {
-                font-size: 2em;
+                font-size: 1.6em;
+                margin-bottom: 5px;
             }
             
-            /* Search container adjustments */
+            .status-card p {
+                font-size: 12px;
+                margin: 0;
+            }
+            
+            /* Mobile search container */
             .search-container {
-                min-width: 200px;
-                bottom: 15px;
-                right: 15px;
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                min-width: 180px;
+                max-width: calc(100vw - 20px);
+                z-index: 1000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                border-radius: 8px;
             }
             
-            /* Modal adjustments */
+            .search-container input {
+                font-size: 14px;
+                padding: 8px;
+            }
+            
+            /* Enhanced modal for mobile */
             .modal-content {
-                margin: 10% auto;
+                margin: 5% auto;
                 width: 95%;
-                padding: 20px;
+                max-width: 500px;
+                padding: 15px;
+                max-height: 90vh;
+                overflow-y: auto;
+                border-radius: 8px;
+                box-sizing: border-box;
             }
             
-            /* Sidebar adjustments */
+            .modal h2 {
+                font-size: 1.4em;
+                margin-bottom: 15px;
+            }
+            
+            /* Improved sidebar navigation */
             .sidebar ul {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 5px;
+                gap: 4px;
+                padding: 0;
+                margin: 0;
             }
             
             .sidebar li {
-                margin-bottom: 5px;
+                margin-bottom: 0;
+                list-style: none;
             }
             
             .sidebar a {
                 padding: 8px 12px;
-                font-size: 14px;
+                font-size: 13px;
+                border-radius: 6px;
+                display: block;
+                white-space: nowrap;
+                text-decoration: none;
+                background: linear-gradient(135deg, #f5f3ef 0%, #f8f6f2 100%);
+                color: #2c5aa0;
+                border: 1px solid #e2ddd6;
+                transition: all 0.2s ease;
+            }
+            
+            .sidebar a:hover,
+            .sidebar a.active {
+                background: linear-gradient(135deg, #2c5aa0 0%, #4d7bc0 100%);
+                color: white;
             }
             
             .archive-submenu {
                 margin-left: 0;
+                margin-top: 5px;
                 display: flex;
                 flex-wrap: wrap;
-                gap: 5px;
+                gap: 4px;
+            }
+            
+            .archive-submenu a {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+            
+            /* Mobile-specific improvements for text content */
+            .grid-cell textarea {
+                font-size: 12px;
+                min-height: 40px;
+                padding: 6px;
+                border-radius: 4px;
+                resize: vertical;
+            }
+            
+            .grid-cell input,
+            .grid-cell select {
+                font-size: 12px;
+                padding: 4px 6px;
+                border-radius: 4px;
+                min-height: 24px;
+            }
+            
+            /* Ensure proper spacing and containment */
+            .main-content > div {
+                margin-bottom: 15px;
+            }
+            
+            /* Hide scroll indicators on very small screens */
+            @media (max-width: 480px) {
+                .submissions-grid::before {
+                    font-size: 10px;
+                    padding: 6px;
+                }
+                
+                .grid-cell {
+                    font-size: 9px;
+                    padding: 4px 2px;
+                }
+                
+                .action-btn {
+                    font-size: 7px;
+                    min-width: 24px;
+                    max-width: 24px;
+                    padding: 1px 3px;
+                }
             }
         }
 
         /* Additional CSS for invite grid rows */
         #inviteGridRows .grid-row {
             display: grid;
-            grid-template-columns: 120px 80px 80px 60px 60px 80px 100px 100px 100px 100px;
+            grid-template-columns: minmax(100px, 1.2fr) minmax(60px, 0.8fr) minmax(60px, 0.8fr) minmax(50px, 0.6fr) minmax(50px, 0.6fr) minmax(60px, 0.8fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
-            align-items: center;
+            background: linear-gradient(135deg, #fefefe 0%, #fdfbf7 100%);
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
+            align-items: start;
             box-sizing: border-box;
+            max-width: 100%;
         }
         /* Add this for archive invite grid rows */
         #inviteArchiveGridRows .grid-row {
             display: grid;
-            grid-template-columns: 120px 80px 80px 60px 60px 80px 100px 100px 100px 100px;
+            grid-template-columns: minmax(100px, 1.2fr) minmax(60px, 0.8fr) minmax(60px, 0.8fr) minmax(50px, 0.6fr) minmax(50px, 0.6fr) minmax(60px, 0.8fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
-            align-items: center;
+            background: linear-gradient(135deg, #fefefe 0%, #fdfbf7 100%);
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
+            align-items: start;
             box-sizing: border-box;
+            max-width: 100%;
         }
 
         /* Invite grid headers - ensure consistent alignment */
         .invite-header {
             display: grid;
-            grid-template-columns: 120px 80px 80px 60px 60px 80px 100px 100px 100px 100px;
+            grid-template-columns: minmax(100px, 1.2fr) minmax(60px, 0.8fr) minmax(60px, 0.8fr) minmax(50px, 0.6fr) minmax(50px, 0.6fr) minmax(60px, 0.8fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(80px, 1fr);
             gap: 8px;
             margin-bottom: 15px;
             padding: 10px;
-            background-color: #d6e8ff;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0f6ff 100%);
+            border-radius: 8px;
             font-weight: bold;
             color: #2c5aa0;
             align-items: center;
             box-sizing: border-box;
+            box-shadow: 0 2px 6px rgba(44, 90, 160, 0.08);
+            max-width: 100%;
         }
 
         .invite-header > div {
@@ -1087,43 +1511,47 @@
         /* Briefings grid rows: match column widths to header */
         #briefingGridRows .grid-row {
             display: grid;
-            grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;
+            grid-template-columns: minmax(80px, 1fr) minmax(80px, 1fr) minmax(70px, 0.9fr) minmax(60px, 0.8fr) minmax(100px, 1.2fr) minmax(70px, 0.9fr) minmax(100px, 1.2fr) minmax(90px, 1.1fr) minmax(90px, 1.1fr) minmax(100px, 1.2fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
-            align-items: center;
+            background: linear-gradient(135deg, #fefefe 0%, #fdfbf7 100%);
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
+            align-items: start;
             box-sizing: border-box;
+            max-width: 100%;
         }
         
         #briefingsArchiveGridRows .grid-row {
             display: grid;
-            grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;
+            grid-template-columns: minmax(80px, 1fr) minmax(80px, 1fr) minmax(70px, 0.9fr) minmax(60px, 0.8fr) minmax(100px, 1.2fr) minmax(70px, 0.9fr) minmax(100px, 1.2fr) minmax(90px, 1.1fr) minmax(90px, 1.1fr) minmax(100px, 1.2fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
-            align-items: center;
+            background: linear-gradient(135deg, #fefefe 0%, #fdfbf7 100%);
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
+            align-items: start;
             box-sizing: border-box;
+            max-width: 100%;
         }
 
         /* Briefings grid headers - ensure consistent alignment */
         .briefings-header {
             display: grid;
-            grid-template-columns: 110px 110px 100px 80px 150px 100px 140px 130px 130px 150px;
+            grid-template-columns: minmax(80px, 1fr) minmax(80px, 1fr) minmax(70px, 0.9fr) minmax(60px, 0.8fr) minmax(100px, 1.2fr) minmax(70px, 0.9fr) minmax(100px, 1.2fr) minmax(90px, 1.1fr) minmax(90px, 1.1fr) minmax(100px, 1.2fr);
             gap: 8px;
             margin-bottom: 15px;
             padding: 10px;
-            background-color: #d6e8ff;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0f6ff 100%);
+            border-radius: 8px;
             font-weight: bold;
             color: #2c5aa0;
             align-items: center;
             box-sizing: border-box;
+            box-shadow: 0 2px 6px rgba(44, 90, 160, 0.08);
+            max-width: 100%;
         }
 
         .briefings-header > div {
@@ -1140,55 +1568,62 @@
         /* Daybook grid rows: match column widths to header (no action column) */
         #daybookGridRows .grid-row {
             display: grid;
-            grid-template-columns: 120px 120px 90px 160px 110px 160px 140px 140px;
+            grid-template-columns: minmax(90px, 1fr) minmax(90px, 1fr) minmax(70px, 0.8fr) minmax(120px, 1.3fr) minmax(80px, 0.9fr) minmax(120px, 1.3fr) minmax(100px, 1.1fr) minmax(100px, 1.1fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
+            background: linear-gradient(135deg, #fefefe 0%, #fdfbf7 100%);
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
+            max-width: 100%;
         }
 
         /* Commission grid rows: match column widths to header */
         .commission-header,
         #commissionGridRows .grid-row {
             display: grid;
-            grid-template-columns: 300px 120px 140px 120px;
+            grid-template-columns: minmax(200px, 2fr) minmax(80px, 1fr) minmax(100px, 1.2fr) minmax(80px, 1fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
+            background: linear-gradient(135deg, #fefefe 0%, #fdfbf7 100%);
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
+            align-items: start;
+            max-width: 100%;
         }
 
         .commission-header {
-            background-color: #d6e8ff;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0f6ff 100%);
             font-weight: bold;
             color: #2c5aa0;
             margin-bottom: 15px;
+            box-shadow: 0 2px 6px rgba(44, 90, 160, 0.08);
         }
         
         .commission-archive-header,
         #commissionArchiveGridRows .grid-row {
             display: grid;
-            grid-template-columns: 300px 120px 140px 120px 120px;
+            grid-template-columns: minmax(200px, 2fr) minmax(80px, 1fr) minmax(100px, 1.2fr) minmax(80px, 1fr) minmax(80px, 1fr);
             gap: 8px;
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #f8fbff;
-            border-radius: 5px;
-            border: 1px solid #e0f0ff;
+            background: linear-gradient(135deg, #fefefe 0%, #fdfbf7 100%);
+            border-radius: 8px;
+            border: 1px solid #e8e5e0;
             box-sizing: border-box;
+            align-items: start;
+            max-width: 100%;
         }
 
         .commission-archive-header {
-            background-color: #d6e8ff;
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0f6ff 100%);
             font-weight: bold;
             color: #2c5aa0;
             margin-bottom: 15px;
-            align-items: center;
+            align-items: start;
             box-sizing: border-box;
+            box-shadow: 0 2px 6px rgba(44, 90, 160, 0.08);
         }
 
         .commission-archive-header > div {
@@ -1296,6 +1731,28 @@
             background-color: transparent;
         }
 
+        /* RSVP deadline highlighting */
+        .rsvp-overdue {
+            background-color: #ffe6e6 !important;
+            border-color: #ffb3b3 !important;
+            border-left: 4px solid #dc3545 !important;
+        }
+
+        .rsvp-overdue .grid-cell {
+            background-color: transparent;
+        }
+
+        .rsvp-overdue-indicator {
+            display: inline-block;
+            background-color: #dc3545;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+
         /* Styling for urgency reasons in comments */
         .grid-cell:has-text("[URGENT:") {
             font-weight: bold;
@@ -1316,11 +1773,11 @@
             bottom: 20px;
             right: 20px;
             z-index: 1000;
-            background-color: white;
+            background: linear-gradient(135deg, #ffffff 0%, #fefcf9 100%);
             border: 2px solid #2c5aa0;
             border-radius: 25px;
             padding: 10px 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 18px rgba(44, 90, 160, 0.2);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -1380,43 +1837,43 @@
         }
 
         .status-card {
-            background: #e8f4f8;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fc 100%);
             color: #2c5aa0;
             border: 2px solid #2c5aa0;
             padding: 20px;
-            border-radius: 12px;
+            border-radius: 16px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(44, 90, 160, 0.1);
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 18px rgba(44, 90, 160, 0.12);
             position: relative;
             overflow: hidden;
         }
 
         .status-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(44, 90, 160, 0.2);
-            background: #dbeafe;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(44, 90, 160, 0.2);
+            background: linear-gradient(135deg, #dbeafe 0%, #e8f4f8 100%);
         }
 
         .status-card.urgent {
-            background: #fee;
+            background: linear-gradient(135deg, #fee 0%, #fef5f5 100%);
             color: #dc3545;
             border-color: #dc3545;
         }
 
         .status-card.urgent:hover {
-            background: #fdd;
+            background: linear-gradient(135deg, #fdd 0%, #fee 100%);
         }
 
         .status-card.warning {
-            background: #e8f4f8;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fc 100%);
             color: #2c5aa0;
             border-color: #2c5aa0;
         }
 
         .status-card.success {
-            background: #e8f4f8;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fc 100%);
             color: #2c5aa0;
             border-color: #2c5aa0;
         }
@@ -1538,20 +1995,23 @@
 
         .filter-btn {
             padding: 8px 15px;
-            background-color: white;
+            background: linear-gradient(135deg, #ffffff 0%, #fefcf9 100%);
             color: #2c5aa0;
             border: 2px solid #2c5aa0;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
             font-size: 12px;
             font-family: 'Optima', 'Lucida Grande', sans-serif;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(44, 90, 160, 0.1);
         }
 
         .filter-btn:hover,
         .filter-btn.active {
-            background-color: #2c5aa0;
+            background: linear-gradient(135deg, #2c5aa0 0%, #4d7bc0 100%);
             color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(44, 90, 160, 0.2);
         }
 
         .filter-btn.urgent {
@@ -1575,10 +2035,12 @@
         /* Duty Rota specific styles */
         #rotaContainer .grid-header {
             grid-template-columns: 200px 150px 150px 150px 100px;
+            gap: 12px;
         }
         
         #rotaContainer .grid-row {
             grid-template-columns: 200px 150px 150px 150px 100px;
+            gap: 12px;
         }
         
         .duty-shift-type {
@@ -1587,10 +2049,10 @@
         }
         
         .duty-person {
-            background-color: #e8f4f8;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8fc 100%);
             padding: 4px 8px;
-            border-radius: 4px;
-            border: 1px solid #b3d4ff;
+            border-radius: 6px;
+            border: 1px solid #d0c8c0;
             font-size: 11px;
         }
         
@@ -1605,6 +2067,30 @@
         .manual-override::after {
             content: ' ⚠️';
             color: #ff8c00;
+        }
+
+        /* Duty rota shift cell - allow multi-line content */
+        .duty-shift-cell {
+            display: block !important; /* Override flex display */
+            align-items: unset !important;
+            white-space: normal !important;
+            line-height: 1.4;
+            padding: 8px 4px;
+            min-height: 40px;
+        }
+
+        .duty-shift-cell strong {
+            display: block;
+            font-weight: bold;
+            color: #2c5aa0;
+            margin-bottom: 4px;
+        }
+
+        .duty-shift-cell span {
+            display: block;
+            font-size: 10px;
+            color: #666;
+            line-height: 1.2;
         }
 
     </style>
@@ -1680,7 +2166,7 @@
                     <button class="filter-btn" onclick="showOverdueItems()">Overdue</button>
                 </div>
                 
-                <button class="add-item-btn" onclick="openModal()">Add item to grid</button>
+                <button class="add-item-btn" onclick="openModal()">Add item</button>
                 
                 <div class="submissions-grid">
                     <div class="grid-header">
@@ -1693,39 +2179,6 @@
                         <div>Days with SpAds</div>
                         <div>Comments</div>
                         <div>Actions</div>
-                    </div>
-                    <!-- Sample rows for demonstration -->
-                    <div class="grid-row">
-                        <div class="grid-cell">Ben</div>
-                        <div class="grid-cell">Sophie</div>
-                        <div class="grid-cell">Routine</div>
-                        <div class="grid-cell">Budget Approval</div>
-                        <div class="grid-cell">https://sharepoint.com/budget</div>
-                        <div class="grid-cell">With SpAds</div>
-                        <div class="grid-cell">2</div>
-                        <div class="grid-cell">Reviewed by SpAd</div>
-                        <div class="grid-cell actions-cell">
-                            <div class="action-buttons">
-                                <button class="action-btn edit-btn" onclick="alert('Edit not implemented in sample row')" data-tooltip="Edit this item">✏️ Edit</button>
-                                <button class="action-btn delete-btn" onclick="this.closest('.grid-row').remove()" data-tooltip="Delete this item">🗑️ Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid-row">
-                        <div class="grid-cell">Charlotte</div>
-                        <div class="grid-cell">Tash</div>
-                        <div class="grid-cell">Urgent</div>
-                        <div class="grid-cell">Policy Review</div>
-                        <div class="grid-cell">https://sharepoint.com/policy</div>
-                        <div class="grid-cell">Ready for box</div>
-                        <div class="grid-cell">1</div>
-                        <div class="grid-cell">Requires urgent attention</div>
-                        <div class="grid-cell actions-cell">
-                            <div class="action-buttons">
-                                <button class="action-btn edit-btn" onclick="alert('Edit not implemented in sample row')" data-tooltip="Edit this item">✏️ Edit</button>
-                                <button class="action-btn delete-btn" onclick="this.closest('.grid-row').remove()" data-tooltip="Delete this item">🗑️ Delete</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -2386,6 +2839,11 @@
                         <input type="time" id="inviteEndTime">
                     </div>
                     
+                    <div class="form-group">
+                        <label for="inviteRSVPDeadline">RSVP deadline</label>
+                        <input type="date" id="inviteRSVPDeadline">
+                    </div>
+                    
                     <div class="form-group full-width">
                         <label for="diaryManagerComments">Diary manager comments</label>
                         <textarea id="diaryManagerComments" placeholder="Enter diary manager comments..."></textarea>
@@ -2815,6 +3273,7 @@
                 inviteDate: document.getElementById('inviteDate').value,
                 inviteStartTime: document.getElementById('inviteStartTime').value,
                 inviteEndTime: document.getElementById('inviteEndTime').value,
+                inviteRSVPDeadline: document.getElementById('inviteRSVPDeadline').value,
                 inviteStatus: document.getElementById('inviteStatus').value,
                 diaryManagerComments: document.getElementById('diaryManagerComments').value,
                 psCommentsInvite: document.getElementById('psCommentsInvite').value,
@@ -3141,8 +3600,6 @@
             }
             
             console.log('Validation passed, adding submission');
-            // Remove sample rows if present
-            removeSampleRows();
             addSubmission(data);
             closeModal();
         }
@@ -3182,8 +3639,6 @@
             if (!data.firstAdded) {
                 data.firstAdded = new Date().toISOString();
             }
-            // Remove sample rows if present
-            removeSampleRows();
             addSubmission(data);
             closeModal();
         }
@@ -3219,8 +3674,6 @@
             if (!data.dateBoxed) {
                 data.dateBoxed = new Date().toISOString().split('T')[0];
             }
-            // Remove sample rows if present
-            removeSampleRows();
             addSubmission(data);
             closeModal();
         }
@@ -3709,6 +4162,9 @@
                 return dateA - dateB;
             });
             
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Reset time to beginning of day for accurate comparison
+            
             sortedRows.forEach((data, idx) => {
                 // Find original index for edit/delete operations
                 const originalIdx = rows.findIndex(row => 
@@ -3716,8 +4172,19 @@
                     row.inviteDate === data.inviteDate &&
                     row.inviteStartTime === data.inviteStartTime
                 );
+                
+                // Check if RSVP deadline has passed
+                let isRSVPOverdue = false;
+                if (data.inviteRSVPDeadline) {
+                    const rsvpDeadline = new Date(data.inviteRSVPDeadline);
+                    rsvpDeadline.setHours(23, 59, 59, 999); // Set to end of deadline day
+                    if (today > rsvpDeadline) {
+                        isRSVPOverdue = true;
+                    }
+                }
+                
                 const row = document.createElement('div');
-                row.className = 'grid-row';
+                row.className = isRSVPOverdue ? 'grid-row rsvp-overdue' : 'grid-row';
                 row.innerHTML = `
                     <div class="grid-cell">${data.inviteTitle || ''}</div>
                     <div class="grid-cell">${data.inviteLeadPS || ''}</div>
@@ -3761,6 +4228,7 @@
             document.getElementById('inviteDate').value = data.inviteDate || '';
             document.getElementById('inviteStartTime').value = data.inviteStartTime || '';
             document.getElementById('inviteEndTime').value = data.inviteEndTime || '';
+            document.getElementById('inviteRSVPDeadline').value = data.inviteRSVPDeadline || '';
             document.getElementById('inviteStatus').value = data.inviteStatus || '';
             document.getElementById('diaryManagerComments').value = data.diaryManagerComments || '';
             document.getElementById('psCommentsInvite').value = data.psCommentsInvite || '';
@@ -3876,6 +4344,9 @@
                 return dateB - dateA; // Most recent first (descending order)
             });
             
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Reset time to beginning of day for accurate comparison
+            
             sortedRows.forEach((data, idx) => {
                 // Find original index for delete operations
                 const originalIdx = rows.findIndex(row => 
@@ -3884,8 +4355,20 @@
                     row.inviteStartTime === data.inviteStartTime &&
                     row.archivedDate === data.archivedDate
                 );
+                
+                // Check if RSVP deadline had passed (for archived items)
+                let isRSVPOverdue = false;
+                if (data.inviteRSVPDeadline) {
+                    const rsvpDeadline = new Date(data.inviteRSVPDeadline);
+                    rsvpDeadline.setHours(23, 59, 59, 999); // Set to end of deadline day
+                    const archiveDate = new Date(data.archivedDate || today);
+                    if (archiveDate > rsvpDeadline) {
+                        isRSVPOverdue = true;
+                    }
+                }
+                
                 const row = document.createElement('div');
-                row.className = 'grid-row';
+                row.className = isRSVPOverdue ? 'grid-row rsvp-overdue' : 'grid-row';
                 row.innerHTML = `
                     <div class="grid-cell">${data.inviteTitle || ''}</div>
                     <div class="grid-cell">${data.inviteLeadPS || ''}</div>
@@ -3924,6 +4407,7 @@
             document.getElementById('inviteDate').value = data.inviteDate || '';
             document.getElementById('inviteStartTime').value = data.inviteStartTime || '';
             document.getElementById('inviteEndTime').value = data.inviteEndTime || '';
+            document.getElementById('inviteRSVPDeadline').value = data.inviteRSVPDeadline || '';
             document.getElementById('inviteStatus').value = data.inviteStatus || '';
             document.getElementById('diaryManagerComments').value = data.diaryManagerComments || '';
             document.getElementById('psCommentsInvite').value = data.psCommentsInvite || '';
@@ -4360,20 +4844,6 @@
                     urgencySelect.addEventListener('change', handleUrgencyChange);
                 }
             }, 100);
-        }
-
-        // Remove sample rows from the grid if present
-        function removeSampleRows() {
-            const container = document.querySelector('#mainDashboard .submissions-grid');
-            const sampleRows = Array.from(container.querySelectorAll('.grid-row'));
-            sampleRows.forEach(row => {
-                // Only remove sample rows (those with hardcoded content, not those rendered by JS)
-                // We'll check for the 'Edit not implemented in sample row' handler as a marker
-                const editBtn = row.querySelector('.edit-btn');
-                if (editBtn && editBtn.getAttribute('onclick') && editBtn.getAttribute('onclick').includes('Edit not implemented in sample row')) {
-                    row.remove();
-                }
-            });
         }
 
         function closeModal() {
@@ -5025,27 +5495,6 @@
             } catch (error) {
                 console.error('Error loading existing submissions, clearing localStorage:', error);
                 localStorage.removeItem('submissions');
-            }
-            
-            // Initialize with sample data if localStorage is empty
-            if (loadData('submissions').length === 0) {
-                console.log('No submissions found, creating sample data');
-                const sampleData = {
-                    leadPS: 'Sample PS',
-                    leadSpAd: 'Sample SpAd',
-                    urgency: 'Routine',
-                    submissionTitle: 'Sample Submission',
-                    sharepointLink: 'https://sharepoint.com/sample',
-                    dateReceived: '2024-01-15',
-                    status: 'With SpAds',
-                    dateSubmittedSpads: '2024-01-16',
-                    workingDays: '3',
-                    dateSpAdComment: '2024-01-19',
-                    dateBoxed: '2024-01-20',
-                    comments: 'Sample comments'
-                };
-                const submissions = [sampleData];
-                saveData('submissions', submissions);
             }
             
             console.log('About to render all sections');
@@ -6204,7 +6653,7 @@
                 </div>
                 ${rota.map((shift, index) => `
                     <div class="grid-row" style="grid-template-columns: 200px 150px 150px 150px 100px;">
-                        <div class="grid-cell">
+                        <div class="grid-cell duty-shift-cell">
                             <strong>${shift.type === 'weekday' ? 'Mon-Thu' : 'Fri-Sun'}</strong><br>
                             <span style="font-size: 10px; color: #666;">
                                 ${formatDateForDisplay(shift.startDate)} - ${formatDateForDisplay(shift.endDate)}
